@@ -7,7 +7,7 @@ private struct S: StoryState { var currentNode: NodeID }
 
 @Suite("Persistence")
 struct PersistenceTests {
-    @Test
+    @Test("In-memory save and load")
     func inMemorySaveAndLoad() async throws {
         let provider = InMemorySaveProvider<S>()
         let s = S(currentNode: NodeID(rawValue: "x"))
@@ -20,7 +20,7 @@ struct PersistenceTests {
         #expect(slots.contains("slot1"))
     }
 
-    @Test
+    @Test("JSON file save and load")
     func jsonFileSaveAndLoad() async throws {
         let dir = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(UUID().uuidString)
         let provider = JSONFileSaveProvider<S>(directory: dir)
@@ -34,7 +34,7 @@ struct PersistenceTests {
         #expect(slots.contains("slotA"))
     }
 
-    @Test
+    @Test("List slots sorted and overwrite works")
     func listSlotsIsSortedAndOverwriteWorks() async throws {
         let dir = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(UUID().uuidString)
         let provider = JSONFileSaveProvider<S>(directory: dir)

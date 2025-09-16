@@ -57,7 +57,8 @@ let package = Package(
         // Tests (swift-testing)
         .testTarget(
             name: "StoryKitTests",
-            dependencies: ["Core", "Engine", "ContentIO", "Persistence"]
+            dependencies: ["Core", "Engine", "ContentIO", "Persistence"],
+            path: "Tests/StoryKitTests"
         )
     ]
 )

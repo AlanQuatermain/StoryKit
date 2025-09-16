@@ -5,7 +5,7 @@ import Core
 
 @Suite("TextSectionParser")
 struct TextSectionParserTests {
-    @Test
+    @Test("Parses multiple sections with whitespace")
     func parsesMultipleSectionsWithWhitespace() {
         let md = """
         === node: one ===
@@ -22,7 +22,7 @@ struct TextSectionParserTests {
         #expect(map["three"] == "C")
     }
 
-    @Test
+    @Test("Missing section throws")
     func missingSectionThrows() throws {
         let tmp = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(UUID().uuidString)
         let source = StorySourceLayout(root: tmp)
@@ -34,14 +34,14 @@ struct TextSectionParserTests {
         #expect(throws: StoryIOError.textSectionMissing(ref)) { _ = try provider.text(for: ref) }
     }
 
-    @Test
+    @Test("No section headers produces empty map")
     func noSectionHeadersProducesEmptyMap() {
         let md = "No section header here\nJust body text\n=== not a header==\n"
         let map = TextSectionParser().parseSections(markdown: md)
         #expect(map.isEmpty)
     }
 
-    @Test
+    @Test("Malformed header does not start section")
     func malformedHeaderDoesNotStartSection() {
         let md = "== node: a ==\nBody\n==== node: b ===\nBody2\n=== node b ===\n"
         let map = TextSectionParser().parseSections(markdown: md)

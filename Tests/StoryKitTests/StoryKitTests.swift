@@ -8,65 +8,65 @@ private struct SimpleState: StoryState {
 
 @Suite("Engine")
 struct EngineTests {
-    @Test
+    @Test("Engine basic flow")
     func engineBasicFlow() async throws {
-    let start = NodeID(rawValue: "start")
-    let end = NodeID(rawValue: "end")
+        let start = NodeID(rawValue: "start")
+        let end = NodeID(rawValue: "end")
 
-    let nodes: [NodeID: Node] = [
-        start: Node(
-            id: start,
-            text: TextRef(file: "texts/main.md", section: "start"),
-            choices: [
-                Choice(id: ChoiceID(rawValue: "c1"), title: "Go", destination: end)
-            ]
-        ),
-        end: Node(
-            id: end,
-            text: TextRef(file: "texts/main.md", section: "end"),
-            choices: []
-        )
-    ]
+        let nodes: [NodeID: Node] = [
+            start: Node(
+                id: start,
+                text: TextRef(file: "texts/main.md", section: "start"),
+                choices: [
+                    Choice(id: ChoiceID(rawValue: "c1"), title: "Go", destination: end)
+                ]
+            ),
+            end: Node(
+                id: end,
+                text: TextRef(file: "texts/main.md", section: "end"),
+                choices: []
+            )
+        ]
 
-    let story = Story(metadata: .init(id: "s", title: "Sample"), start: start, nodes: nodes)
-    let engine = StoryEngine(story: story, initialState: SimpleState(currentNode: start))
+        let story = Story(metadata: .init(id: "s", title: "Sample"), start: start, nodes: nodes)
+        let engine = StoryEngine(story: story, initialState: SimpleState(currentNode: start))
 
-    #expect(await engine.currentNode()?.id == start)
-    let choices = await engine.availableChoices()
-    #expect(choices.count == 1)
-    _ = try await engine.select(choiceID: ChoiceID(rawValue: "c1"))
-    #expect(await engine.currentNode()?.id == end)
+        #expect(await engine.currentNode()?.id == start)
+        let choices = await engine.availableChoices()
+        #expect(choices.count == 1)
+        _ = try await engine.select(choiceID: ChoiceID(rawValue: "c1"))
+        #expect(await engine.currentNode()?.id == end)
     }
 
-    @Test
+    @Test("Choice gating and errors")
     func choiceGatingAndErrors() async throws {
-    let a = NodeID(rawValue: "a")
-    let b = NodeID(rawValue: "b")
-    let blockedChoiceID = ChoiceID(rawValue: "blocked")
-    let nodes: [NodeID: Node] = [
-        a: Node(
-            id: a,
-            text: TextRef(file: "texts/main.md", section: "a"),
-            choices: [
-                Choice(id: blockedChoiceID, title: "Nope", destination: b, predicates: [PredicateDescriptor(id: "blocked")])
-            ]
-        ),
-        b: Node(id: b, text: TextRef(file: "texts/main.md", section: "b"), choices: [])
-    ]
-    let story = Story(metadata: .init(id: "s", title: "S"), start: a, nodes: nodes)
-    var preds = PredicateRegistry<SimpleState>()
-    preds.register("blocked") { _, _ in false }
-    let engine = StoryEngine(story: story, initialState: SimpleState(currentNode: a), predicateRegistry: preds)
-    // Available choices should be empty due to predicate false
-    let choices = await engine.availableChoices()
-    #expect(choices.isEmpty)
-    // Selecting should throw
-    await #expect(throws: EngineError.choiceBlocked) {
-        _ = try await engine.select(choiceID: blockedChoiceID)
-    }
+        let a = NodeID(rawValue: "a")
+        let b = NodeID(rawValue: "b")
+        let blockedChoiceID = ChoiceID(rawValue: "blocked")
+        let nodes: [NodeID: Node] = [
+            a: Node(
+                id: a,
+                text: TextRef(file: "texts/main.md", section: "a"),
+                choices: [
+                    Choice(id: blockedChoiceID, title: "Nope", destination: b, predicates: [PredicateDescriptor(id: "blocked")])
+                ]
+            ),
+            b: Node(id: b, text: TextRef(file: "texts/main.md", section: "b"), choices: [])
+        ]
+        let story = Story(metadata: .init(id: "s", title: "S"), start: a, nodes: nodes)
+        var preds = PredicateRegistry<SimpleState>()
+        preds.register("blocked") { _, _ in false }
+        let engine = StoryEngine(story: story, initialState: SimpleState(currentNode: a), predicateRegistry: preds)
+        // Available choices should be empty due to predicate false
+        let choices = await engine.availableChoices()
+        #expect(choices.isEmpty)
+        // Selecting should throw
+        await #expect(throws: EngineError.choiceBlocked) {
+            _ = try await engine.select(choiceID: blockedChoiceID)
+        }
     }
 
-    @Test
+    @Test("Autosave and onEnter effects")
     func autosaveAndOnEnterEffects() async throws {
         struct S: StoryState { var currentNode: NodeID; var count: Int = 0 }
         let a = NodeID(rawValue: "a")
@@ -88,7 +88,7 @@ struct EngineTests {
         #expect(await sink.items.first?.count == 1)
     }
 
-    @Test
+    @Test("Perform action triggers autosave")
     func performActionAutosave() async throws {
         struct S: StoryState { var currentNode: NodeID; var count: Int = 0 }
         let a = NodeID(rawValue: "a")

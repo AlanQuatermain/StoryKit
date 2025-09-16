@@ -6,7 +6,7 @@ import Core
 struct CoreRegistryTests {
     struct State: StoryState { var currentNode: NodeID; var value: Int = 0 }
 
-    @Test
+    @Test("Predicate and effect")
     func predicateAndEffect() throws {
         var preds = PredicateRegistry<State>()
         preds.register("isZero") { state, _ in state.value == 0 }
@@ -20,7 +20,7 @@ struct CoreRegistryTests {
         #expect(preds.evaluate(.init(id: "isZero"), state: s) == false)
     }
 
-    @Test
+    @Test("Unknown action returns nil")
     func unknownActionReturnsNil() throws {
         let acts = ActionRegistry<State>()
         var s = State(currentNode: NodeID(rawValue: "n"))
@@ -28,7 +28,7 @@ struct CoreRegistryTests {
         #expect(res == nil)
     }
 
-    @Test
+    @Test("Action performs and returns completed")
     func actionPerformsAndReturnsCompleted() throws {
         var acts = ActionRegistry<State>()
         acts.register("inc") { s, _ in s.value += 3; return .completed }

@@ -74,23 +74,73 @@ struct Validate: ParsableCommand {
 }
 
 struct Graph: ParsableCommand {
-    static let configuration = CommandConfiguration(abstract: "Export graph in a simple format")
+    static let configuration = CommandConfiguration(abstract: "Export graph to stdout or a file")
 
-    @Argument(help: "Path to story.json or source folder")
+    enum GraphFormat: String, ExpressibleByArgument { case text, dot, json }
+
+    @Argument(help: "Path to story.json or source/bundle directory")
     var path: String
 
+    @Option(name: .shortAndLong, help: "Output format: text, dot, or json")
+    var format: GraphFormat = .text
+
+    @Option(name: .shortAndLong, help: "Output file path; omit to write to stdout")
+    var out: String?
+
     func run() throws {
-        let url = URL(fileURLWithPath: path)
-        let jsonURL: URL
-        if url.hasDirectoryPath {
-            jsonURL = url.appendingPathComponent("story.json")
-        } else {
-            jsonURL = url
+        let story = try loadStory(at: URL(fileURLWithPath: path))
+        let output: String
+        switch format {
+        case .text:
+            let edges = story.nodes.values.flatMap { node in node.choices.map { (from: node.id.rawValue, to: $0.destination.rawValue) } }
+            output = edges.map { "\($0.from) -> \($0.to)" }.joined(separator: "\n") + "\n"
+        case .json:
+            struct Edge: Codable { let from: String; let to: String }
+            let edges = story.nodes.values.flatMap { node in node.choices.map { Edge(from: node.id.rawValue, to: $0.destination.rawValue) } }
+            let data = try JSONEncoder().encode(edges)
+            output = String(data: data, encoding: .utf8) ?? "[]"
+        case .dot:
+            let lines = dotLines(for: story)
+            output = lines.joined(separator: "\n") + "\n"
         }
-        let story = try StoryLoader().loadStory(from: jsonURL)
-        let edges = story.nodes.values.flatMap { node in node.choices.map { (from: node.id.rawValue, to: $0.destination.rawValue) } }
-        for e in edges { print("\(e.from) -> \(e.to)") }
+
+        if let out {
+            try output.write(to: URL(fileURLWithPath: out), atomically: true, encoding: .utf8)
+        } else {
+            print(output, terminator: "")
+        }
     }
+
+    private func loadStory(at url: URL) throws -> Story {
+        if url.hasDirectoryPath {
+            let bundle = StoryBundleLayout(root: url)
+            let fm = FileManager.default
+            if fm.fileExists(atPath: bundle.graph.path) { // compiled bundle
+                return try StoryBundleLoader().load(from: bundle)
+            }
+            return try StoryLoader().loadStory(from: url.appendingPathComponent("story.json"))
+        } else {
+            return try StoryLoader().loadStory(from: url)
+        }
+    }
+
+    private func dotLines(for story: Story) -> [String] {
+        var lines: [String] = []
+        lines.append("digraph Story {")
+        // Optional: declare nodes to ensure isolated nodes appear
+        for id in story.nodes.keys {
+            lines.append("  \(quote(id.rawValue));")
+        }
+        for node in story.nodes.values {
+            for choice in node.choices {
+                lines.append("  \(quote(node.id.rawValue)) -> \(quote(choice.destination.rawValue));")
+            }
+        }
+        lines.append("}")
+        return lines
+    }
+
+    private func quote(_ s: String) -> String { "\"\(s.replacingOccurrences(of: "\"", with: "\\\""))\"" }
 }
 
 struct Compile: ParsableCommand {

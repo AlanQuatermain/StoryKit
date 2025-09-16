@@ -93,6 +93,26 @@ public struct Story: Codable, Sendable {
         self.start = start
         self.nodes = nodes
     }
+    private enum CodingKeys: String, CodingKey { case metadata, start, nodes }
+
+    public init(from decoder: any Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        self.metadata = try c.decode(Metadata.self, forKey: .metadata)
+        self.start = try c.decode(NodeID.self, forKey: .start)
+        // Decode nodes from a string-keyed dictionary for authoring convenience
+        let raw = try c.decode([String: Node].self, forKey: .nodes)
+        var mapped: [NodeID: Node] = [:]
+        for (k, v) in raw { mapped[NodeID(rawValue: k)] = v }
+        self.nodes = mapped
+    }
+
+    public func encode(to encoder: any Encoder) throws {
+        var c = encoder.container(keyedBy: CodingKeys.self)
+        try c.encode(metadata, forKey: .metadata)
+        try c.encode(start, forKey: .start)
+        let raw = Dictionary(uniqueKeysWithValues: nodes.map { ($0.key.rawValue, $0.value) })
+        try c.encode(raw, forKey: .nodes)
+    }
 }
 
 // MARK: - Predicate/Effect Descriptors (data-only)

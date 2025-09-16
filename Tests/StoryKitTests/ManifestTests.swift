@@ -5,7 +5,7 @@ import Core
 
 @Suite("ManifestAndBundle")
 struct ManifestTests {
-    @Test
+    @Test("Manifest is written and hash matches")
     func manifestIsWrittenAndHashMatches() throws {
         let tmp = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(UUID().uuidString)
         let source = StorySourceLayout(root: tmp)
@@ -42,7 +42,7 @@ struct ManifestTests {
         #expect(manifest.graphHashSHA256 == expectedHash)
     }
 
-    @Test
+    @Test("Bundle loader loads story")
     func bundleLoaderLoadsStory() throws {
         let tmp = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(UUID().uuidString)
         let source = StorySourceLayout(root: tmp)
@@ -69,7 +69,7 @@ struct ManifestTests {
         #expect(loaded.start == story.start)
     }
 
-    @Test
+    @Test("Bundle text provider loads and throws")
     func bundleTextProviderLoadsAndThrows() throws {
         let tmp = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(UUID().uuidString)
         let source = StorySourceLayout(root: tmp)
@@ -98,7 +98,7 @@ struct ManifestTests {
         }
     }
 
-    @Test
+    @Test("Bundle validation orphan warnings")
     func bundleValidationOrphanWarnings() throws {
         // Create a story and bundle with an extra unreferenced section and file
         let tmp = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(UUID().uuidString)
@@ -126,7 +126,7 @@ struct ManifestTests {
         #expect(issues.contains { $0.kind == .orphanMarkdownFile && $0.severity == .warning })
     }
 
-    @Test
+    @Test("StoryLoader fails on malformed JSON")
     func storyLoaderFailsOnMalformedJSON() throws {
         let tmp = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(UUID().uuidString)
         let source = StorySourceLayout(root: tmp)
@@ -138,7 +138,7 @@ struct ManifestTests {
         }
     }
 
-    @Test
+    @Test("BundleLoader fails on malformed graph")
     func bundleLoaderFailsOnMalformedGraph() throws {
         let root = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(UUID().uuidString + ".storybundle")
         let bundle = StoryBundleLayout(root: root)
