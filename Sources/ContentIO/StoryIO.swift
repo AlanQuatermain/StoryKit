@@ -1,5 +1,7 @@
 import Foundation
 import Core
+import CryptoKit
+import Dispatch
 
 public enum StoryIOError: Error {
     case invalidPath
@@ -42,9 +44,17 @@ public struct StoryCompiler: Sendable {
                 try fm.copyItem(at: item, to: dest)
             }
         }
-        // Write minimal manifest
-        let manifest = ["schemaVersion": 1] as [String : Any]
-        let manifestData = try JSONSerialization.data(withJSONObject: manifest, options: [.prettyPrinted, .sortedKeys])
+        // Write manifest with metadata and graph hash
+        let story = try JSONDecoder().decode(Story.self, from: data)
+        let manifest = StoryBundleManifest(
+            schemaVersion: 1,
+            storyID: story.metadata.id,
+            title: story.metadata.title,
+            version: story.metadata.version,
+            graphHashSHA256: sha256Hex(of: data),
+            builtAt: Date()
+        )
+        let manifestData = try JSONEncoder().encode(manifest)
         try manifestData.write(to: bundle.manifest, options: .atomic)
     }
 }
@@ -145,5 +155,170 @@ public struct BundleTextProvider: TextProvider {
         let map = parser.parseSections(markdown: content)
         guard let text = map[ref.section] else { throw StoryIOError.textSectionMissing(ref) }
         return text
+    }
+}
+
+// Actor-based cached providers
+public actor CachedSourceTextProvider {
+    private let layout: StorySourceLayout
+    private let parser = TextSectionParser()
+    private struct Entry { var sections: [String: String]; var size: Int; var lastAccess: UInt64 }
+    private var cache: [String: Entry] = [:] // file -> entry
+    private var totalSize: Int = 0
+    private var accessCounter: UInt64 = 0
+    private let maxBytes: Int
+    private var pressureSource: DispatchSourceMemoryPressure?
+
+    public init(source: StorySourceLayout, maxBytes: Int = 8 * 1024 * 1024) {
+        self.layout = source
+        self.maxBytes = maxBytes
+        Task { await Self.installPressureSource(owner: self, label: "storykit.cached-source-text-provider.pressure") }
+    }
+
+    public func text(for ref: TextRef) throws -> String {
+        if cache[ref.file] == nil {
+            try loadFileIntoCache(ref.file)
+        }
+        accessCounter &+= 1
+        if var e = cache[ref.file] { e.lastAccess = accessCounter; cache[ref.file] = e }
+        guard let text = cache[ref.file]?.sections[ref.section] else { throw StoryIOError.textSectionMissing(ref) }
+        return text
+    }
+
+    public func purgeAll() {
+        cache.removeAll(keepingCapacity: false)
+        totalSize = 0
+    }
+
+    public func handleMemoryPressure() {
+        purgeAll()
+    }
+
+    private func loadFileIntoCache(_ file: String) throws {
+        let url = layout.textsDir.appendingPathComponent(file)
+        let content = try String(contentsOf: url, encoding: .utf8)
+        let sections = parser.parseSections(markdown: content)
+        let size = sections.reduce(0) { $0 + ($1.key.utf8.count + $1.value.utf8.count) }
+        accessCounter &+= 1
+        if let existing = cache[file] { totalSize -= existing.size }
+        cache[file] = Entry(sections: sections, size: size, lastAccess: accessCounter)
+        totalSize += size
+        evictIfNeeded()
+    }
+
+    private func evictIfNeeded() {
+        while totalSize > maxBytes && !cache.isEmpty {
+            if let (oldestFile, entry) = cache.min(by: { $0.value.lastAccess < $1.value.lastAccess }) {
+                cache.removeValue(forKey: oldestFile)
+                totalSize -= entry.size
+            } else { break }
+        }
+    }
+
+    nonisolated private static func createMemoryPressureSource(owner: CachedSourceTextProvider, label: String) -> DispatchSourceMemoryPressure {
+        let queue = DispatchQueue(label: label)
+        let source = DispatchSource.makeMemoryPressureSource(eventMask: [.warning, .critical], queue: queue)
+        source.setEventHandler { [weak owner] in
+            guard let owner else { return }
+            let sem = DispatchSemaphore(value: 0)
+            Task {
+                await owner.handleMemoryPressure()
+                sem.signal()
+            }
+            _ = sem.wait(timeout: .now() + 1.0)
+        }
+        source.resume()
+        return source
+    }
+
+    nonisolated private static func installPressureSource(owner: CachedSourceTextProvider, label: String) async {
+        let src = Self.createMemoryPressureSource(owner: owner, label: label)
+        await owner._setPressureSource(src)
+    }
+
+    private func _setPressureSource(_ src: DispatchSourceMemoryPressure) {
+        self.pressureSource = src
+    }
+}
+
+public actor CachedBundleTextProvider {
+    private let layout: StoryBundleLayout
+    private let parser = TextSectionParser()
+    private struct Entry { var sections: [String: String]; var size: Int; var lastAccess: UInt64 }
+    private var cache: [String: Entry] = [:]
+    private var totalSize: Int = 0
+    private var accessCounter: UInt64 = 0
+    private let maxBytes: Int
+    private var pressureSource: DispatchSourceMemoryPressure?
+
+    public init(bundle: StoryBundleLayout, maxBytes: Int = 8 * 1024 * 1024) {
+        self.layout = bundle
+        self.maxBytes = maxBytes
+        Task { await Self.installPressureSource(owner: self, label: "storykit.cached-bundle-text-provider.pressure") }
+    }
+
+    public func text(for ref: TextRef) throws -> String {
+        if cache[ref.file] == nil {
+            try loadFileIntoCache(ref.file)
+        }
+        accessCounter &+= 1
+        if var e = cache[ref.file] { e.lastAccess = accessCounter; cache[ref.file] = e }
+        guard let text = cache[ref.file]?.sections[ref.section] else { throw StoryIOError.textSectionMissing(ref) }
+        return text
+    }
+
+    public func purgeAll() {
+        cache.removeAll(keepingCapacity: false)
+        totalSize = 0
+    }
+
+    public func handleMemoryPressure() {
+        purgeAll()
+    }
+
+    private func loadFileIntoCache(_ file: String) throws {
+        let url = layout.textsDir.appendingPathComponent(file)
+        let content = try String(contentsOf: url, encoding: .utf8)
+        let sections = parser.parseSections(markdown: content)
+        let size = sections.reduce(0) { $0 + ($1.key.utf8.count + $1.value.utf8.count) }
+        accessCounter &+= 1
+        if let existing = cache[file] { totalSize -= existing.size }
+        cache[file] = Entry(sections: sections, size: size, lastAccess: accessCounter)
+        totalSize += size
+        evictIfNeeded()
+    }
+
+    private func evictIfNeeded() {
+        while totalSize > maxBytes && !cache.isEmpty {
+            if let (oldestFile, entry) = cache.min(by: { $0.value.lastAccess < $1.value.lastAccess }) {
+                cache.removeValue(forKey: oldestFile)
+                totalSize -= entry.size
+            } else { break }
+        }
+    }
+
+    nonisolated private static func createMemoryPressureSource(owner: CachedBundleTextProvider, label: String) -> DispatchSourceMemoryPressure {
+        let queue = DispatchQueue(label: label)
+        let source = DispatchSource.makeMemoryPressureSource(eventMask: [.warning, .critical], queue: queue)
+        source.setEventHandler { [weak owner] in
+            guard let owner else { return }
+            let sem = DispatchSemaphore(value: 0)
+            Task {
+                await owner.handleMemoryPressure()
+                sem.signal()
+            }
+            _ = sem.wait(timeout: .now() + 1.0)
+        }
+        source.resume()
+        return source
+    }
+
+    nonisolated private static func installPressureSource(owner: CachedBundleTextProvider, label: String) async {
+        let src = Self.createMemoryPressureSource(owner: owner, label: label)
+        await owner._setPressureSource(src)
+    }
+
+    private func _setPressureSource(_ src: DispatchSourceMemoryPressure) {
+        self.pressureSource = src
     }
 }

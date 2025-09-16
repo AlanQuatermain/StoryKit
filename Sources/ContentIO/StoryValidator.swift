@@ -1,8 +1,8 @@
 import Foundation
 import Core
 
-public struct StoryIssue: Hashable, CustomStringConvertible, Sendable {
-    public enum Kind: String, Sendable {
+public struct StoryIssue: Codable, Hashable, CustomStringConvertible, Sendable {
+    public enum Kind: String, Codable, Sendable {
         case missingStart
         case missingDestination
         case unreachableNode
@@ -14,11 +14,14 @@ public struct StoryIssue: Hashable, CustomStringConvertible, Sendable {
         case emptyChoices
         case noExitCycle
     }
+    public enum Severity: String, Sendable, Codable { case error, warning }
     public var kind: Kind
+    public var severity: Severity
     public var message: String
-    public init(_ kind: Kind, _ message: String) {
+    public init(_ kind: Kind, _ message: String, severity: Severity) {
         self.kind = kind
         self.message = message
+        self.severity = severity
     }
     public var description: String { message }
 }
@@ -32,19 +35,19 @@ public struct StoryValidator: Sendable {
 
         // start node exists
         if story.nodes[story.start] == nil {
-            issues.append(.init(.missingStart, "Missing start node: \(story.start.rawValue)"))
+            issues.append(.init(.missingStart, "Missing start node: \(story.start.rawValue)", severity: .error))
         }
 
         // node key and id consistency; destination existence; duplicate choice IDs per node
         for (key, node) in story.nodes {
-            if key != node.id { issues.append(.init(.nodeKeyMismatch, "Node key \(key.rawValue) != node.id \(node.id.rawValue)")) }
+            if key != node.id { issues.append(.init(.nodeKeyMismatch, "Node key \(key.rawValue) != node.id \(node.id.rawValue)", severity: .warning)) }
             var seen: Set<ChoiceID> = []
             for c in node.choices {
                 if !seen.insert(c.id).inserted {
-                    issues.append(.init(.duplicateChoiceID, "Duplicate choice id \(c.id.rawValue) in node \(node.id.rawValue)"))
+                    issues.append(.init(.duplicateChoiceID, "Duplicate choice id \(c.id.rawValue) in node \(node.id.rawValue)", severity: .error))
                 }
                 if story.nodes[c.destination] == nil {
-                    issues.append(.init(.missingDestination, "Node \(node.id.rawValue) has choice \(c.id.rawValue) to missing node \(c.destination.rawValue)"))
+                    issues.append(.init(.missingDestination, "Node \(node.id.rawValue) has choice \(c.id.rawValue) to missing node \(c.destination.rawValue)", severity: .error))
                 }
             }
         }
@@ -58,12 +61,12 @@ public struct StoryValidator: Sendable {
                 if visited.contains(id) { continue }
                 visited.insert(id)
                 if let node = story.nodes[id] {
-                    if node.choices.isEmpty { issues.append(.init(.emptyChoices, "Node has no choices: \(id.rawValue)")) }
+                    if node.choices.isEmpty { issues.append(.init(.emptyChoices, "Node has no choices: \(id.rawValue)", severity: .warning)) }
                     for c in node.choices { queue.append(c.destination) }
                 }
             }
             for id in story.nodes.keys where !visited.contains(id) {
-                issues.append(.init(.unreachableNode, "Unreachable node: \(id.rawValue)"))
+                issues.append(.init(.unreachableNode, "Unreachable node: \(id.rawValue)", severity: .error))
             }
 
             // detect cycles with no exits among reachable nodes
@@ -80,7 +83,7 @@ public struct StoryValidator: Sendable {
                 let hasCycle = scc.count > 1 || (scc.count == 1 && (adj[scc[0]] ?? []).contains(scc[0]))
                 if hasNoExit && hasCycle {
                     let list = scc.map { $0.rawValue }.sorted().joined(separator: ", ")
-                    issues.append(.init(.noExitCycle, "Cycle with no exits involving: [\(list)]"))
+                    issues.append(.init(.noExitCycle, "Cycle with no exits involving: [\(list)]", severity: .warning))
                 }
             }
         }
@@ -118,7 +121,7 @@ public struct StoryValidator: Sendable {
         for (file, sections) in referenced {
             let avail = available[file] ?? []
             for s in sections where !avail.contains(s) {
-                issues.append(.init(.textSectionMissing, "Missing text section '\(s)' in file \(file)"))
+                issues.append(.init(.textSectionMissing, "Missing text section '\(s)' in file \(file)", severity: .error))
             }
         }
 
@@ -128,16 +131,16 @@ public struct StoryValidator: Sendable {
             for s in sections {
                 let key = "\(file)@\(s)"
                 if !referencedPairs.contains(key) {
-                    issues.append(.init(.orphanTextSection, "Orphan text section '\(s)' in file \(file)"))
+                    issues.append(.init(.orphanTextSection, "Orphan text section '\(s)' in file \(file)", severity: .warning))
                 }
             }
             if sections.isEmpty, !(referenced[file]?.isEmpty ?? true) == false {
                 // file has no sections parsed at all
-                issues.append(.init(.orphanMarkdownFile, "Markdown file has no parseable sections: \(file)"))
+                issues.append(.init(.orphanMarkdownFile, "Markdown file has no parseable sections: \(file)", severity: .warning))
             }
             if (referenced[file]?.isEmpty ?? true) {
                 // no references to this file at all
-                issues.append(.init(.orphanMarkdownFile, "Orphan Markdown file (no nodes reference it): \(file)"))
+                issues.append(.init(.orphanMarkdownFile, "Orphan Markdown file (no nodes reference it): \(file)", severity: .warning))
             }
         }
 
@@ -168,7 +171,7 @@ public struct StoryValidator: Sendable {
         for (file, sections) in referenced {
             let avail = available[file] ?? []
             for s in sections where !avail.contains(s) {
-                issues.append(.init(.textSectionMissing, "Missing text section '\(s)' in bundle file \(file)"))
+                issues.append(.init(.textSectionMissing, "Missing text section '\(s)' in bundle file \(file)", severity: .error))
             }
         }
 
@@ -177,14 +180,14 @@ public struct StoryValidator: Sendable {
             for s in sections {
                 let key = "\(file)@\(s)"
                 if !referencedPairs.contains(key) {
-                    issues.append(.init(.orphanTextSection, "Orphan text section '\(s)' in bundle file \(file)"))
+                    issues.append(.init(.orphanTextSection, "Orphan text section '\(s)' in bundle file \(file)", severity: .warning))
                 }
             }
             if sections.isEmpty, (referenced[file]?.isEmpty ?? true) {
-                issues.append(.init(.orphanMarkdownFile, "Markdown file has no parseable sections: \(file)"))
+                issues.append(.init(.orphanMarkdownFile, "Markdown file has no parseable sections: \(file)", severity: .warning))
             }
             if (referenced[file]?.isEmpty ?? true) {
-                issues.append(.init(.orphanMarkdownFile, "Orphan Markdown file (no nodes reference it): \(file)"))
+                issues.append(.init(.orphanMarkdownFile, "Orphan Markdown file (no nodes reference it): \(file)", severity: .warning))
             }
         }
 

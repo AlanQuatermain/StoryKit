@@ -13,11 +13,19 @@ struct StoryKitCLI: ParsableCommand {
     )
 }
 
+enum OutputFormat: String, ExpressibleByArgument {
+    case text
+    case json
+}
+
 struct Validate: ParsableCommand {
     static let configuration = CommandConfiguration(abstract: "Validate a story source folder")
 
     @Argument(help: "Path to story source root containing story.json and texts/")
     var path: String
+
+    @Option(help: "Output format: text or json")
+    var format: OutputFormat = .text
 
     func run() throws {
         let url = URL(fileURLWithPath: path)
@@ -29,21 +37,38 @@ struct Validate: ParsableCommand {
             if isBundle {
                 let story = try StoryBundleLoader().load(from: bundleLayout)
                 let issues = StoryValidator().validate(story: story, bundle: bundleLayout)
-                if issues.isEmpty { print("✅ No issues found") }
-                else { for i in issues { print("- \(i)") }; throw ExitCode(1) }
+                try output(issues)
                 return
             }
 
             let source = StorySourceLayout(root: url)
             let story = try StoryLoader().loadStory(from: source.storyJSON)
             let issues = StoryValidator().validate(story: story, source: source)
-            if issues.isEmpty { print("✅ No issues found") }
-            else { for i in issues { print("- \(i)") }; throw ExitCode(1) }
+            try output(issues)
         } else {
             let story = try StoryLoader().loadStory(from: url)
             let issues = StoryValidator().validate(story: story)
-            if issues.isEmpty { print("✅ No issues found") }
-            else { for i in issues { print("- \(i)") }; throw ExitCode(1) }
+            try output(issues)
+        }
+    }
+
+    private func output(_ issues: [StoryIssue]) throws {
+        switch format {
+        case .text:
+            if issues.isEmpty {
+                print("✅ No issues found")
+            } else {
+                for i in issues { print("- [\(i.severity.rawValue.uppercased())] \(i)") }
+                if issues.contains(where: { $0.severity == .error }) { throw ExitCode(1) }
+            }
+        case .json:
+            struct Report: Codable { let ok: Bool; let errors: Int; let warnings: Int; let issues: [StoryIssue] }
+            let errors = issues.filter { $0.severity == .error }.count
+            let warnings = issues.filter { $0.severity == .warning }.count
+            let report = Report(ok: issues.isEmpty || errors == 0, errors: errors, warnings: warnings, issues: issues)
+            let data = try JSONEncoder().encode(report)
+            if let s = String(data: data, encoding: .utf8) { print(s) }
+            if errors > 0 { throw ExitCode(1) }
         }
     }
 }
