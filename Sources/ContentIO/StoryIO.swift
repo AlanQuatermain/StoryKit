@@ -59,6 +59,15 @@ public struct StoryLoader: Sendable {
     }
 }
 
+public struct StoryBundleLoader: Sendable {
+    public init() {}
+    public func load(from bundle: StoryBundleLayout) throws -> Story {
+        let data = try Data(contentsOf: bundle.graph)
+        let decoder = JSONDecoder()
+        return try decoder.decode(Story.self, from: data)
+    }
+}
+
 /// Parses Markdown files that contain multiple node sections separated by a special token.
 /// Token format (at start of line):
 /// === node: <section-id> ===
@@ -112,21 +121,14 @@ public protocol TextProvider {
 public struct SourceTextProvider: TextProvider {
     private let layout: StorySourceLayout
     private let parser = TextSectionParser()
-    // Cache: file name -> section map
-    private var cache: [String: [String: String]] = [:]
 
     public init(source: StorySourceLayout) { self.layout = source }
 
     public func text(for ref: TextRef) throws -> String {
-        var map = cache
-        if map[ref.file] == nil {
-            let url = layout.textsDir.appendingPathComponent(ref.file)
-            let content = try String(contentsOf: url, encoding: .utf8)
-            map[ref.file] = parser.parseSections(markdown: content)
-        }
-        guard let text = map[ref.file]?[ref.section] else {
-            throw StoryIOError.textSectionMissing(ref)
-        }
+        let url = layout.textsDir.appendingPathComponent(ref.file)
+        let content = try String(contentsOf: url, encoding: .utf8)
+        let map = parser.parseSections(markdown: content)
+        guard let text = map[ref.section] else { throw StoryIOError.textSectionMissing(ref) }
         return text
     }
 }
@@ -134,20 +136,14 @@ public struct SourceTextProvider: TextProvider {
 public struct BundleTextProvider: TextProvider {
     private let layout: StoryBundleLayout
     private let parser = TextSectionParser()
-    private var cache: [String: [String: String]] = [:]
 
     public init(bundle: StoryBundleLayout) { self.layout = bundle }
 
     public func text(for ref: TextRef) throws -> String {
-        var map = cache
-        if map[ref.file] == nil {
-            let url = layout.textsDir.appendingPathComponent(ref.file)
-            let content = try String(contentsOf: url, encoding: .utf8)
-            map[ref.file] = parser.parseSections(markdown: content)
-        }
-        guard let text = map[ref.file]?[ref.section] else {
-            throw StoryIOError.textSectionMissing(ref)
-        }
+        let url = layout.textsDir.appendingPathComponent(ref.file)
+        let content = try String(contentsOf: url, encoding: .utf8)
+        let map = parser.parseSections(markdown: content)
+        guard let text = map[ref.section] else { throw StoryIOError.textSectionMissing(ref) }
         return text
     }
 }

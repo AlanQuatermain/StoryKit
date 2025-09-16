@@ -10,6 +10,9 @@ public struct StoryIssue: Hashable, CustomStringConvertible, Sendable {
         case textSectionMissing
         case orphanTextSection
         case nodeKeyMismatch
+        case orphanMarkdownFile
+        case emptyChoices
+        case noExitCycle
     }
     public var kind: Kind
     public var message: String
@@ -46,7 +49,7 @@ public struct StoryValidator: Sendable {
             }
         }
 
-        // reachability from start
+        // reachability from start and empty-choices checks
         if let _ = story.nodes[story.start] {
             var visited: Set<NodeID> = []
             var queue: [NodeID] = [story.start]
@@ -55,11 +58,30 @@ public struct StoryValidator: Sendable {
                 if visited.contains(id) { continue }
                 visited.insert(id)
                 if let node = story.nodes[id] {
+                    if node.choices.isEmpty { issues.append(.init(.emptyChoices, "Node has no choices: \(id.rawValue)")) }
                     for c in node.choices { queue.append(c.destination) }
                 }
             }
             for id in story.nodes.keys where !visited.contains(id) {
                 issues.append(.init(.unreachableNode, "Unreachable node: \(id.rawValue)"))
+            }
+
+            // detect cycles with no exits among reachable nodes
+            let reachableNodes = visited
+            let adj: [NodeID: [NodeID]] = Dictionary(uniqueKeysWithValues: reachableNodes.map { id in
+                let outs = story.nodes[id]?.choices.map { $0.destination } ?? []
+                return (id, outs)
+            })
+            for scc in stronglyConnectedComponents(adj: adj) {
+                // edges leaving the SCC
+                let set = Set(scc)
+                let outgoing = scc.flatMap { id in (adj[id] ?? []).filter { !set.contains($0) } }
+                let hasNoExit = outgoing.isEmpty
+                let hasCycle = scc.count > 1 || (scc.count == 1 && (adj[scc[0]] ?? []).contains(scc[0]))
+                if hasNoExit && hasCycle {
+                    let list = scc.map { $0.rawValue }.sorted().joined(separator: ", ")
+                    issues.append(.init(.noExitCycle, "Cycle with no exits involving: [\(list)]"))
+                }
             }
         }
 
@@ -109,9 +131,104 @@ public struct StoryValidator: Sendable {
                     issues.append(.init(.orphanTextSection, "Orphan text section '\(s)' in file \(file)"))
                 }
             }
+            if sections.isEmpty, !(referenced[file]?.isEmpty ?? true) == false {
+                // file has no sections parsed at all
+                issues.append(.init(.orphanMarkdownFile, "Markdown file has no parseable sections: \(file)"))
+            }
+            if (referenced[file]?.isEmpty ?? true) {
+                // no references to this file at all
+                issues.append(.init(.orphanMarkdownFile, "Orphan Markdown file (no nodes reference it): \(file)"))
+            }
+        }
+
+        return issues
+    }
+
+    // Validate against a compiled .storybundle
+    public func validate(story: Story, bundle: StoryBundleLayout) -> [StoryIssue] {
+        var issues = validate(story: story)
+        let fm = FileManager.default
+        let textsDir = bundle.textsDir
+        guard fm.fileExists(atPath: textsDir.path) else { return issues }
+
+        var referenced: [String: Set<String>] = [:]
+        for node in story.nodes.values { referenced[node.text.file, default: []].insert(node.text.section) }
+
+        let parser = TextSectionParser()
+        var available: [String: Set<String>] = [:]
+        if let items = try? fm.contentsOfDirectory(at: textsDir, includingPropertiesForKeys: nil) {
+            for item in items where item.pathExtension.lowercased() == "md" {
+                if let content = try? String(contentsOf: item, encoding: .utf8) {
+                    let sections = Set(parser.parseSections(markdown: content).keys)
+                    available[item.lastPathComponent] = sections
+                }
+            }
+        }
+
+        for (file, sections) in referenced {
+            let avail = available[file] ?? []
+            for s in sections where !avail.contains(s) {
+                issues.append(.init(.textSectionMissing, "Missing text section '\(s)' in bundle file \(file)"))
+            }
+        }
+
+        let referencedPairs = Set(referenced.flatMap { (file, set) in set.map { (file, $0) } }.map { "\($0)@\($1)" })
+        for (file, sections) in available {
+            for s in sections {
+                let key = "\(file)@\(s)"
+                if !referencedPairs.contains(key) {
+                    issues.append(.init(.orphanTextSection, "Orphan text section '\(s)' in bundle file \(file)"))
+                }
+            }
+            if sections.isEmpty, (referenced[file]?.isEmpty ?? true) {
+                issues.append(.init(.orphanMarkdownFile, "Markdown file has no parseable sections: \(file)"))
+            }
+            if (referenced[file]?.isEmpty ?? true) {
+                issues.append(.init(.orphanMarkdownFile, "Orphan Markdown file (no nodes reference it): \(file)"))
+            }
         }
 
         return issues
     }
 }
 
+// MARK: - Strongly Connected Components (Tarjan)
+
+fileprivate func stronglyConnectedComponents(adj: [NodeID: [NodeID]]) -> [[NodeID]] {
+    var index: Int = 0
+    var indices: [NodeID: Int] = [:]
+    var lowlink: [NodeID: Int] = [:]
+    var stack: [NodeID] = []
+    var onStack: Set<NodeID> = []
+    var result: [[NodeID]] = []
+
+    func strongConnect(_ v: NodeID) {
+        indices[v] = index
+        lowlink[v] = index
+        index += 1
+        stack.append(v)
+        onStack.insert(v)
+
+        for w in adj[v] ?? [] {
+            if indices[w] == nil {
+                strongConnect(w)
+                lowlink[v] = min(lowlink[v]!, lowlink[w]!)
+            } else if onStack.contains(w) {
+                lowlink[v] = min(lowlink[v]!, indices[w]!)
+            }
+        }
+
+        if lowlink[v] == indices[v] {
+            var scc: [NodeID] = []
+            while let w = stack.popLast() {
+                onStack.remove(w)
+                scc.append(w)
+                if w == v { break }
+            }
+            result.append(scc)
+        }
+    }
+
+    for v in adj.keys where indices[v] == nil { strongConnect(v) }
+    return result
+}

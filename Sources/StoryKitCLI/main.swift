@@ -22,6 +22,18 @@ struct Validate: ParsableCommand {
     func run() throws {
         let url = URL(fileURLWithPath: path)
         if url.hasDirectoryPath {
+            // If directory looks like a compiled bundle, use bundle validation. Otherwise treat as source.
+            let fm = FileManager.default
+            let bundleLayout = StoryBundleLayout(root: url)
+            let isBundle = fm.fileExists(atPath: bundleLayout.manifest.path) && fm.fileExists(atPath: bundleLayout.graph.path)
+            if isBundle {
+                let story = try StoryBundleLoader().load(from: bundleLayout)
+                let issues = StoryValidator().validate(story: story, bundle: bundleLayout)
+                if issues.isEmpty { print("✅ No issues found") }
+                else { for i in issues { print("- \(i)") }; throw ExitCode(1) }
+                return
+            }
+
             let source = StorySourceLayout(root: url)
             let story = try StoryLoader().loadStory(from: source.storyJSON)
             let issues = StoryValidator().validate(story: story, source: source)
