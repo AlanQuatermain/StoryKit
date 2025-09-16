@@ -3,8 +3,10 @@ import Testing
 @testable import ContentIO
 import Core
 
+@Suite("Validation")
+struct ValidationTests {
 @Test
-func validator_severity_checks() async throws {
+func validatorSeverityChecks() async throws {
     let a = NodeID(rawValue: "A")
     let b = NodeID(rawValue: "B")
     let c = NodeID(rawValue: "C")
@@ -29,4 +31,19 @@ func validator_severity_checks() async throws {
     #expect(errors.contains { $0.kind == .missingDestination })
     #expect(errors.contains { $0.kind == .unreachableNode })
     #expect(warnings.contains { $0.kind == .emptyChoices })
+}
+
+@Test
+func cycleDetectionWarning() async throws {
+    // A <-> B cycle with no exit should produce a warning
+    let a = NodeID(rawValue: "A")
+    let b = NodeID(rawValue: "B")
+    let nodes: [NodeID: Node] = [
+        a: Node(id: a, text: TextRef(file: "f.md", section: "a"), choices: [Choice(id: ChoiceID(rawValue: "ab"), title: "to B", destination: b)]),
+        b: Node(id: b, text: TextRef(file: "f.md", section: "b"), choices: [Choice(id: ChoiceID(rawValue: "ba"), title: "to A", destination: a)])
+    ]
+    let story = Story(metadata: .init(id: "s", title: "S"), start: a, nodes: nodes)
+    let issues = StoryValidator().validate(story: story)
+    #expect(issues.contains { $0.kind == .noExitCycle && $0.severity == .warning })
+}
 }

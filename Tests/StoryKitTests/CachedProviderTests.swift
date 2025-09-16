@@ -13,8 +13,10 @@ private func writeMarkdown(_ url: URL, sections: [(String, String)]) throws {
     try s.write(to: url, atomically: true, encoding: .utf8)
 }
 
-@Test
-func cached_source_eviction_and_reload() async throws {
+@Suite("CachedTextProviders")
+struct CachedProviderTests {
+    @Test
+    func cachedSourceEvictionAndReload() async throws {
     let tmp = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(UUID().uuidString)
     let source = StorySourceLayout(root: tmp)
     let fm = FileManager.default
@@ -44,10 +46,10 @@ func cached_source_eviction_and_reload() async throws {
     // Access f1 again -> should reload from disk and see new content
     let t1Reload = try await provider.text(for: TextRef(file: "f1.md", section: "a"))
     #expect(t1Reload == newBody)
-}
+    }
 
-@Test
-func cached_source_memory_pressure_purges() async throws {
+    @Test
+    func cachedSourceMemoryPressurePurges() async throws {
     let tmp = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(UUID().uuidString)
     let source = StorySourceLayout(root: tmp)
     let fm = FileManager.default
@@ -66,5 +68,5 @@ func cached_source_memory_pressure_purges() async throws {
 
     let t = try await provider.text(for: TextRef(file: "f.md", section: "s"))
     #expect(t == "World")
+    }
 }
-
