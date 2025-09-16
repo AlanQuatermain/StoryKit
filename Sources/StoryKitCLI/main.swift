@@ -20,14 +20,18 @@ struct Validate: ParsableCommand {
     var path: String
 
     func run() throws {
-        let source = StorySourceLayout(root: URL(fileURLWithPath: path))
-        let story = try StoryLoader().loadStory(from: source.storyJSON)
-        let issues = StoryValidator().validate(story: story)
-        if issues.isEmpty {
-            print("✅ No issues found")
+        let url = URL(fileURLWithPath: path)
+        if url.hasDirectoryPath {
+            let source = StorySourceLayout(root: url)
+            let story = try StoryLoader().loadStory(from: source.storyJSON)
+            let issues = StoryValidator().validate(story: story, source: source)
+            if issues.isEmpty { print("✅ No issues found") }
+            else { for i in issues { print("- \(i)") }; throw ExitCode(1) }
         } else {
-            for issue in issues { print("- \(issue)") }
-            throw ExitCode(1)
+            let story = try StoryLoader().loadStory(from: url)
+            let issues = StoryValidator().validate(story: story)
+            if issues.isEmpty { print("✅ No issues found") }
+            else { for i in issues { print("- \(i)") }; throw ExitCode(1) }
         }
     }
 }
@@ -70,23 +74,4 @@ struct Compile: ParsableCommand {
     }
 }
 
-// Minimal validator placeholder
-struct StoryValidator {
-    func validate(story: Story) -> [String] {
-        var issues: [String] = []
-        // start node exists
-        if story.nodes[story.start] == nil {
-            issues.append("Missing start node: \(story.start.rawValue)")
-        }
-        // all choice destinations exist
-        for (id, node) in story.nodes {
-            for c in node.choices {
-                if story.nodes[c.destination] == nil {
-                    issues.append("Node \(id.rawValue) has choice \(c.id.rawValue) to missing node \(c.destination.rawValue)")
-                }
-            }
-        }
-        return issues
-    }
-}
-
+// Validation is provided by ContentIO.StoryValidator

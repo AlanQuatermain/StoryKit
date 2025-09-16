@@ -124,7 +124,7 @@ public protocol StoryState: Codable, Sendable {
 
 public typealias Predicate<State> = @Sendable (_ state: State, _ parameters: [String: String]) -> Bool
 public typealias Effect<State> = @Sendable (_ state: inout State, _ parameters: [String: String]) -> Void
-public typealias Action<State> = @Sendable (_ state: inout State, _ parameters: [String: String]) async throws -> ActionOutcome
+public typealias Action<State> = @Sendable (_ state: inout State, _ parameters: [String: String]) throws -> ActionOutcome
 
 public enum ActionOutcome: Sendable {
     case completed
@@ -164,8 +164,8 @@ public struct ActionRegistry<State>: Sendable {
     public mutating func register(_ id: String, _ action: @escaping @Sendable Action<State>) {
         map[id] = action
     }
-    public func perform(_ id: String, state: inout State, parameters: [String: String]) async throws -> ActionOutcome? {
+    public func perform(_ id: String, state: inout State, parameters: [String: String]) throws -> ActionOutcome? {
         guard let a = map[id] else { return nil }
-        return try await a(&state, parameters)
+        return try a(&state, parameters)
     }
 }

@@ -75,13 +75,10 @@ public struct TextSectionParser: Sendable {
             }
             buffer.removeAll(keepingCapacity: true)
         }
-        for line in markdown.split(separator: "\n", omittingEmptySubsequences: false).map(String.init) {
-            if let range = line.range(of: "^===\\s*node:\\s*(.+?)\\s*===\\s*$", options: [.regularExpression]) {
+        for raw in markdown.split(separator: "\n", omittingEmptySubsequences: false) {
+            let line = String(raw)
+            if let id = Self.extractSectionID(from: line) {
                 flush()
-                let id = String(line[range]).replacingOccurrences(of: "===", with: "")
-                    .replacingOccurrences(of: "node:", with: "")
-                    .replacingOccurrences(of: "=", with: "")
-                    .trimmingCharacters(in: .whitespaces)
                 currentID = id
             } else {
                 buffer.append(line)
@@ -90,5 +87,67 @@ public struct TextSectionParser: Sendable {
         flush()
         return map
     }
+
+    private static func extractSectionID(from line: String) -> String? {
+        // Strict format: === node: <section-id> ===
+        // Allow extra spaces around tokens.
+        let pattern = "^===\\s*node:\\s*(.*?)\\s*===\\s*$"
+        guard let regex = try? NSRegularExpression(pattern: pattern, options: []) else { return nil }
+        let range = NSRange(location: 0, length: (line as NSString).length)
+        guard let match = regex.firstMatch(in: line, options: [], range: range) else { return nil }
+        if match.numberOfRanges >= 2, let r = Range(match.range(at: 1), in: line) {
+            let id = String(line[r]).trimmingCharacters(in: .whitespacesAndNewlines)
+            return id.isEmpty ? nil : id
+        }
+        return nil
+    }
 }
 
+// MARK: - Text Providers
+
+public protocol TextProvider {
+    func text(for ref: TextRef) throws -> String
+}
+
+public struct SourceTextProvider: TextProvider {
+    private let layout: StorySourceLayout
+    private let parser = TextSectionParser()
+    // Cache: file name -> section map
+    private var cache: [String: [String: String]] = [:]
+
+    public init(source: StorySourceLayout) { self.layout = source }
+
+    public func text(for ref: TextRef) throws -> String {
+        var map = cache
+        if map[ref.file] == nil {
+            let url = layout.textsDir.appendingPathComponent(ref.file)
+            let content = try String(contentsOf: url, encoding: .utf8)
+            map[ref.file] = parser.parseSections(markdown: content)
+        }
+        guard let text = map[ref.file]?[ref.section] else {
+            throw StoryIOError.textSectionMissing(ref)
+        }
+        return text
+    }
+}
+
+public struct BundleTextProvider: TextProvider {
+    private let layout: StoryBundleLayout
+    private let parser = TextSectionParser()
+    private var cache: [String: [String: String]] = [:]
+
+    public init(bundle: StoryBundleLayout) { self.layout = bundle }
+
+    public func text(for ref: TextRef) throws -> String {
+        var map = cache
+        if map[ref.file] == nil {
+            let url = layout.textsDir.appendingPathComponent(ref.file)
+            let content = try String(contentsOf: url, encoding: .utf8)
+            map[ref.file] = parser.parseSections(markdown: content)
+        }
+        guard let text = map[ref.file]?[ref.section] else {
+            throw StoryIOError.textSectionMissing(ref)
+        }
+        return text
+    }
+}

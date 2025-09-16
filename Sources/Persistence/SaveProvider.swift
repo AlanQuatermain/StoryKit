@@ -70,3 +70,15 @@ public actor JSONFileSaveProvider<State: StoryState & Codable & Sendable>: SaveP
     }
 }
 
+// MARK: - Autosave helpers
+
+public func makeAutoSaveHandler<State, Provider: SaveProvider>(
+    storyID: String,
+    slot: String,
+    provider: Provider
+) -> @Sendable (State) async throws -> Void where Provider.State == State {
+    return { state in
+        let snapshot = StorySave<State>(storyID: storyID, state: state)
+        try await provider.save(slot: slot, snapshot: snapshot)
+    }
+}
