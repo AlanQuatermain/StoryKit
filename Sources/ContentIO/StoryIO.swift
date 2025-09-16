@@ -3,12 +3,14 @@ import Core
 import CryptoKit
 import Dispatch
 
+/// Errors thrown while loading Markdown text or locating sections.
 public enum StoryIOError: Error, Equatable {
     case invalidPath
     case decodeFailed
     case textSectionMissing(TextRef)
 }
 
+/// Describes the on-disk layout for a human-authored story source.
 public struct StorySourceLayout: Sendable {
     public var root: URL
     public var storyJSON: URL { root.appendingPathComponent("story.json") }
@@ -16,6 +18,7 @@ public struct StorySourceLayout: Sendable {
     public init(root: URL) { self.root = root }
 }
 
+/// Describes the on-disk layout for a compiled directory-based story bundle.
 public struct StoryBundleLayout: Sendable {
     public var root: URL
     public var manifest: URL { root.appendingPathComponent("manifest.json") }
@@ -24,6 +27,7 @@ public struct StoryBundleLayout: Sendable {
     public init(root: URL) { self.root = root }
 }
 
+/// Compiles a source folder into a directory-based bundle for runtime use.
 public struct StoryCompiler: Sendable {
     public init() {}
 
@@ -59,6 +63,7 @@ public struct StoryCompiler: Sendable {
     }
 }
 
+/// Loads a Story from a `story.json` file.
 public struct StoryLoader: Sendable {
     public init() {}
 
@@ -69,6 +74,7 @@ public struct StoryLoader: Sendable {
     }
 }
 
+/// Loads a Story from a compiled bundle's `graph.json` file.
 public struct StoryBundleLoader: Sendable {
     public init() {}
     public func load(from bundle: StoryBundleLayout) throws -> Story {
@@ -81,6 +87,7 @@ public struct StoryBundleLoader: Sendable {
 /// Parses Markdown files that contain multiple node sections separated by a special token.
 /// Token format (at start of line):
 /// === node: <section-id> ===
+/// Splits Markdown into labeled sections using lines like `=== node: <section-id> ===`.
 public struct TextSectionParser: Sendable {
     public init() {}
 
@@ -124,10 +131,13 @@ public struct TextSectionParser: Sendable {
 
 // MARK: - Text Providers
 
+/// Serves Markdown text for a given reference.
 public protocol TextProvider {
+    /// Returns the text for the given reference or throws if not found.
     func text(for ref: TextRef) throws -> String
 }
 
+/// A simple text provider that parses the source file each time.
 public struct SourceTextProvider: TextProvider {
     private let layout: StorySourceLayout
     private let parser = TextSectionParser()
@@ -143,6 +153,7 @@ public struct SourceTextProvider: TextProvider {
     }
 }
 
+/// A simple text provider for compiled bundles that parses each request.
 public struct BundleTextProvider: TextProvider {
     private let layout: StoryBundleLayout
     private let parser = TextSectionParser()
@@ -159,6 +170,7 @@ public struct BundleTextProvider: TextProvider {
 }
 
 // Actor-based cached providers
+/// An actor-based provider that caches parsed source files with LRU eviction and memory pressure purge.
 public actor CachedSourceTextProvider {
     private let layout: StorySourceLayout
     private let parser = TextSectionParser()
@@ -169,12 +181,15 @@ public actor CachedSourceTextProvider {
     private let maxBytes: Int
     private var pressureSource: DispatchSourceMemoryPressure?
 
+    /// Creates a cached provider for a source layout.
+    /// - Parameter maxBytes: Cache budget; files are evicted LRU when exceeded.
     public init(source: StorySourceLayout, maxBytes: Int = 8 * 1024 * 1024) {
         self.layout = source
         self.maxBytes = maxBytes
         Task { await Self.installPressureSource(owner: self, label: "storykit.cached-source-text-provider.pressure") }
     }
 
+    /// Returns text for a reference, loading and caching the file if necessary.
     public func text(for ref: TextRef) throws -> String {
         if cache[ref.file] == nil {
             try loadFileIntoCache(ref.file)
@@ -185,11 +200,13 @@ public actor CachedSourceTextProvider {
         return text
     }
 
+    /// Clears all cached content.
     public func purgeAll() {
         cache.removeAll(keepingCapacity: false)
         totalSize = 0
     }
 
+    /// Responds to system memory pressure by purging the cache.
     public func handleMemoryPressure() {
         purgeAll()
     }
@@ -241,6 +258,7 @@ public actor CachedSourceTextProvider {
     }
 }
 
+/// An actor-based provider that caches parsed bundle files with LRU eviction and memory pressure purge.
 public actor CachedBundleTextProvider {
     private let layout: StoryBundleLayout
     private let parser = TextSectionParser()
@@ -251,12 +269,15 @@ public actor CachedBundleTextProvider {
     private let maxBytes: Int
     private var pressureSource: DispatchSourceMemoryPressure?
 
+    /// Creates a cached provider for a compiled bundle.
+    /// - Parameter maxBytes: Cache budget; files are evicted LRU when exceeded.
     public init(bundle: StoryBundleLayout, maxBytes: Int = 8 * 1024 * 1024) {
         self.layout = bundle
         self.maxBytes = maxBytes
         Task { await Self.installPressureSource(owner: self, label: "storykit.cached-bundle-text-provider.pressure") }
     }
 
+    /// Returns text for a reference, loading and caching the file if necessary.
     public func text(for ref: TextRef) throws -> String {
         if cache[ref.file] == nil {
             try loadFileIntoCache(ref.file)
@@ -267,11 +288,13 @@ public actor CachedBundleTextProvider {
         return text
     }
 
+    /// Clears all cached content.
     public func purgeAll() {
         cache.removeAll(keepingCapacity: false)
         totalSize = 0
     }
 
+    /// Responds to system memory pressure by purging the cache.
     public func handleMemoryPressure() {
         purgeAll()
     }

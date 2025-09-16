@@ -1,6 +1,7 @@
 import Foundation
 import Core
 
+/// A validation issue discovered while analyzing a story.
 public struct StoryIssue: Codable, Hashable, CustomStringConvertible, Sendable {
     public enum Kind: String, Codable, Sendable {
         case missingStart
@@ -26,10 +27,12 @@ public struct StoryIssue: Codable, Hashable, CustomStringConvertible, Sendable {
     public var description: String { message }
 }
 
+/// Validates structural, flow, and content constraints in stories.
 public struct StoryValidator: Sendable {
     public init() {}
 
     // Structural validation on the Story graph only.
+    /// Validates structural and flow constraints on the graph only.
     public func validate(story: Story) -> [StoryIssue] {
         var issues: [StoryIssue] = []
 
@@ -92,6 +95,7 @@ public struct StoryValidator: Sendable {
     }
 
     // Extended validation that checks Markdown text sections against source layout.
+    /// Validates a story against a source layout, including Markdown text references.
     public func validate(story: Story, source: StorySourceLayout) -> [StoryIssue] {
         var issues = validate(story: story)
 
@@ -148,6 +152,7 @@ public struct StoryValidator: Sendable {
     }
 
     // Validate against a compiled .storybundle
+    /// Validates a story against a compiled bundle layout, including Markdown text references.
     public func validate(story: Story, bundle: StoryBundleLayout) -> [StoryIssue] {
         var issues = validate(story: story)
         let fm = FileManager.default

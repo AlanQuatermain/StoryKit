@@ -1,16 +1,34 @@
 import Foundation
 import Core
 
+/// An actor that executes story flow for a given story and app-defined state.
+///
+/// The engine evaluates predicates for available choices, applies effects on selection,
+/// transitions to destination nodes, applies on-enter effects, and invokes an optional autosave handler.
 public actor StoryEngine<State: StoryState> {
+    /// The story being executed.
     public let story: Story
+    /// The current state, isolated to the engine actor.
     public private(set) var state: State
 
+    /// Registry of predicate closures used to gate choices.
     public var predicateRegistry: PredicateRegistry<State>
+    /// Registry of effect closures used to mutate state.
     public var effectRegistry: EffectRegistry<State>
+    /// Registry of action closures for richer interactions.
     public var actionRegistry: ActionRegistry<State>
+    /// An optional autosave handler invoked after transitions and actions.
     public typealias AutoSaveHandler = @Sendable (State) async throws -> Void
     private let autosave: AutoSaveHandler?
 
+    /// Creates a new engine instance.
+    /// - Parameters:
+    ///   - story: The story graph to run.
+    ///   - initialState: The initial app-defined state.
+    ///   - predicateRegistry: Predicates for gating choices.
+    ///   - effectRegistry: Effects applied on select and enter.
+    ///   - actionRegistry: Actions for custom interactions.
+    ///   - autosave: Optional handler called after transitions/actions.
     public init(
         story: Story,
         initialState: State,
@@ -27,10 +45,12 @@ public actor StoryEngine<State: StoryState> {
         self.autosave = autosave
     }
 
+    /// Returns the current node, if present.
     public func currentNode() -> Node? {
         story.nodes[state.currentNode]
     }
 
+    /// Returns choices that are currently available based on predicate evaluation.
     public func availableChoices() -> [Choice] {
         guard let node = story.nodes[state.currentNode] else { return [] }
         return node.choices.filter { choice in
@@ -39,6 +59,10 @@ public actor StoryEngine<State: StoryState> {
     }
 
     @discardableResult
+    /// Selects a choice, applies effects, transitions to the destination, applies on-enter effects, and triggers autosave.
+    /// - Parameter choiceID: The identifier of the selected choice.
+    /// - Returns: The identifier of the new current node.
+    /// - Throws: ``EngineError`` if the selection is invalid or blocked.
     public func select(choiceID: ChoiceID) async throws -> NodeID {
         guard let node = story.nodes[state.currentNode] else { throw EngineError.unknownNode }
         guard let choice = node.choices.first(where: { $0.id == choiceID }) else { throw EngineError.unknownChoice }
@@ -55,6 +79,7 @@ public actor StoryEngine<State: StoryState> {
         return state.currentNode
     }
 
+    /// Applies the on-enter effects for the current node, if any.
     public func applyOnEnterEffectsIfAny() {
         guard let node = story.nodes[state.currentNode] else { return }
         effectRegistry.apply(node.onEnter, state: &state)
@@ -62,6 +87,12 @@ public actor StoryEngine<State: StoryState> {
 
     // Perform a named action (client-registered) then autosave.
     @discardableResult
+    /// Performs a registered action with parameters and triggers autosave.
+    /// - Parameters:
+    ///   - id: The action identifier.
+    ///   - parameters: String parameters for the action.
+    /// - Returns: The outcome of the action, if any.
+    /// - Throws: Any error thrown by the action.
     public func performAction(id: String, parameters: [String: String] = [:]) async throws -> ActionOutcome? {
         let outcome = try actionRegistry.perform(id, state: &state, parameters: parameters)
         if let autosave {
@@ -71,6 +102,7 @@ public actor StoryEngine<State: StoryState> {
     }
 }
 
+/// Errors thrown by the story engine for invalid or blocked operations.
 public enum EngineError: Error, Equatable {
     case unknownNode
     case unknownChoice
