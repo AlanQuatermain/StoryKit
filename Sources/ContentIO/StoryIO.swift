@@ -3,7 +3,7 @@ import Core
 import CryptoKit
 import Dispatch
 
-public enum StoryIOError: Error {
+public enum StoryIOError: Error, Equatable {
     case invalidPath
     case decodeFailed
     case textSectionMissing(TextRef)

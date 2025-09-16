@@ -87,4 +87,20 @@ struct EngineTests {
         #expect(await sink.items.count == 1)
         #expect(await sink.items.first?.count == 1)
     }
+
+    @Test
+    func performActionAutosave() async throws {
+        struct S: StoryState { var currentNode: NodeID; var count: Int = 0 }
+        let a = NodeID(rawValue: "a")
+        let story = Story(metadata: .init(id: "id", title: "T"), start: a, nodes: [a: Node(id: a, text: TextRef(file: "t.md", section: "a"), choices: [])])
+        var acts = ActionRegistry<S>()
+        acts.register("inc2") { s, _ in s.count += 2; return .completed }
+        actor Sink { var items: [S] = []; func append(_ s: S) { items.append(s) } }
+        let sink = Sink()
+        let autosave: (@Sendable (S) async throws -> Void) = { s in await sink.append(s) }
+        let engine = StoryEngine(story: story, initialState: S(currentNode: a), actionRegistry: acts, autosave: autosave)
+        _ = try await engine.performAction(id: "inc2")
+        #expect(await sink.items.count == 1)
+        #expect(await sink.items.first?.count == 2)
+    }
 }

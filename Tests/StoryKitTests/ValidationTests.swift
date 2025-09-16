@@ -5,8 +5,8 @@ import Core
 
 @Suite("Validation")
 struct ValidationTests {
-@Test
-func validatorSeverityChecks() async throws {
+    @Test
+    func validatorSeverityChecks() async throws {
     let a = NodeID(rawValue: "A")
     let b = NodeID(rawValue: "B")
     let c = NodeID(rawValue: "C")
@@ -31,10 +31,10 @@ func validatorSeverityChecks() async throws {
     #expect(errors.contains { $0.kind == .missingDestination })
     #expect(errors.contains { $0.kind == .unreachableNode })
     #expect(warnings.contains { $0.kind == .emptyChoices })
-}
+    }
 
-@Test
-func cycleDetectionWarning() async throws {
+    @Test
+    func cycleDetectionWarning() async throws {
     // A <-> B cycle with no exit should produce a warning
     let a = NodeID(rawValue: "A")
     let b = NodeID(rawValue: "B")
@@ -45,5 +45,78 @@ func cycleDetectionWarning() async throws {
     let story = Story(metadata: .init(id: "s", title: "S"), start: a, nodes: nodes)
     let issues = StoryValidator().validate(story: story)
     #expect(issues.contains { $0.kind == .noExitCycle && $0.severity == .warning })
-}
+    }
+
+    @Test
+    func missingStartNodeIsError() {
+        let a = NodeID(rawValue: "A")
+        // Intentionally set start to a non-existent node
+        let story = Story(metadata: .init(id: "s", title: "S"), start: NodeID(rawValue: "NOPE"), nodes: [
+            a: Node(id: a, text: TextRef(file: "t.md", section: "a"), choices: [])
+        ])
+        let issues = StoryValidator().validate(story: story)
+        #expect(issues.contains { $0.kind == .missingStart && $0.severity == .error })
+    }
+
+    @Test
+    func duplicateChoiceIdsIsError() {
+        let a = NodeID(rawValue: "A")
+        let c = ChoiceID(rawValue: "dup")
+        let story = Story(
+            metadata: .init(id: "s", title: "S"),
+            start: a,
+            nodes: [
+                a: Node(
+                    id: a,
+                    text: TextRef(file: "t.md", section: "a"),
+                    choices: [
+                        Choice(id: c, title: "one", destination: a),
+                        Choice(id: c, title: "two", destination: a)
+                    ]
+                )
+            ]
+        )
+        let issues = StoryValidator().validate(story: story)
+        #expect(issues.contains { $0.kind == .duplicateChoiceID && $0.severity == .error })
+    }
+
+    @Test
+    func nodeKeyIdMismatchWarning() {
+        let key = NodeID(rawValue: "KEY")
+        let id = NodeID(rawValue: "ID")
+        let story = Story(
+            metadata: .init(id: "s", title: "S"),
+            start: id,
+            nodes: [
+                key: Node(id: id, text: TextRef(file: "t.md", section: "x"), choices: [])
+            ]
+        )
+        let issues = StoryValidator().validate(story: story)
+        #expect(issues.contains { $0.kind == .nodeKeyMismatch && $0.severity == .warning })
+    }
+
+    @Test
+    func orphanMarkdownWarningsFromSource() throws {
+        let tmp = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(UUID().uuidString)
+        let source = StorySourceLayout(root: tmp)
+        let fm = FileManager.default
+        try fm.createDirectory(at: source.root, withIntermediateDirectories: true)
+        try fm.createDirectory(at: source.textsDir, withIntermediateDirectories: true)
+        // story references only section 'used' in file f.md
+        let a = NodeID(rawValue: "A")
+        let story = Story(
+            metadata: .init(id: "s", title: "S"),
+            start: a,
+            nodes: [a: Node(id: a, text: TextRef(file: "f.md", section: "used"), choices: [])]
+        )
+        let data = try JSONEncoder().encode(story)
+        try data.write(to: source.storyJSON)
+        // f.md contains an extra unused section
+        try "=== node: used ===\nU\n=== node: extra ===\nE\n".write(to: source.textsDir.appendingPathComponent("f.md"), atomically: true, encoding: .utf8)
+        // other.md is completely unreferenced
+        try "=== node: x ===\nX\n".write(to: source.textsDir.appendingPathComponent("other.md"), atomically: true, encoding: .utf8)
+        let issues = StoryValidator().validate(story: story, source: source)
+        #expect(issues.contains { $0.kind == .orphanTextSection && $0.severity == .warning })
+        #expect(issues.contains { $0.kind == .orphanMarkdownFile && $0.severity == .warning })
+    }
 }

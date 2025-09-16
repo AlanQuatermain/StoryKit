@@ -71,7 +71,7 @@ public actor StoryEngine<State: StoryState> {
     }
 }
 
-public enum EngineError: Error {
+public enum EngineError: Error, Equatable {
     case unknownNode
     case unknownChoice
     case choiceBlocked

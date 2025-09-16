@@ -68,4 +68,89 @@ struct ManifestTests {
         #expect(loaded.nodes.count == story.nodes.count)
         #expect(loaded.start == story.start)
     }
+
+    @Test
+    func bundleTextProviderLoadsAndThrows() throws {
+        let tmp = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(UUID().uuidString)
+        let source = StorySourceLayout(root: tmp)
+        let fm = FileManager.default
+        try fm.createDirectory(at: source.root, withIntermediateDirectories: true)
+        try fm.createDirectory(at: source.textsDir, withIntermediateDirectories: true)
+
+        let a = NodeID(rawValue: "a")
+        let story = Story(metadata: .init(id: "id", title: "T", version: 1), start: a, nodes: [
+            a: Node(id: a, text: TextRef(file: "t.md", section: "s"), choices: [])
+        ])
+        let data = try JSONEncoder().encode(story)
+        try data.write(to: source.storyJSON)
+        try "=== node: s ===\nHELLO\n".write(to: source.textsDir.appendingPathComponent("t.md"), atomically: true, encoding: .utf8)
+
+        let bundleRoot = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(UUID().uuidString + ".storybundle")
+        let bundle = StoryBundleLayout(root: bundleRoot)
+        try StoryCompiler().compile(source: source, to: bundle)
+
+        let provider = BundleTextProvider(bundle: bundle)
+        let ok = try provider.text(for: TextRef(file: "t.md", section: "s"))
+        #expect(ok == "HELLO")
+        let missing = TextRef(file: "t.md", section: "missing")
+        #expect(throws: StoryIOError.textSectionMissing(missing)) {
+            _ = try provider.text(for: missing)
+        }
+    }
+
+    @Test
+    func bundleValidationOrphanWarnings() throws {
+        // Create a story and bundle with an extra unreferenced section and file
+        let tmp = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(UUID().uuidString)
+        let source = StorySourceLayout(root: tmp)
+        let fm = FileManager.default
+        try fm.createDirectory(at: source.root, withIntermediateDirectories: true)
+        try fm.createDirectory(at: source.textsDir, withIntermediateDirectories: true)
+
+        let a = NodeID(rawValue: "a")
+        let story = Story(metadata: .init(id: "id", title: "T", version: 1), start: a, nodes: [
+            a: Node(id: a, text: TextRef(file: "t.md", section: "s"), choices: [])
+        ])
+        let data = try JSONEncoder().encode(story)
+        try data.write(to: source.storyJSON)
+        try "=== node: s ===\nHELLO\n=== node: extra ===\nE\n".write(to: source.textsDir.appendingPathComponent("t.md"), atomically: true, encoding: .utf8)
+        try "=== node: u ===\nU\n".write(to: source.textsDir.appendingPathComponent("u.md"), atomically: true, encoding: .utf8)
+
+        let bundleRoot = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(UUID().uuidString + ".storybundle")
+        let bundle = StoryBundleLayout(root: bundleRoot)
+        try StoryCompiler().compile(source: source, to: bundle)
+
+        let loaded = try StoryBundleLoader().load(from: bundle)
+        let issues = StoryValidator().validate(story: loaded, bundle: bundle)
+        #expect(issues.contains { $0.kind == .orphanTextSection && $0.severity == .warning })
+        #expect(issues.contains { $0.kind == .orphanMarkdownFile && $0.severity == .warning })
+    }
+
+    @Test
+    func storyLoaderFailsOnMalformedJSON() throws {
+        let tmp = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(UUID().uuidString)
+        let source = StorySourceLayout(root: tmp)
+        try FileManager.default.createDirectory(at: source.root, withIntermediateDirectories: true)
+        // Write malformed JSON
+        try "{".write(to: source.storyJSON, atomically: true, encoding: .utf8)
+        #expect(throws: DecodingError.self) {
+            _ = try StoryLoader().loadStory(from: source.storyJSON)
+        }
+    }
+
+    @Test
+    func bundleLoaderFailsOnMalformedGraph() throws {
+        let root = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(UUID().uuidString + ".storybundle")
+        let bundle = StoryBundleLayout(root: root)
+        let fm = FileManager.default
+        try fm.createDirectory(at: bundle.root, withIntermediateDirectories: true)
+        try fm.createDirectory(at: bundle.textsDir, withIntermediateDirectories: true)
+        // Malformed graph.json
+        try "not json".write(to: bundle.graph, atomically: true, encoding: .utf8)
+        // Minimal manifest so validator thinks it's a bundle
+        try "{\"schemaVersion\":1}".write(to: bundle.manifest, atomically: true, encoding: .utf8)
+        #expect(throws: DecodingError.self) {
+            _ = try StoryBundleLoader().load(from: bundle)
+        }
+    }
 }

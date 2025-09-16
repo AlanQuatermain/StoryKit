@@ -31,6 +31,21 @@ struct TextSectionParserTests {
         try "=== node: a ===\nA\n".write(to: url, atomically: true, encoding: .utf8)
         let provider = SourceTextProvider(source: source)
         let ref = TextRef(file: "t.md", section: "missing")
-        #expect(throws: StoryIOError.self) { _ = try provider.text(for: ref) }
+        #expect(throws: StoryIOError.textSectionMissing(ref)) { _ = try provider.text(for: ref) }
+    }
+
+    @Test
+    func noSectionHeadersProducesEmptyMap() {
+        let md = "No section header here\nJust body text\n=== not a header==\n"
+        let map = TextSectionParser().parseSections(markdown: md)
+        #expect(map.isEmpty)
+    }
+
+    @Test
+    func malformedHeaderDoesNotStartSection() {
+        let md = "== node: a ==\nBody\n==== node: b ===\nBody2\n=== node b ===\n"
+        let map = TextSectionParser().parseSections(markdown: md)
+        // None of the malformed lines match the strict header pattern
+        #expect(map.isEmpty)
     }
 }

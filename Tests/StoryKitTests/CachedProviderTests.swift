@@ -69,4 +69,27 @@ struct CachedProviderTests {
     let t = try await provider.text(for: TextRef(file: "f.md", section: "s"))
     #expect(t == "World")
     }
+
+    @Test
+    func sourceProviderMissingFileThrows() async {
+        let tmp = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(UUID().uuidString)
+        let source = StorySourceLayout(root: tmp)
+        let provider = CachedSourceTextProvider(source: source)
+        await #expect(throws: Error.self) {
+            _ = try await provider.text(for: TextRef(file: "missing.md", section: "s"))
+        }
+    }
+
+    @Test
+    func bundleProviderMissingFileThrows() async {
+        let root = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(UUID().uuidString + ".storybundle")
+        let bundle = StoryBundleLayout(root: root)
+        try? FileManager.default.createDirectory(at: bundle.root, withIntermediateDirectories: true)
+        // Ensure texts dir exists but empty
+        try? FileManager.default.createDirectory(at: bundle.textsDir, withIntermediateDirectories: true)
+        let provider = CachedBundleTextProvider(bundle: bundle)
+        await #expect(throws: Error.self) {
+            _ = try await provider.text(for: TextRef(file: "missing.md", section: "s"))
+        }
+    }
 }

@@ -22,10 +22,19 @@ struct CoreRegistryTests {
 
     @Test
     func unknownActionReturnsNil() throws {
-        var acts = ActionRegistry<State>()
+        let acts = ActionRegistry<State>()
         var s = State(currentNode: NodeID(rawValue: "n"))
         let res = try acts.perform("nope", state: &s, parameters: [:])
         #expect(res == nil)
     }
-}
 
+    @Test
+    func actionPerformsAndReturnsCompleted() throws {
+        var acts = ActionRegistry<State>()
+        acts.register("inc") { s, _ in s.value += 3; return .completed }
+        var s = State(currentNode: NodeID(rawValue: "n"))
+        let res = try acts.perform("inc", state: &s, parameters: [:])
+        #expect(s.value == 3)
+        #expect(res != nil)
+    }
+}
