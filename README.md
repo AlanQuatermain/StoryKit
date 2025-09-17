@@ -33,7 +33,7 @@ See the DocC articles in `Sources/StoryKit/StoryKit.docc` for deeper explanation
 
 ### Swift Package Manager (Package.swift)
 
-Add StoryKit to your package dependencies and targets. Replace the URL with your repository URL.
+Add StoryKit to your package dependencies and targets.
 
 ```swift
 // swift-tools-version: 6.2
@@ -43,7 +43,7 @@ let package = Package(
     name: "MyApp",
     platforms: [.iOS("26.0"), .macOS("26.0")],
     dependencies: [
-        .package(url: "https://github.com/your-org/StoryKit.git", from: "0.1.0")
+        .package(url: "https://github.com/alanquatermain/StoryKit.git", from: "0.1.0")
     ],
     targets: [
         .executableTarget(
@@ -59,7 +59,7 @@ let package = Package(
 ### Xcode (Add Package Dependencies)
 
 - In Xcode, choose: File → Add Package Dependencies…
-- Enter your repository URL (e.g. `https://github.com/your-org/StoryKit.git`).
+- Enter the repository URL: `https://github.com/alanquatermain/StoryKit.git`.
 - Pick version `0.1.0` (or a compatible range) and add the `StoryKit` product to your app.
 
 ## Quick Start
@@ -105,7 +105,7 @@ if let first = choices.first { _ = try await engine.select(choiceID: first.id) }
 - Markdown: multiple sections per file using lines like `=== node: <section-id> ===`.
 - `.storybundle`: directory with `graph.json`, `manifest.json`, and `texts/` produced by the compiler.
 
-See <doc:DataFormats> (DocC) for complete details and examples.
+See [DataFormats](Sources/StoryKit/StoryKit.docc/DataFormats.md) (DocC) for complete details and examples.
 
 ## CLI
 
@@ -119,5 +119,5 @@ swift run storykit compile /path/to/source --out My.storybundle
 
 ## License
 
-Copyright (c) 2025. All rights reserved. (License to be finalized.)
+Copyright (c) 2025 Jim Dovey. Available under Creative Commons BY-NC-SA 4.0 International license. See [LICENSE](LICENSE) for details.
 
