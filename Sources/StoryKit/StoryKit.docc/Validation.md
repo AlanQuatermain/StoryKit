@@ -8,8 +8,8 @@ The validator analyzes your story graph and referenced text to detect common pro
 
 ## Key Types
 
-- ``ContentIO/StoryValidator``: Runs validations and returns a list of issues.
-- ``ContentIO/StoryIssue``: Describes a single issue with a `kind`, human‑readable `message`, and `severity` (error or warning).
+- ``StoryValidator``: Runs validations and returns a list of issues.
+- ``StoryIssue``: Describes a single issue with a `kind`, human‑readable `message`, and `severity` (error or warning).
 
 ## Structural Checks
 
