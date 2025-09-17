@@ -17,6 +17,10 @@ let package = Package(
         .executable(
             name: "storykit",
             targets: ["StoryKitCLI"]
+        ),
+        .executable(
+            name: "HauntedCLI",
+            targets: ["HauntedCLI"]
         )
     ],
     dependencies: [
@@ -53,6 +57,14 @@ let package = Package(
                 "ContentIO",
                 .product(name: "ArgumentParser", package: "swift-argument-parser")
             ]
+        ),
+        .executableTarget(
+            name: "HauntedCLI",
+            dependencies: ["StoryKit"]
+        ),
+        .executableTarget(
+            name: "SyncSnippets",
+            dependencies: ["Core", "ContentIO"]
         ),
         // Tests (swift-testing)
         .testTarget(

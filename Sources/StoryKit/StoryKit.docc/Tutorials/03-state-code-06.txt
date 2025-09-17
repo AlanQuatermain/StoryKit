@@ -1,0 +1,4 @@
+Library, failed sanity check:
+You stumble into a small library. The shelves are warped, books swollen with damp. A presence stirs, whispering syllables that scrape against your mind.
+You fail the check. Your mind collapses. [Game Over]
+

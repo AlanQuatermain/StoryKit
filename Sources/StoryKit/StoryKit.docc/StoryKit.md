@@ -1,4 +1,4 @@
-# ``StoryKit``
+# StoryKit
 
 Build rich, data‑driven “choose your own adventure” experiences with a small, composable core and first‑class tooling.
 
@@ -14,7 +14,7 @@ The package is organized into focused modules:
 - ``ContentIO``: Loaders, compilers, manifests, and text providers.
 - ``StoryKit`` (umbrella): Re‑exports the other modules for convenience.
 
-Author your story as a structure file (JSON) and Markdown text with lightweight section delimiters. Compile to a directory‑based ``ContentIO/StoryBundleLayout`` for distribution.
+Author your story as a structure file (JSON) and Markdown text with lightweight section delimiters. Compile to a directory‑based story bundle layout for distribution.
 
 ## Topics
 
@@ -36,4 +36,3 @@ Author your story as a structure file (JSON) and Markdown text with lightweight 
 ### CLI and Workflows
 
 - <doc:CLI>
-

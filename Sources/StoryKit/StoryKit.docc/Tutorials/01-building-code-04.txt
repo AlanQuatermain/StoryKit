@@ -1,0 +1,6 @@
+=== node: attic ===
+The attic is cluttered with rotting trunks and moth-eaten curtains. In the corner lies a heavy tome bound in skin. You open it and feel an almost physical weight pressing on your thoughts, as if the house itself were intruding on your mind.
+
+=== node: end_successful ===
+The presence recoils as your will holds firm. You stagger out of the library, into the night air, carrying forbidden knowledge that will haunt you forever.
+

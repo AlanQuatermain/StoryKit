@@ -1,0 +1,69 @@
+@Tutorial(time: 45) {
+    @Intro(title: "Building Your First Story") {
+        In this tutorial, you’ll create and repair the beginnings of a branching, text-based horror story called _The House on Ash Tree Lane_. You’ll start with a deliberately broken version of the story files, learn how to validate them using the `storykit` CLI, fix the errors, and then compile your story into a distributable `.storybundle`.
+
+        @Image(source: placeholder-image.png, alt: "A dark illustration of a decaying mansion, with crooked windows and an ominous sky.")
+    }
+
+    @Section(title: "Validate the broken story") {
+        @ContentAndMedia {
+            Begin by running the validator on the provided broken story package. You’ll see several errors and warnings that we’ll fix in the next steps.
+
+            @Image(source: placeholder-image.png, alt: "A screenshot of a Terminal window showing `swift run storykit validate Resources/stories/haunted-before`. Several errors are printed in red text.")
+        }
+
+        @Steps {
+            @Step {
+                Unzip the provided "haunted-before.zip" into a temporary directory and run the validator on that folder. You should see several errors in the large story (order may vary), including a missing start node, a duplicate choice id, a bad destination, an unknown entity reference, and an orphan text section.
+
+                @Code(name: "story.json (broken excerpt)", file: 01-building-code-01.json) {}
+                @Code(name: "haunted.md (broken excerpt)", file: 01-building-code-02.txt) {}
+            }
+        }
+    }
+
+    @Section(title: "Fix the story files") {
+        @ContentAndMedia {
+            Correct the errors in the story graph and text files. Then re-run validation to confirm that the story passes. In particular, restore the `start` node, fix the invalid destination, ensure unique choice IDs, define the missing antagonist, add the global action mapping, fix the ending section id typo, complete the truncated paragraph, and remove the orphan section.
+        }
+
+        @Steps {
+            @Step {
+                Edit `story.json` to restore a valid `start`, fix the invalid destination, ensure unique choice IDs, define the missing entity, and map the `player_died` global action to `end_dead`.
+
+                @Code(name: "story.json (fixed excerpt)", file: 01-building-code-03.json) {}
+            }
+
+            @Step {
+                Update `texts/haunted.md` to add the correct `end_successful` section, complete the truncated attic paragraph with the provided sentence, and remove the orphan section.
+
+                @Code(name: "haunted.md (fixed excerpt)", file: 01-building-code-04.txt) {}
+            }
+
+            @Step {
+                Re-run validation on your fixed folder; expect: Validation succeeded. 0 errors.
+            }
+        }
+    }
+
+    @Section(title: "Compile the story bundle") {
+        @ContentAndMedia {
+            Compile the validated source story into a `.storybundle` for use in apps or games.
+        }
+
+        @Steps {
+            @Step {
+                Compile your fixed folder to a `.storybundle` in a working directory of your choice.
+            }
+
+            @Step {
+                Inspect the compiled bundle; it contains a manifest, the graph, and a texts folder.
+            }
+
+            @Step {
+                Download the before/after packages:
+                [haunted-before.zip](zips/haunted-before.zip) and [haunted-after.zip](zips/haunted-after.zip)
+            }
+        }
+    }
+}

@@ -1,0 +1,2182 @@
+{
+  "metadata": {
+    "id": "haunted-house",
+    "title": "The House on Ash Tree Lane",
+    "version": 1
+  },
+  "start": "gf_foyer_entry",
+  "nodes": {
+    "gf_foyer_entry": {
+      "id": "gf_foyer_entry",
+      "text": {
+        "file": "haunted.md",
+        "section": "gf_foyer_entry"
+      },
+      "tags": [
+        "ground",
+        "foyer"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "to_east",
+          "title": "Enter the east hall",
+          "destination": "gf_east_hall_entry",
+          "predicates": [],
+          "effects": []
+        },
+        {
+          "id": "to_west",
+          "title": "Enter the west hall",
+          "destination": "gf_west_hall_entry",
+          "predicates": [],
+          "effects": []
+        },
+        {
+          "id": "to_stairs",
+          "title": "Climb the main staircase",
+          "destination": "stairs_main_uf",
+          "predicates": [],
+          "effects": []
+        },
+        {
+          "id": "search",
+          "title": "Examine the threshold",
+          "destination": "gf_foyer_search",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "gf_foyer_search": {
+      "id": "gf_foyer_search",
+      "text": {
+        "file": "haunted.md",
+        "section": "gf_foyer_search"
+      },
+      "tags": [
+        "ground"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "back",
+          "title": "Step back to the foyer",
+          "destination": "gf_foyer_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "gf_east_hall_entry": {
+      "id": "gf_east_hall_entry",
+      "text": {
+        "file": "haunted.md",
+        "section": "gf_east_hall_entry"
+      },
+      "tags": [
+        "ground",
+        "hall"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "to_library",
+          "title": "Slip into the library",
+          "destination": "gf_library_entry",
+          "predicates": [],
+          "effects": []
+        },
+        {
+          "id": "to_parlor",
+          "title": "Cut through the parlor",
+          "destination": "gf_parlor_entry",
+          "predicates": [],
+          "effects": []
+        },
+        {
+          "id": "search",
+          "title": "Examine the wallpaper",
+          "destination": "gf_east_hall_search",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "gf_east_hall_search": {
+      "id": "gf_east_hall_search",
+      "text": {
+        "file": "haunted.md",
+        "section": "gf_east_hall_search"
+      },
+      "tags": [
+        "ground"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "continue",
+          "title": "Continue along the hall",
+          "destination": "gf_library_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "gf_west_hall_entry": {
+      "id": "gf_west_hall_entry",
+      "text": {
+        "file": "haunted.md",
+        "section": "gf_west_hall_entry"
+      },
+      "tags": [
+        "ground",
+        "hall"
+      ],
+      "actors": [
+        {
+          "id": "shadow",
+          "ref": "lurking_shadow"
+        }
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "to_ballroom",
+          "title": "Push into the ballroom",
+          "destination": "gf_ballroom_entry",
+          "predicates": [],
+          "effects": []
+        },
+        {
+          "id": "to_study",
+          "title": "Try the study door",
+          "destination": "gf_study_entry",
+          "predicates": [],
+          "effects": []
+        },
+        {
+          "id": "search",
+          "title": "Listen for the pulse in the floor",
+          "destination": "gf_west_hall_search",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "gf_west_hall_search": {
+      "id": "gf_west_hall_search",
+      "text": {
+        "file": "haunted.md",
+        "section": "gf_west_hall_search"
+      },
+      "tags": [
+        "ground"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "retreat",
+          "title": "Return to the west hall",
+          "destination": "gf_west_hall_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "gf_library_entry": {
+      "id": "gf_library_entry",
+      "text": {
+        "file": "haunted.md",
+        "section": "gf_library_entry"
+      },
+      "tags": [
+        "ground",
+        "library"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "search",
+          "title": "Search the stacks",
+          "destination": "gf_library_search",
+          "predicates": [],
+          "effects": []
+        },
+        {
+          "id": "secret",
+          "title": "Pull the crooked volume",
+          "destination": "secret_library_passage",
+          "predicates": [],
+          "effects": []
+        },
+        {
+          "id": "to_east",
+          "title": "Back to the east hall",
+          "destination": "gf_east_hall_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "gf_library_search": {
+      "id": "gf_library_search",
+      "text": {
+        "file": "haunted.md",
+        "section": "gf_library_search"
+      },
+      "tags": [
+        "ground"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "take_shard",
+          "title": "Pocket the mirror shard",
+          "destination": "events_shard_mirror",
+          "predicates": [],
+          "effects": [
+            {
+              "id": "gain_item",
+              "parameters": {
+                "id": "mirror_shard"
+              }
+            }
+          ]
+        },
+        {
+          "id": "back",
+          "title": "Return to the library",
+          "destination": "gf_library_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "gf_parlor_entry": {
+      "id": "gf_parlor_entry",
+      "text": {
+        "file": "haunted.md",
+        "section": "gf_parlor_entry"
+      },
+      "tags": [
+        "ground",
+        "parlor"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "search",
+          "title": "Check the phonograph",
+          "destination": "gf_parlor_search",
+          "predicates": [],
+          "effects": []
+        },
+        {
+          "id": "to_dining",
+          "title": "Slip into the dining room",
+          "destination": "gf_dining_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "gf_parlor_search": {
+      "id": "gf_parlor_search",
+      "text": {
+        "file": "haunted.md",
+        "section": "gf_parlor_search"
+      },
+      "tags": [
+        "ground"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "leave",
+          "title": "Leave the parlor",
+          "destination": "gf_parlor_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "gf_dining_entry": {
+      "id": "gf_dining_entry",
+      "text": {
+        "file": "haunted.md",
+        "section": "gf_dining_entry"
+      },
+      "tags": [
+        "ground",
+        "dining"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "search",
+          "title": "Lift the silver cloche",
+          "destination": "gf_dining_search",
+          "predicates": [],
+          "effects": []
+        },
+        {
+          "id": "to_kitchen",
+          "title": "Through the service door",
+          "destination": "gf_kitchen_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "gf_dining_search": {
+      "id": "gf_dining_search",
+      "text": {
+        "file": "haunted.md",
+        "section": "gf_dining_search"
+      },
+      "tags": [
+        "ground"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "continue",
+          "title": "Move on",
+          "destination": "gf_kitchen_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "gf_kitchen_entry": {
+      "id": "gf_kitchen_entry",
+      "text": {
+        "file": "haunted.md",
+        "section": "gf_kitchen_entry"
+      },
+      "tags": [
+        "ground",
+        "kitchen"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "search",
+          "title": "Open the icebox",
+          "destination": "gf_kitchen_search",
+          "predicates": [],
+          "effects": []
+        },
+        {
+          "id": "to_pantry",
+          "title": "Check the pantry",
+          "destination": "gf_pantry_entry",
+          "predicates": [],
+          "effects": []
+        },
+        {
+          "id": "dumbwaiter",
+          "title": "Peer into the dumbwaiter shaft",
+          "destination": "dumbwaiter_gf",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "gf_kitchen_search": {
+      "id": "gf_kitchen_search",
+      "text": {
+        "file": "haunted.md",
+        "section": "gf_kitchen_search"
+      },
+      "tags": [
+        "ground"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "coil",
+          "title": "Take the iron crank",
+          "destination": "events_crank_winch",
+          "predicates": [],
+          "effects": [
+            {
+              "id": "gain_item",
+              "parameters": {
+                "id": "iron_crank"
+              }
+            }
+          ]
+        },
+        {
+          "id": "back",
+          "title": "Close the icebox",
+          "destination": "gf_kitchen_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "gf_pantry_entry": {
+      "id": "gf_pantry_entry",
+      "text": {
+        "file": "haunted.md",
+        "section": "gf_pantry_entry"
+      },
+      "tags": [
+        "ground",
+        "pantry"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "search",
+          "title": "Count the jars",
+          "destination": "gf_pantry_search",
+          "predicates": [],
+          "effects": []
+        },
+        {
+          "id": "chute",
+          "title": "Squeeze into the chute",
+          "destination": "secret_pantry_chute",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "gf_pantry_search": {
+      "id": "gf_pantry_search",
+      "text": {
+        "file": "haunted.md",
+        "section": "gf_pantry_search"
+      },
+      "tags": [
+        "ground"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "back",
+          "title": "Return to the kitchen",
+          "destination": "gf_kitchen_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "gf_study_entry": {
+      "id": "gf_study_entry",
+      "text": {
+        "file": "haunted.md",
+        "section": "gf_study_entry"
+      },
+      "tags": [
+        "ground",
+        "study"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "search",
+          "title": "Rifle the desk drawers",
+          "destination": "gf_study_search",
+          "predicates": [],
+          "effects": []
+        },
+        {
+          "id": "to_library",
+          "title": "A door to the library",
+          "destination": "gf_library_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "gf_study_search": {
+      "id": "gf_study_search",
+      "text": {
+        "file": "haunted.md",
+        "section": "gf_study_search"
+      },
+      "tags": [
+        "ground"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "take_note",
+          "title": "Pocket the cipher note",
+          "destination": "events_cipher_note",
+          "predicates": [],
+          "effects": [
+            {
+              "id": "gain_item",
+              "parameters": {
+                "id": "cipher_note"
+              }
+            }
+          ]
+        },
+        {
+          "id": "back",
+          "title": "Shut the drawers",
+          "destination": "gf_study_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "gf_conservatory_entry": {
+      "id": "gf_conservatory_entry",
+      "text": {
+        "file": "haunted.md",
+        "section": "gf_conservatory_entry"
+      },
+      "tags": [
+        "ground",
+        "conservatory"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "search",
+          "title": "Brush the dusty vines aside",
+          "destination": "gf_conservatory_search",
+          "predicates": [],
+          "effects": []
+        },
+        {
+          "id": "to_gallery",
+          "title": "Slip back toward the gallery",
+          "destination": "gf_gallery_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "gf_conservatory_search": {
+      "id": "gf_conservatory_search",
+      "text": {
+        "file": "haunted.md",
+        "section": "gf_conservatory_search"
+      },
+      "tags": [
+        "ground"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "back",
+          "title": "Return to the conservatory",
+          "destination": "gf_conservatory_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "gf_ballroom_entry": {
+      "id": "gf_ballroom_entry",
+      "text": {
+        "file": "haunted.md",
+        "section": "gf_ballroom_entry"
+      },
+      "tags": [
+        "ground",
+        "ballroom"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "search",
+          "title": "Test the warped parquet",
+          "destination": "gf_ballroom_search",
+          "predicates": [],
+          "effects": []
+        },
+        {
+          "id": "to_gallery",
+          "title": "Pass into the portrait gallery",
+          "destination": "gf_gallery_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "gf_ballroom_search": {
+      "id": "gf_ballroom_search",
+      "text": {
+        "file": "haunted.md",
+        "section": "gf_ballroom_search"
+      },
+      "tags": [
+        "ground"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "back",
+          "title": "Return to the ballroom",
+          "destination": "gf_ballroom_entry",
+          "predicates": [],
+          "effects": []
+        },
+        {
+          "id": "step_through",
+          "title": "Step into the delayed mirror",
+          "destination": "end_bare3",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "gf_gallery_entry": {
+      "id": "gf_gallery_entry",
+      "text": {
+        "file": "haunted.md",
+        "section": "gf_gallery_entry"
+      },
+      "tags": [
+        "ground",
+        "gallery"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "search",
+          "title": "Study the crooked frames",
+          "destination": "gf_gallery_search",
+          "predicates": [],
+          "effects": []
+        },
+        {
+          "id": "to_conservatory",
+          "title": "Toward the glasshouse",
+          "destination": "gf_conservatory_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "gf_gallery_search": {
+      "id": "gf_gallery_search",
+      "text": {
+        "file": "haunted.md",
+        "section": "gf_gallery_search"
+      },
+      "tags": [
+        "ground"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "back",
+          "title": "Return to the gallery",
+          "destination": "gf_gallery_entry",
+          "predicates": [],
+          "effects": []
+        },
+        {
+          "id": "turn_portrait",
+          "title": "Turn the smiling portrait",
+          "destination": "end_bare1",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "stairs_main_uf": {
+      "id": "stairs_main_uf",
+      "text": {
+        "file": "haunted.md",
+        "section": "stairs_main_uf"
+      },
+      "tags": [
+        "stairs"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "to_landing",
+          "title": "Step onto the upper landing",
+          "destination": "uf_landing_entry",
+          "predicates": [],
+          "effects": []
+        },
+        {
+          "id": "down",
+          "title": "Descend to the foyer",
+          "destination": "gf_foyer_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "uf_landing_entry": {
+      "id": "uf_landing_entry",
+      "text": {
+        "file": "haunted.md",
+        "section": "uf_landing_entry"
+      },
+      "tags": [
+        "upper",
+        "landing"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "to_master",
+          "title": "Enter the master bedroom",
+          "destination": "uf_master_entry",
+          "predicates": [],
+          "effects": []
+        },
+        {
+          "id": "to_guest_e",
+          "title": "Open the east guest room",
+          "destination": "uf_guest_east_entry",
+          "predicates": [],
+          "effects": []
+        },
+        {
+          "id": "to_guest_w",
+          "title": "Try the west guest room",
+          "destination": "uf_guest_west_entry",
+          "predicates": [],
+          "effects": []
+        },
+        {
+          "id": "search",
+          "title": "Check beneath the runner",
+          "destination": "uf_landing_search",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "uf_landing_search": {
+      "id": "uf_landing_search",
+      "text": {
+        "file": "haunted.md",
+        "section": "uf_landing_search"
+      },
+      "tags": [
+        "upper"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "back",
+          "title": "Return to the landing",
+          "destination": "uf_landing_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "uf_master_entry": {
+      "id": "uf_master_entry",
+      "text": {
+        "file": "haunted.md",
+        "section": "uf_master_entry"
+      },
+      "tags": [
+        "upper",
+        "bedroom"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "search",
+          "title": "Search the wardrobe",
+          "destination": "uf_master_search",
+          "predicates": [],
+          "effects": []
+        },
+        {
+          "id": "to_bath",
+          "title": "Check the bathroom",
+          "destination": "uf_bathroom_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "uf_master_search": {
+      "id": "uf_master_search",
+      "text": {
+        "file": "haunted.md",
+        "section": "uf_master_search"
+      },
+      "tags": [
+        "upper"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "locket",
+          "title": "Open the tarnished locket",
+          "destination": "events_locket_memory",
+          "predicates": [],
+          "effects": [
+            {
+              "id": "lose_sanity",
+              "parameters": {
+                "amount": "1"
+              }
+            }
+          ]
+        },
+        {
+          "id": "back",
+          "title": "Return to the master bedroom",
+          "destination": "uf_master_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "uf_bathroom_entry": {
+      "id": "uf_bathroom_entry",
+      "text": {
+        "file": "haunted.md",
+        "section": "uf_bathroom_entry"
+      },
+      "tags": [
+        "upper",
+        "bathroom"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "search",
+          "title": "Wipe the mirror",
+          "destination": "uf_bathroom_search",
+          "predicates": [],
+          "effects": []
+        },
+        {
+          "id": "to_landing",
+          "title": "Back to the landing",
+          "destination": "uf_landing_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "uf_bathroom_search": {
+      "id": "uf_bathroom_search",
+      "text": {
+        "file": "haunted.md",
+        "section": "uf_bathroom_search"
+      },
+      "tags": [
+        "upper"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "back",
+          "title": "Retreat from the mirror",
+          "destination": "uf_bathroom_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "uf_guest_east_entry": {
+      "id": "uf_guest_east_entry",
+      "text": {
+        "file": "haunted.md",
+        "section": "uf_guest_east_entry"
+      },
+      "tags": [
+        "upper",
+        "guest"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "search",
+          "title": "Lift the bedsheet",
+          "destination": "uf_guest_east_search",
+          "predicates": [],
+          "effects": []
+        },
+        {
+          "id": "to_sewing",
+          "title": "Sewing room next door",
+          "destination": "uf_sewing_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "uf_guest_east_search": {
+      "id": "uf_guest_east_search",
+      "text": {
+        "file": "haunted.md",
+        "section": "uf_guest_east_search"
+      },
+      "tags": [
+        "upper"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "back",
+          "title": "Return to the east guest room",
+          "destination": "uf_guest_east_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "uf_guest_west_entry": {
+      "id": "uf_guest_west_entry",
+      "text": {
+        "file": "haunted.md",
+        "section": "uf_guest_west_entry"
+      },
+      "tags": [
+        "upper",
+        "guest"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "search",
+          "title": "Peer under the pillow",
+          "destination": "uf_guest_west_search",
+          "predicates": [],
+          "effects": []
+        },
+        {
+          "id": "to_nursery",
+          "title": "Across to the nursery",
+          "destination": "uf_nursery_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "uf_guest_west_search": {
+      "id": "uf_guest_west_search",
+      "text": {
+        "file": "haunted.md",
+        "section": "uf_guest_west_search"
+      },
+      "tags": [
+        "upper"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "back",
+          "title": "Return to the west guest room",
+          "destination": "uf_guest_west_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "uf_nursery_entry": {
+      "id": "uf_nursery_entry",
+      "text": {
+        "file": "haunted.md",
+        "section": "uf_nursery_entry"
+      },
+      "tags": [
+        "upper",
+        "nursery"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "search",
+          "title": "Wind the music box (Sanity check)",
+          "destination": "uf_nursery_search",
+          "predicates": [
+            {
+              "id": "sanity_check",
+              "parameters": {
+                "dc": "9"
+              }
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "to_storage",
+          "title": "Open the attic storage door",
+          "destination": "uf_storage_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "uf_nursery_search": {
+      "id": "uf_nursery_search",
+      "text": {
+        "file": "haunted.md",
+        "section": "uf_nursery_search"
+      },
+      "tags": [
+        "upper"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "back",
+          "title": "Close the music box",
+          "destination": "uf_nursery_entry",
+          "predicates": [],
+          "effects": [
+            {
+              "id": "lose_sanity",
+              "parameters": {
+                "amount": "1"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "uf_sewing_entry": {
+      "id": "uf_sewing_entry",
+      "text": {
+        "file": "haunted.md",
+        "section": "uf_sewing_entry"
+      },
+      "tags": [
+        "upper",
+        "sewing"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "search",
+          "title": "Open the notions tin",
+          "destination": "uf_sewing_search",
+          "predicates": [],
+          "effects": []
+        },
+        {
+          "id": "to_storage",
+          "title": "Slip to the storage room",
+          "destination": "uf_storage_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "uf_sewing_search": {
+      "id": "uf_sewing_search",
+      "text": {
+        "file": "haunted.md",
+        "section": "uf_sewing_search"
+      },
+      "tags": [
+        "upper"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "back",
+          "title": "Back to the sewing room",
+          "destination": "uf_sewing_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "uf_storage_entry": {
+      "id": "uf_storage_entry",
+      "text": {
+        "file": "haunted.md",
+        "section": "uf_storage_entry"
+      },
+      "tags": [
+        "upper",
+        "storage"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "search",
+          "title": "Rattle the trunks",
+          "destination": "uf_storage_search",
+          "predicates": [],
+          "effects": []
+        },
+        {
+          "id": "to_attic",
+          "title": "Up the last steps to the attic",
+          "destination": "uf_attic_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "uf_storage_search": {
+      "id": "uf_storage_search",
+      "text": {
+        "file": "haunted.md",
+        "section": "uf_storage_search"
+      },
+      "tags": [
+        "upper"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "back",
+          "title": "Close the trunks",
+          "destination": "uf_storage_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "uf_attic_entry": {
+      "id": "uf_attic_entry",
+      "text": {
+        "file": "haunted.md",
+        "section": "uf_attic_entry"
+      },
+      "tags": [
+        "upper",
+        "attic"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "search",
+          "title": "Open the skin-bound tome (Sanity check)",
+          "destination": "uf_attic_search",
+          "predicates": [
+            {
+              "id": "sanity_check",
+              "parameters": {
+                "dc": "11"
+              }
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "to_west",
+          "title": "Creep back down",
+          "destination": "gf_west_hall_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "uf_attic_search": {
+      "id": "uf_attic_search",
+      "text": {
+        "file": "haunted.md",
+        "section": "uf_attic_search"
+      },
+      "tags": [
+        "upper"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "invoke",
+          "title": "Whisper the glyphs",
+          "destination": "uf_attic_ritual",
+          "predicates": [],
+          "effects": [
+            {
+              "id": "lose_sanity",
+              "parameters": {
+                "amount": "2"
+              }
+            }
+          ]
+        },
+        {
+          "id": "back",
+          "title": "Shut the tome",
+          "destination": "uf_attic_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "uf_attic_ritual": {
+      "id": "uf_attic_ritual",
+      "text": {
+        "file": "haunted.md",
+        "section": "uf_attic_ritual"
+      },
+      "tags": [
+        "upper",
+        "attic"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "seal",
+          "title": "Seal the breach with mirror shard",
+          "destination": "end_good",
+          "predicates": [
+            {
+              "id": "has_item",
+              "parameters": {
+                "id": "mirror_shard"
+              }
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "fail",
+          "title": "The shadow tears free",
+          "destination": "end_dead",
+          "predicates": [],
+          "effects": []
+        },
+        {
+          "id": "whisper_wrong",
+          "title": "Whisper the wrong syllable",
+          "destination": "end_mad3",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "dumbwaiter_gf": {
+      "id": "dumbwaiter_gf",
+      "text": {
+        "file": "haunted.md",
+        "section": "dumbwaiter_gf"
+      },
+      "tags": [
+        "connector"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "climb",
+          "title": "Climb up to the second floor",
+          "destination": "dumbwaiter_uf",
+          "predicates": [],
+          "effects": []
+        },
+        {
+          "id": "back",
+          "title": "Return to the kitchen",
+          "destination": "gf_kitchen_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "dumbwaiter_uf": {
+      "id": "dumbwaiter_uf",
+      "text": {
+        "file": "haunted.md",
+        "section": "dumbwaiter_uf"
+      },
+      "tags": [
+        "connector"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "out",
+          "title": "Emerge near the storage room",
+          "destination": "uf_storage_entry",
+          "predicates": [],
+          "effects": []
+        },
+        {
+          "id": "down",
+          "title": "Slide back down",
+          "destination": "gf_kitchen_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "secret_library_passage": {
+      "id": "secret_library_passage",
+      "text": {
+        "file": "haunted.md",
+        "section": "secret_library_passage"
+      },
+      "tags": [
+        "secret"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "ascend",
+          "title": "Follow the narrow stair",
+          "destination": "uf_attic_entry",
+          "predicates": [],
+          "effects": []
+        },
+        {
+          "id": "back",
+          "title": "Return to the library",
+          "destination": "gf_library_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "secret_pantry_chute": {
+      "id": "secret_pantry_chute",
+      "text": {
+        "file": "haunted.md",
+        "section": "secret_pantry_chute"
+      },
+      "tags": [
+        "secret"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "down",
+          "title": "Drop to the basement corridor",
+          "destination": "bs_stairs_down_entry",
+          "predicates": [],
+          "effects": []
+        },
+        {
+          "id": "back",
+          "title": "Clamber back to the pantry",
+          "destination": "gf_pantry_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "bs_stairs_down_entry": {
+      "id": "bs_stairs_down_entry",
+      "text": {
+        "file": "haunted.md",
+        "section": "bs_stairs_down_entry"
+      },
+      "tags": [
+        "basement",
+        "stairs"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "to_wine",
+          "title": "To the wine cellar",
+          "destination": "bs_wine_entry",
+          "predicates": [],
+          "effects": []
+        },
+        {
+          "id": "to_boiler",
+          "title": "To the boiler room",
+          "destination": "bs_boiler_entry",
+          "predicates": [],
+          "effects": []
+        },
+        {
+          "id": "search",
+          "title": "Examine the carvings",
+          "destination": "bs_stairs_down_search",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "bs_stairs_down_search": {
+      "id": "bs_stairs_down_search",
+      "text": {
+        "file": "haunted.md",
+        "section": "bs_stairs_down_search"
+      },
+      "tags": [
+        "basement"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "back",
+          "title": "Return to the stairwell",
+          "destination": "bs_stairs_down_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "bs_wine_entry": {
+      "id": "bs_wine_entry",
+      "text": {
+        "file": "haunted.md",
+        "section": "bs_wine_entry"
+      },
+      "tags": [
+        "basement",
+        "wine"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "search",
+          "title": "Check the racks",
+          "destination": "bs_wine_search",
+          "predicates": [],
+          "effects": []
+        },
+        {
+          "id": "to_tunnel",
+          "title": "Follow the cool draft",
+          "destination": "bs_tunnel_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "bs_wine_search": {
+      "id": "bs_wine_search",
+      "text": {
+        "file": "haunted.md",
+        "section": "bs_wine_search"
+      },
+      "tags": [
+        "basement"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "back",
+          "title": "Return to the cellar",
+          "destination": "bs_wine_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "bs_boiler_entry": {
+      "id": "bs_boiler_entry",
+      "text": {
+        "file": "haunted.md",
+        "section": "bs_boiler_entry"
+      },
+      "tags": [
+        "basement",
+        "boiler"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "search",
+          "title": "Inspect the gauges",
+          "destination": "bs_boiler_search",
+          "predicates": [],
+          "effects": []
+        },
+        {
+          "id": "to_storage",
+          "title": "Into the storage room",
+          "destination": "bs_storage_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "bs_boiler_search": {
+      "id": "bs_boiler_search",
+      "text": {
+        "file": "haunted.md",
+        "section": "bs_boiler_search"
+      },
+      "tags": [
+        "basement"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "back",
+          "title": "Back to the boiler room",
+          "destination": "bs_boiler_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "bs_storage_entry": {
+      "id": "bs_storage_entry",
+      "text": {
+        "file": "haunted.md",
+        "section": "bs_storage_entry"
+      },
+      "tags": [
+        "basement",
+        "storage"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "search",
+          "title": "Shift the crates",
+          "destination": "bs_storage_search",
+          "predicates": [],
+          "effects": []
+        },
+        {
+          "id": "to_coal",
+          "title": "A blackened doorway",
+          "destination": "bs_coal_room_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "bs_storage_search": {
+      "id": "bs_storage_search",
+      "text": {
+        "file": "haunted.md",
+        "section": "bs_storage_search"
+      },
+      "tags": [
+        "basement"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "back",
+          "title": "Back to storage",
+          "destination": "bs_storage_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "bs_coal_room_entry": {
+      "id": "bs_coal_room_entry",
+      "text": {
+        "file": "haunted.md",
+        "section": "bs_coal_room_entry"
+      },
+      "tags": [
+        "basement",
+        "coal"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "search",
+          "title": "Sweep the cinders",
+          "destination": "bs_coal_room_search",
+          "predicates": [],
+          "effects": []
+        },
+        {
+          "id": "to_root",
+          "title": "Cracked doorway to root cellar",
+          "destination": "bs_root_cellar_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "bs_coal_room_search": {
+      "id": "bs_coal_room_search",
+      "text": {
+        "file": "haunted.md",
+        "section": "bs_coal_room_search"
+      },
+      "tags": [
+        "basement"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "back",
+          "title": "Back to the coal room",
+          "destination": "bs_coal_room_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "bs_root_cellar_entry": {
+      "id": "bs_root_cellar_entry",
+      "text": {
+        "file": "haunted.md",
+        "section": "bs_root_cellar_entry"
+      },
+      "tags": [
+        "basement",
+        "root"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "search",
+          "title": "Pry at the old shelves",
+          "destination": "bs_root_cellar_search",
+          "predicates": [],
+          "effects": []
+        },
+        {
+          "id": "to_cistern",
+          "title": "Water drips beyond",
+          "destination": "bs_cistern_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "bs_root_cellar_search": {
+      "id": "bs_root_cellar_search",
+      "text": {
+        "file": "haunted.md",
+        "section": "bs_root_cellar_search"
+      },
+      "tags": [
+        "basement"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "back",
+          "title": "Back to the root cellar",
+          "destination": "bs_root_cellar_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "bs_cistern_entry": {
+      "id": "bs_cistern_entry",
+      "text": {
+        "file": "haunted.md",
+        "section": "bs_cistern_entry"
+      },
+      "tags": [
+        "basement",
+        "cistern"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "search",
+          "title": "Peer into the water",
+          "destination": "bs_cistern_search",
+          "predicates": [],
+          "effects": []
+        },
+        {
+          "id": "to_catacombs",
+          "title": "Follow the wet wall",
+          "destination": "bs_catacombs_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "bs_cistern_search": {
+      "id": "bs_cistern_search",
+      "text": {
+        "file": "haunted.md",
+        "section": "bs_cistern_search"
+      },
+      "tags": [
+        "basement"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "back",
+          "title": "Step away",
+          "destination": "bs_cistern_entry",
+          "predicates": [],
+          "effects": []
+        },
+        {
+          "id": "reach",
+          "title": "Reach toward the reflection",
+          "destination": "end_bare2",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "bs_tunnel_entry": {
+      "id": "bs_tunnel_entry",
+      "text": {
+        "file": "haunted.md",
+        "section": "bs_tunnel_entry"
+      },
+      "tags": [
+        "basement",
+        "tunnel"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "search",
+          "title": "Tap the walls",
+          "destination": "bs_tunnel_search",
+          "predicates": [],
+          "effects": []
+        },
+        {
+          "id": "to_catacombs",
+          "title": "Squeeze into a narrow passage",
+          "destination": "bs_catacombs_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "bs_tunnel_search": {
+      "id": "bs_tunnel_search",
+      "text": {
+        "file": "haunted.md",
+        "section": "bs_tunnel_search"
+      },
+      "tags": [
+        "basement"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "back",
+          "title": "Back to the tunnel",
+          "destination": "bs_tunnel_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "bs_catacombs_entry": {
+      "id": "bs_catacombs_entry",
+      "text": {
+        "file": "haunted.md",
+        "section": "bs_catacombs_entry"
+      },
+      "tags": [
+        "basement",
+        "catacombs"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "search",
+          "title": "Trace the chalk marks",
+          "destination": "bs_catacombs_search",
+          "predicates": [],
+          "effects": []
+        },
+        {
+          "id": "to_ritual",
+          "title": "Down into the octagonal chamber",
+          "destination": "bs_ritual_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "bs_catacombs_search": {
+      "id": "bs_catacombs_search",
+      "text": {
+        "file": "haunted.md",
+        "section": "bs_catacombs_search"
+      },
+      "tags": [
+        "basement"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "back",
+          "title": "Return to the catacombs",
+          "destination": "bs_catacombs_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "bs_ritual_entry": {
+      "id": "bs_ritual_entry",
+      "text": {
+        "file": "haunted.md",
+        "section": "bs_ritual_entry"
+      },
+      "tags": [
+        "basement",
+        "ritual"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "sanity",
+          "title": "Stare at the sigils (Sanity check)",
+          "destination": "encounter_shadow1",
+          "predicates": [
+            {
+              "id": "sanity_check",
+              "parameters": {
+                "dc": "12"
+              }
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "flee",
+          "title": "Flee back into the tunnel",
+          "destination": "bs_tunnel_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "encounter_shadow1": {
+      "id": "encounter_shadow1",
+      "text": {
+        "file": "haunted.md",
+        "section": "encounter_shadow1"
+      },
+      "tags": [
+        "encounter"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "resist",
+          "title": "Stand your ground (Sanity check)",
+          "destination": "encounter_shadow2",
+          "predicates": [
+            {
+              "id": "sanity_check",
+              "parameters": {
+                "dc": "13"
+              }
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "collapse",
+          "title": "Collapse into darkness",
+          "destination": "end_mad1",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "encounter_shadow2": {
+      "id": "encounter_shadow2",
+      "text": {
+        "file": "haunted.md",
+        "section": "encounter_shadow2"
+      },
+      "tags": [
+        "encounter"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "break",
+          "title": "Break the chalk ring with crank",
+          "destination": "events_crank_winch",
+          "predicates": [
+            {
+              "id": "has_item",
+              "parameters": {
+                "id": "iron_crank"
+              }
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "run",
+          "title": "Run, anywhere but here",
+          "destination": "gf_west_hall_entry",
+          "predicates": [],
+          "effects": []
+        },
+        {
+          "id": "panic",
+          "title": "Panic at the edge",
+          "destination": "end_mad2",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "events_shard_mirror": {
+      "id": "events_shard_mirror",
+      "text": {
+        "file": "haunted.md",
+        "section": "events_shard_mirror"
+      },
+      "tags": [
+        "event"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "back",
+          "title": "Return to your search",
+          "destination": "gf_library_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "events_locket_memory": {
+      "id": "events_locket_memory",
+      "text": {
+        "file": "haunted.md",
+        "section": "events_locket_memory"
+      },
+      "tags": [
+        "event"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "steady",
+          "title": "Steady yourself",
+          "destination": "uf_master_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "events_cipher_note": {
+      "id": "events_cipher_note",
+      "text": {
+        "file": "haunted.md",
+        "section": "events_cipher_note"
+      },
+      "tags": [
+        "event"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "pocket",
+          "title": "Pocket the note",
+          "destination": "gf_study_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "events_crank_winch": {
+      "id": "events_crank_winch",
+      "text": {
+        "file": "haunted.md",
+        "section": "events_crank_winch"
+      },
+      "tags": [
+        "event"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "back",
+          "title": "Head back",
+          "destination": "gf_kitchen_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "end_good": {
+      "id": "end_good",
+      "text": {
+        "file": "haunted.md",
+        "section": "end_good"
+      },
+      "tags": [
+        "ending"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "restart",
+          "title": "Leave the house and return to the threshold",
+          "destination": "gf_foyer_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "end_dead": {
+      "id": "end_dead",
+      "text": {
+        "file": "haunted.md",
+        "section": "end_dead"
+      },
+      "tags": [
+        "ending"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "restart",
+          "title": "Another life, another chance",
+          "destination": "gf_foyer_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "end_mad1": {
+      "id": "end_mad1",
+      "text": {
+        "file": "haunted.md",
+        "section": "end_mad1"
+      },
+      "tags": [
+        "ending"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "restart",
+          "title": "Wake at the threshold",
+          "destination": "gf_foyer_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "end_mad2": {
+      "id": "end_mad2",
+      "text": {
+        "file": "haunted.md",
+        "section": "end_mad2"
+      },
+      "tags": [
+        "ending"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "restart",
+          "title": "Wake at the threshold",
+          "destination": "gf_foyer_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "end_mad3": {
+      "id": "end_mad3",
+      "text": {
+        "file": "haunted.md",
+        "section": "end_mad3"
+      },
+      "tags": [
+        "ending"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "restart",
+          "title": "Wake at the threshold",
+          "destination": "gf_foyer_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "end_bare1": {
+      "id": "end_bare1",
+      "text": {
+        "file": "haunted.md",
+        "section": "end_bare1"
+      },
+      "tags": [
+        "ending"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "restart",
+          "title": "Wake at the threshold",
+          "destination": "gf_foyer_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "end_bare2": {
+      "id": "end_bare2",
+      "text": {
+        "file": "haunted.md",
+        "section": "end_bare2"
+      },
+      "tags": [
+        "ending"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "restart",
+          "title": "Wake at the threshold",
+          "destination": "gf_foyer_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    },
+    "end_bare3": {
+      "id": "end_bare3",
+      "text": {
+        "file": "haunted.md",
+        "section": "end_bare3"
+      },
+      "tags": [
+        "ending"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "restart",
+          "title": "Wake at the threshold",
+          "destination": "gf_foyer_entry",
+          "predicates": [],
+          "effects": []
+        }
+      ]
+    }
+  },
+  "entities": {
+    "lurking_shadow": {
+      "name": "Lurking Shadow",
+      "tags": [
+        "antagonist",
+        "eldritch"
+      ]
+    },
+    "house_mind": {
+      "name": "House Mind",
+      "tags": [
+        "cosmic",
+        "horror"
+      ]
+    }
+  },
+  "globals": {
+    "globalActions": {
+      "player_died": {
+        "title": "You Died",
+        "destination": "end_dead"
+      }
+    }
+  }
+}

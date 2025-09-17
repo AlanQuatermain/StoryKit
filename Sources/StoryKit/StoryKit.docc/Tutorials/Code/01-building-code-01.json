@@ -1,0 +1,16 @@
+{
+  "start": "missing_start",
+  "nodes": {
+    "gf_foyer_entry": {
+      "id": "gf_foyer_entry",
+      "text": { "file": "haunted.md", "section": "foyer" },
+      "choices": [
+        { "id": "door1", "title": "Go east", "destination": "gf_east_hall_entry" },
+        { "id": "door1", "title": "Go west", "destination": "gf_west_hall_entry" },
+        { "id": "door3", "title": "Go down", "destination": "basement" }
+      ]
+    }
+  },
+  "globals": { "globalActions": { "player_died": { "destination": "end_dead" } } }
+}
+

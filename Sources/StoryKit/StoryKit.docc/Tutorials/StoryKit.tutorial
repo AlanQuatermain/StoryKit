@@ -1,0 +1,18 @@
+@Tutorials(name: "StoryKit Tutorials") {
+    @Intro(title: "Welcome to StoryKit Tutorials") {
+        Explore StoryKit by building, validating, and playing a branching horror story set in a haunted house. Start by fixing a broken content package, then add a CLI play loop, and finally extend the story with state, checks, and autosave.
+
+        @Image(source: placeholder-image.png, alt: "A dark illustration of a decaying mansion, with crooked windows and an ominous sky.")
+    }
+
+    @Chapter(name: "Authoring and Validation") {
+        @Image(source: placeholder-image.png, alt: "Story authoring and validation.")
+        @TutorialReference(tutorial: "doc:Building-Your-First-Story")
+    }
+
+    @Chapter(name: "Play and Extend") {
+        @Image(source: placeholder-image.png, alt: "Playing stories and adding state.")
+        @TutorialReference(tutorial: "doc:Playing-a-Story-in-Swift")
+        @TutorialReference(tutorial: "doc:Adding-State-and-Skill-Checks")
+    }
+}

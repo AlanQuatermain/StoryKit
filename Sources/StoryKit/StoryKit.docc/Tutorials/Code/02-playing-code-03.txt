@@ -1,0 +1,17 @@
+You stand in the foyer of the house on Ash Tree Lane. The wallpaper peels in strips and an unseen draft chills your skin.
+1. Go east into the shadowed hall
+2. Go west where the floor tilts
+3. Go down (the boards feel colder)
+4. Ascend the main staircase
+Enter choice: 2
+
+The west hallway tilts unnaturally, as though the geometry of the house resists you. A ripple of shadow crawls along the far wall and is gone.
+1. Return to the foyer
+2. Climb the narrow stair to the attic
+Enter choice: 2
+
+The attic is cluttered with rotting trunks and moth-eaten curtains. In the corner lies a heavy tome bound in skin. You open it and feel an almost physical weight pressing on your thoughts, as if the house itself were intruding on your mind.
+1. Descend to the west hall
+2. Steady yourself and read the tome (Sanity check)
+Enter choice: 1
+

@@ -1,0 +1,17 @@
+{
+  "start": "gf_foyer_entry",
+  "nodes": {
+    "gf_foyer_entry": {
+      "id": "gf_foyer_entry",
+      "text": { "file": "haunted.md", "section": "foyer" },
+      "choices": [
+        { "id": "door1", "title": "Go east", "destination": "gf_east_hall_entry" },
+        { "id": "door2", "title": "Go west", "destination": "gf_west_hall_entry" },
+        { "id": "down", "title": "Go down", "destination": "bs_stairs_down_entry" }
+      ]
+    }
+  },
+  "entities": { "lurking_shadow": { "name": "Lurking Shadow" } },
+  "globals": { "globalActions": { "player_died": { "destination": "end_dead" } } }
+}
+

@@ -1,0 +1,71 @@
+@Tutorial(time: 50) {
+    @Intro(title: "Adding State and Skill Checks") {
+        Extend your Haunted House story with RPG-style player state, sanity checks, a rare antagonist encounter, and autosave support. You’ll register predicates, effects, and actions, wire a global `player_died` action, and see both success and failure paths.
+
+        @Image(source: placeholder-image.png, alt: "A diagram of state, checks, and actions driving the engine.")
+    }
+
+    @Section(title: "Define PlayerState") {
+        @Steps {
+            @Step {
+                Define a simple `PlayerState` tracking hit points, sanity, and inventory.
+                Define the `PlayerState` type in your app package.
+                @Code(name: "PlayerState.swift", file: 03-state-code-01.swift) {}
+            }
+        }
+    }
+
+    @Section(title: "Register predicates and effects") {
+        @Steps {
+            @Step {
+                Register a sanity check predicate and a couple of effects to gain or lose sanity/items.
+                Register a predicate to check sanity, effects to gain items or lose sanity, and any actions you need.
+                @Code(name: "Registry setup", file: 03-state-code-02.swift) {}
+            }
+        }
+    }
+
+    @Section(title: "Global actions and antagonist") {
+        @ContentAndMedia {
+            Declare a global action mapping for `player_died` to the `end_dead` node in content, and (in code) provide an action that triggers defeat. Model a rare antagonist encounter in the west hall.
+        }
+        @Steps {
+            @Step {
+                Wire a simple antagonist encounter flow and a `player_died` action that routes to the global end node.
+                @Code(name: "Actions and encounter", file: 03-state-code-03.swift) {}
+            }
+        }
+    }
+
+    @Section(title: "Autosave") {
+        @Steps {
+            @Step {
+                Use `JSONFileSaveProvider` and `makeAutoSaveHandler` to persist state and resume.
+                @Code(name: "Autosave wiring", file: 03-state-code-04.swift) {}
+            }
+        }
+    }
+
+    @Section(title: "Sample runs") {
+        @Steps {
+            @Step {
+                A successful sanity check path should keep sanity above the DC and proceed.
+                @Code(name: "Success transcript", file: 03-state-code-05.txt) {}
+            }
+            @Step {
+                A failed check should route to a failure ending (death or madness) per your content.
+                @Code(name: "Failure transcript", file: 03-state-code-06.txt) {}
+            }
+        }
+    }
+
+    @Section(title: "Download the final project") {
+        @Steps {
+            @Step {
+                Download a zip of the complete project:
+
+                Download: [final-project.zip](zips/final-project.zip)
+            }
+        }
+    }
+}

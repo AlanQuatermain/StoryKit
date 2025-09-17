@@ -1,0 +1,7 @@
+Library, success path (sanity holds):
+You stumble into a small library. The shelves are warped, books swollen with damp. A presence stirs, whispering syllables that scrape against your mind.
+1. Slip back into the east hall
+Enter choice: 1
+
+The east hallway stretches into a corridor whose length seems inconsistent, as though the house argues with your memory. The boards groan beneath your feet.
+

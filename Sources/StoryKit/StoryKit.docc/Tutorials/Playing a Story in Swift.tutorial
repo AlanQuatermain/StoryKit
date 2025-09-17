@@ -1,0 +1,58 @@
+@Tutorial(time: 35) {
+    @Intro(title: "Playing a Story in Swift") {
+        In this tutorial, you’ll add a small CLI to load and play your compiled Haunted House `.storybundle` using StoryKit’s engine. You’ll display node text, present choices, and loop on user input for a short playthrough.
+
+        @Image(source: placeholder-image.png, alt: "A terminal session playing the haunted house story.")
+    }
+
+    @Section(title: "Create an executable target") {
+        @Steps {
+            @Step {
+                Add an executable target to your package named `HauntedCLI` that depends on `StoryKit`.
+
+                Add the target in your package manifest.
+                @Code(name: "Package.swift excerpt", file: 02-playing-code-01.swift) {}
+            }
+        }
+    }
+
+    @Section(title: "Implement the play loop") {
+        @ContentAndMedia {
+            The `StoryEngine` actor exposes `currentNode()`, `availableChoices()`, and `select(choiceID:)` APIs. Initialize the engine with a minimal `State` that tracks `currentNode`, load the compiled story bundle, and run an interactive loop.
+        }
+        @Steps {
+            @Step {
+                Create `Sources/HauntedCLI/main.swift` with the play loop:
+
+                Implement the play loop in `Sources/HauntedCLI/main.swift`.
+                @Code(name: "main.swift", file: 02-playing-code-02.swift) {}
+            }
+
+            @Step {
+                Build and run the CLI; you should see a brief play path from the foyer through adjacent rooms.
+            }
+        }
+    }
+
+    @Section(title: "Sample play transcript") {
+        @ContentAndMedia {
+            Below is an example of interacting with the story for a few moves. Your output should be similar when using the supplied content.
+        }
+        @Steps {
+            @Step {
+                Here’s an example transcript for the first few moves; your output should be similar.
+                @Code(name: "Transcript", file: 02-playing-code-03.txt) {}
+            }
+        }
+    }
+
+    @Section(title: "Download the CLI project") {
+        @Steps {
+            @Step {
+                Download a zip of the CLI project:
+
+                Download: [cli-play.zip](zips/cli-play.zip)
+            }
+        }
+    }
+}
