@@ -129,5 +129,113 @@ struct CLITests {
         let out = String(data: data, encoding: .utf8) ?? ""
         #expect(out.contains("a -> b"))
     }
+
+    @Test("Validate fixture summary text")
+    func validateFixtureSummaryText() throws {
+        guard let bin = findBinary(named: "storykit") else { return }
+        let cwd = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
+        let fx = cwd.appendingPathComponent("Tests/Fixtures/TinyStory")
+        let pipe = Pipe()
+        let status = try runProcess(bin, args: ["validate", fx.path], stdout: pipe)
+        #expect(status == 0)
+        let data = pipe.fileHandleForReading.readDataToEndOfFile()
+        let out = String(data: data, encoding: .utf8) ?? ""
+        #expect(out.contains("Entities ("))
+        #expect(out.contains("rat"))
+        #expect(out.contains("Actors by node:"))
+        #expect(out.contains("start"))
+        #expect(out.contains("r1"))
+    }
+
+    @Test("Validate fixture summary JSON")
+    func validateFixtureSummaryJSON() throws {
+        guard let bin = findBinary(named: "storykit") else { return }
+        let cwd = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
+        let fx = cwd.appendingPathComponent("Tests/Fixtures/TinyStory")
+        let pipe = Pipe()
+        let status = try runProcess(bin, args: ["validate", fx.path, "--format", "json"], stdout: pipe)
+        #expect(status == 0)
+        let data = pipe.fileHandleForReading.readDataToEndOfFile()
+        struct Report: Decodable {
+            struct Summary: Decodable {
+                struct Entity: Decodable { let id: String; let name: String?; let tags: [String] }
+                struct NodeActors: Decodable { let node: String; let actors: [Actor] }
+                struct Actor: Decodable { let id: String; let ref: String?; let name: String?; let tags: [String] }
+                let entities: [Entity]
+                let actorsByNode: [NodeActors]
+            }
+            let summary: Summary
+        }
+        let report = try JSONDecoder().decode(Report.self, from: data)
+        #expect(report.summary.entities.contains { $0.id == "rat" && ($0.name ?? "") == "Rat" && $0.tags.contains("hostile") })
+        #expect(report.summary.actorsByNode.contains { $0.node == "start" && $0.actors.contains { $0.id == "r1" && $0.ref == "rat" } })
+    }
+
+    @Test("Validate --summary-only text")
+    func validateSummaryOnlyText() throws {
+        guard let bin = findBinary(named: "storykit") else { return }
+        let cwd = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
+        let fx = cwd.appendingPathComponent("Tests/Fixtures/TinyStory")
+        let pipe = Pipe()
+        let status = try runProcess(bin, args: ["validate", fx.path, "--summary-only"], stdout: pipe)
+        #expect(status == 0)
+        let data = pipe.fileHandleForReading.readDataToEndOfFile()
+        let out = String(data: data, encoding: .utf8) ?? ""
+        #expect(out.contains("Entities (1):"))
+        #expect(out.contains("rat"))
+        #expect(out.contains("- [WARNING]") == false)
+        #expect(out.contains("- [ERROR]") == false)
+    }
+
+    @Test("Validate --no-summary text")
+    func validateNoSummaryText() throws {
+        guard let bin = findBinary(named: "storykit") else { return }
+        let cwd = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
+        let fx = cwd.appendingPathComponent("Tests/Fixtures/TinyStory")
+        let pipe = Pipe()
+        let status = try runProcess(bin, args: ["validate", fx.path, "--no-summary"], stdout: pipe)
+        #expect(status == 0)
+        let data = pipe.fileHandleForReading.readDataToEndOfFile()
+        let out = String(data: data, encoding: .utf8) ?? ""
+        #expect(out.contains("- [WARNING] Node has no choices: end"))
+        #expect(out.contains("Entities (") == false)
+        #expect(out.contains("Actors by node:") == false)
+    }
+
+    @Test("Validate --summary-only JSON")
+    func validateSummaryOnlyJSON() throws {
+        guard let bin = findBinary(named: "storykit") else { return }
+        let cwd = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
+        let fx = cwd.appendingPathComponent("Tests/Fixtures/TinyStory")
+        let pipe = Pipe()
+        let status = try runProcess(bin, args: ["validate", fx.path, "--format", "json", "--summary-only"], stdout: pipe)
+        #expect(status == 0)
+        let data = pipe.fileHandleForReading.readDataToEndOfFile()
+        struct Summary: Decodable {
+            struct Entity: Decodable { let id: String; let name: String?; let tags: [String] }
+            struct NodeActors: Decodable { let node: String; let actors: [Actor] }
+            struct Actor: Decodable { let id: String; let ref: String?; let name: String?; let tags: [String] }
+            let entities: [Entity]
+            let actorsByNode: [NodeActors]
+        }
+        let summary = try JSONDecoder().decode(Summary.self, from: data)
+        #expect(summary.entities.contains { $0.id == "rat" })
+        #expect(summary.actorsByNode.contains { $0.node == "start" && $0.actors.contains { $0.id == "r1" && $0.ref == "rat" } })
+    }
+
+    @Test("Validate --no-summary JSON")
+    func validateNoSummaryJSON() throws {
+        guard let bin = findBinary(named: "storykit") else { return }
+        let cwd = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
+        let fx = cwd.appendingPathComponent("Tests/Fixtures/TinyStory")
+        let pipe = Pipe()
+        let status = try runProcess(bin, args: ["validate", fx.path, "--format", "json", "--no-summary"], stdout: pipe)
+        #expect(status == 0)
+        let data = pipe.fileHandleForReading.readDataToEndOfFile()
+        let obj = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+        #expect(obj?["summary"] == nil)
+        #expect((obj?["ok"] as? Bool) != nil)
+        #expect((obj?["issues"] as? [Any]) != nil)
+    }
 }
 #endif

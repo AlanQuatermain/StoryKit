@@ -22,3 +22,8 @@ Define a type conforming to ``Core/StoryState`` to represent your game’s state
 
 For deterministic tests, avoid randomness in registry closures or route any randomness through state so tests can substitute deterministic values.
 
+## Encounters and Global Actions
+
+- Declare who/what is present using data‑only fields in content: top‑level `entities` and per‑node `actors`. These carry identifiers, labels, and tags — not mechanics.
+- Drive multi‑step encounters entirely in your client using registered actions that mutate your ``Core/StoryState``. The engine can remain on the same node between turns.
+- When an out‑of‑band outcome should transition regardless of the current node (e.g., “player died”), declare a `globals.globalActions` entry in content and call ``Engine/StoryEngine/performGlobalAction(id:)`` to jump to its destination (on‑enter effects and autosave apply).

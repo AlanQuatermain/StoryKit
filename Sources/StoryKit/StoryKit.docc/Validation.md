@@ -18,6 +18,9 @@ The validator analyzes your story graph and referenced text to detect common pro
 - Unreachable nodes from the start
 - Duplicate choice IDs per node
 - Node dictionary key/id mismatches (data hygiene)
+- Duplicate actor IDs per node
+- Unknown entity ids referenced by node actors
+- Global actions pointing to missing destination nodes
 
 ## Flow Checks
 
@@ -33,4 +36,3 @@ The validator analyzes your story graph and referenced text to detect common pro
 ## Using the CLI
 
 The CLI provides `storykit validate <path>` with `--format text|json`. JSON output includes aggregated counts and issue details, and exits non‑zero only when errors are present.
-

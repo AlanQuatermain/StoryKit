@@ -34,6 +34,6 @@ let engine = StoryEngine(
 - ``Engine/StoryEngine/availableChoices()``: Filters choices by evaluating registered predicates.
 - ``Engine/StoryEngine/select(choiceID:)``: Applies choice effects, transitions to the destination, applies destination on‑enter effects, then invokes autosave.
 - ``Engine/StoryEngine/performAction(id:parameters:)``: Invokes a registered action, allows state mutation, then invokes autosave.
+- ``Engine/StoryEngine/performGlobalAction(id:)``: Transitions to a globally declared action’s destination and applies on‑enter effects, then autosaves.
 
 All engine methods are isolated to the actor, ensuring thread safety.
-

@@ -14,6 +14,9 @@ public struct StoryIssue: Codable, Hashable, CustomStringConvertible, Sendable {
         case orphanMarkdownFile
         case emptyChoices
         case noExitCycle
+        case duplicateActorID
+        case unknownEntity
+        case invalidGlobalActionDestination
     }
     public enum Severity: String, Sendable, Codable { case error, warning }
     public var kind: Kind
@@ -53,6 +56,16 @@ public struct StoryValidator: Sendable {
                     issues.append(.init(.missingDestination, "Node \(node.id.rawValue) has choice \(c.id.rawValue) to missing node \(c.destination.rawValue)", severity: .error))
                 }
             }
+            // Duplicate actor ids and unknown entity references
+            var seenActorIDs: Set<String> = []
+            for a in node.actors {
+                if !seenActorIDs.insert(a.id).inserted {
+                    issues.append(.init(.duplicateActorID, "Duplicate actor id \(a.id) in node \(node.id.rawValue)", severity: .error))
+                }
+                if let ref = a.ref, story.entities[ref] == nil {
+                    issues.append(.init(.unknownEntity, "Node \(node.id.rawValue) references unknown entity '\(ref)'", severity: .error))
+                }
+            }
         }
 
         // reachability from start and empty-choices checks
@@ -87,6 +100,15 @@ public struct StoryValidator: Sendable {
                 if hasNoExit && hasCycle {
                     let list = scc.map { $0.rawValue }.sorted().joined(separator: ", ")
                     issues.append(.init(.noExitCycle, "Cycle with no exits involving: [\(list)]", severity: .warning))
+                }
+            }
+        }
+
+        // Validate globals: global action destinations must exist
+        if let globals = story.globals {
+            for (id, action) in globals.globalActions {
+                if story.nodes[action.destination] == nil {
+                    issues.append(.init(.invalidGlobalActionDestination, "Global action '\(id)' points to missing node \(action.destination.rawValue)", severity: .error))
                 }
             }
         }

@@ -119,4 +119,62 @@ struct ValidationTests {
         #expect(issues.contains { $0.kind == .orphanTextSection && $0.severity == .warning })
         #expect(issues.contains { $0.kind == .orphanMarkdownFile && $0.severity == .warning })
     }
+
+    @Test("Actor/entity/global validations")
+    func actorEntityGlobalValidations() async throws {
+        let n = NodeID(rawValue: "N")
+        // Node with duplicate actors and unknown entity ref
+        let node = Node(
+            id: n,
+            text: TextRef(file: "t.md", section: "n"),
+            choices: [],
+            actors: [
+                ActorDescriptor(id: "a1", ref: "orc"),
+                ActorDescriptor(id: "a1", ref: "goblin") // duplicate id
+            ]
+        )
+        var story = Story(metadata: .init(id: "s", title: "S"), start: n, nodes: [n: node])
+        // Only define one of the referenced entities
+        story.entities = ["goblin": EntityDescriptor(name: "Goblin")]
+        // Global action points to a missing node
+        story.globals = Globals(globalActions: [
+            "playerDied": GlobalAction(title: "You Died", destination: NodeID(rawValue: "NOPE"))
+        ])
+        let issues = StoryValidator().validate(story: story)
+        #expect(issues.contains { $0.kind == .duplicateActorID && $0.severity == .error })
+        #expect(issues.contains { $0.kind == .unknownEntity && $0.severity == .error })
+        #expect(issues.contains { $0.kind == .invalidGlobalActionDestination && $0.severity == .error })
+    }
+
+    @Test("Fixture decodes actors and entities")
+    func fixtureDecodesActorsAndEntities() throws {
+        let cwd = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
+        let root = cwd.appendingPathComponent("Tests/Fixtures/TinyStory")
+        let story = try StoryLoader().loadStory(from: root.appendingPathComponent("story.json"))
+        #expect(story.entities.keys.contains("rat"))
+        let start = NodeID(rawValue: "start")
+        #expect(story.nodes[start]?.actors.contains(where: { $0.id == "r1" && $0.ref == "rat" }) == true)
+    }
+
+    @Test("Direct Node decode with actors")
+    func directNodeDecodeWithActors() throws {
+        let json = """
+        {"id":"n","text":{"file":"t.md","section":"s"},"actors":[{"id":"a1","ref":"ent"}],"choices":[]}
+        """
+        let data = json.data(using: .utf8)!
+        let node = try JSONDecoder().decode(Node.self, from: data)
+        #expect(node.actors.contains { $0.id == "a1" && $0.ref == "ent" })
+    }
+
+    @Test("ActorDescriptor decodes")
+    func actorDescriptorDecodes() throws {
+        let json = """
+        [{"id":"a1","ref":"ent"}]
+        """
+        let data = json.data(using: .utf8)!
+        let arr = try JSONDecoder().decode([ActorDescriptor].self, from: data)
+        #expect(arr.count == 1)
+        #expect(arr.first?.id == "a1")
+        #expect(arr.first?.ref == "ent")
+    }
 }

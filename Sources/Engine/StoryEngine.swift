@@ -100,6 +100,18 @@ public actor StoryEngine<State: StoryState> {
         }
         return outcome
     }
+
+    // Perform a globally-declared action by id (transitions to its destination and applies on-enter effects).
+    @discardableResult
+    public func performGlobalAction(id: String) async throws -> NodeID {
+        guard let ga = story.globals?.globalActions[id] else { throw EngineError.unknownGlobalAction }
+        state.currentNode = ga.destination
+        if let dest = story.nodes[state.currentNode] {
+            effectRegistry.apply(dest.onEnter, state: &state)
+        }
+        if let autosave { try await autosave(state) }
+        return state.currentNode
+    }
 }
 
 /// Errors thrown by the story engine for invalid or blocked operations.
@@ -107,4 +119,5 @@ public enum EngineError: Error, Equatable {
     case unknownNode
     case unknownChoice
     case choiceBlocked
+    case unknownGlobalAction
 }

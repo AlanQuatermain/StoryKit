@@ -21,6 +21,8 @@ The structure file is a JSON object with these top‑level fields:
 - `metadata`: `{ id: String, title: String, version: Int }`
 - `start`: `String` — the NodeID where the story begins
 - `nodes`: `Object` — mapping from NodeID (string) to node objects
+- `entities` (optional): `Object` — mapping from entity id to entity descriptors (declarative only)
+- `globals` (optional): `{ globalActions: { String: GlobalAction } }`
 
 Node objects:
 
@@ -29,6 +31,7 @@ Node objects:
 - `tags`: `[String]` — optional labels
 - `onEnter`: `[EffectDescriptor]` — effects applied when entering
 - `choices`: `[Choice]` — outgoing edges
+- `actors` (optional): `[ActorDescriptor]` — present entities at this location (data‑only)
 
 Choice objects:
 
@@ -44,6 +47,12 @@ Descriptor objects:
 - `PredicateDescriptor`: `{ id: String, parameters: { String: String } }`
 - `EffectDescriptor`: `{ id: String, parameters: { String: String } }`
 
+Entity/actor/global objects:
+
+- `EntityDescriptor`: `{ name?: String, nameKey?: String, tags?: [String], assetKey?: String }`
+- `ActorDescriptor`: `{ id: String, ref?: String, name?: String, nameKey?: String, tags?: [String], faction?: String }`
+- `GlobalAction`: `{ title?: String, titleKey?: String, destination: String }`
+
 Minimal example:
 
 ```json
@@ -55,6 +64,7 @@ Minimal example:
       "id": "a",
       "text": { "file": "t.md", "section": "a" },
       "tags": [],
+      "actors": [ { "id": "g1", "ref": "goblin" } ],
       "onEnter": [],
       "choices": [
         { "id": "go", "title": "Continue", "destination": "b", "predicates": [], "effects": [] }
@@ -66,6 +76,14 @@ Minimal example:
       "tags": [],
       "onEnter": [],
       "choices": []
+    }
+  },
+  "entities": {
+    "goblin": { "name": "Goblin", "tags": ["hostile"] }
+  },
+  "globals": {
+    "globalActions": {
+      "playerDied": { "title": "You Died", "destination": "b" }
     }
   }
 }
@@ -138,4 +156,3 @@ The `storykit graph` command can export edges in several formats (written to std
 - `text`: One line per edge — `from -> to`.
 - `dot`: GraphViz DOT — declares nodes and edges, suitable for visualization.
 - `json`: Array of edges — `[ { "from": String, "to": String } ]`.
-

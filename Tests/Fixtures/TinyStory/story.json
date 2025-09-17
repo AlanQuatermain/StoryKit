@@ -1,0 +1,30 @@
+{
+  "metadata": { "id": "tiny", "title": "Tiny Story", "version": 1 },
+  "start": "start",
+  "nodes": {
+    "start": {
+      "id": "start",
+      "text": { "file": "t.md", "section": "start" },
+      "tags": [],
+      "actors": [ { "id": "r1", "ref": "rat" } ],
+      "onEnter": [],
+      "choices": [ { "id": "go", "title": "Continue", "destination": "end", "predicates": [], "effects": [] } ]
+    },
+    "end": {
+      "id": "end",
+      "text": { "file": "t.md", "section": "end" },
+      "tags": [],
+      "onEnter": [],
+      "choices": []
+    }
+  },
+  "entities": {
+    "rat": { "name": "Rat", "tags": ["hostile"] }
+  },
+  "globals": {
+    "globalActions": {
+      "playerDied": { "title": "You Died", "destination": "end" }
+    }
+  }
+}
+
