@@ -20,7 +20,9 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(url: "https://github.com/apple/swift-argument-parser", from: "1.5.0")
+        .package(url: "https://github.com/apple/swift-argument-parser", from: "1.5.0"),
+        // DocC plugin for generating documentation via `swift package generate-documentation`
+        .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.3.0")
     ],
     targets: [
         // Submodules
