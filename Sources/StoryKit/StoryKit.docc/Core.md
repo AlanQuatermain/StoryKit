@@ -4,7 +4,7 @@ Understand StoryKit’s core data model and identifiers.
 
 ## Overview
 
-The Core module defines the schema for stories and the foundational types used across the package. It is deliberately small and `Sendable` to support safe use with Swift Concurrency.
+StoryKit defines the schema for stories and the foundational types used across the package. It is deliberately small and `Sendable` to support safe use with Swift Concurrency.
 
 ### Identifiers
 
