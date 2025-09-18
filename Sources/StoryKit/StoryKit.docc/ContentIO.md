@@ -4,7 +4,7 @@ Load, compile, and serve story content and text.
 
 ## Overview
 
-The ContentIO module handles authoring and runtime content formats, text parsing, and compiled bundle manifests.
+StoryKit handles authoring and runtime content formats, text parsing, and compiled bundle manifests.
 
 ## Layouts and Loaders
 

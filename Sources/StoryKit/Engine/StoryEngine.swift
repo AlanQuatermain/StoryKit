@@ -1,5 +1,5 @@
 import Foundation
-import Core
+// merged into StoryKit module
 
 /// An actor that executes story flow for a given story and app-defined state.
 ///

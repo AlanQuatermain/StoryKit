@@ -1,7 +1,7 @@
 import Foundation
 import Testing
-@testable import Persistence
-import Core
+@testable import StoryKit
+import StoryKit
 
 private struct S: StoryState { var currentNode: NodeID }
 

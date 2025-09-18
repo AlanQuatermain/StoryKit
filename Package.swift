@@ -12,7 +12,7 @@ let package = Package(
     products: [
         .library(
             name: "StoryKit",
-            targets: ["Core", "Engine", "Persistence", "ContentIO", "StoryKit"]
+            targets: ["StoryKit"]
         ),
         .executable(
             name: "storykit",
@@ -25,41 +25,22 @@ let package = Package(
         .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.3.0")
     ],
     targets: [
-        // Submodules
+        // Unified library target
         .target(
-            name: "Core"
-        ),
-        .target(
-            name: "Engine",
-            dependencies: ["Core"]
-        ),
-        .target(
-            name: "Persistence",
-            dependencies: ["Core"]
-        ),
-        .target(
-            name: "ContentIO",
-            dependencies: ["Core"]
-        ),
-        // Umbrella target that can provide convenience types/imports.
-        .target(
-            name: "StoryKit",
-            dependencies: ["Core", "Engine", "Persistence", "ContentIO"]
+            name: "StoryKit"
         ),
         // CLI tool
         .executableTarget(
             name: "StoryKitCLI",
             dependencies: [
-                "Core",
-                "Engine",
-                "ContentIO",
+                "StoryKit",
                 .product(name: "ArgumentParser", package: "swift-argument-parser")
             ]
         ),
         // Tests (swift-testing)
         .testTarget(
             name: "StoryKitTests",
-            dependencies: ["Core", "Engine", "ContentIO", "Persistence"],
+            dependencies: ["StoryKit"],
             path: "Tests/StoryKitTests"
         )
     ]

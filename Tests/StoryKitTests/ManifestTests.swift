@@ -1,7 +1,7 @@
 import Foundation
 import Testing
-@testable import ContentIO
-import Core
+@testable import StoryKit
+import StoryKit
 
 @Suite("ManifestAndBundle")
 struct ManifestTests {

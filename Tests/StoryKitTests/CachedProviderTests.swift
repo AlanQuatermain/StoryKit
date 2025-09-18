@@ -1,7 +1,6 @@
 import Foundation
 import Testing
-@testable import ContentIO
-import Core
+import StoryKit
 
 private func writeMarkdown(_ url: URL, sections: [(String, String)]) throws {
     var s = ""

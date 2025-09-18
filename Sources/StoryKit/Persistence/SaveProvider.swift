@@ -1,5 +1,5 @@
 import Foundation
-import Core
+// merged into StoryKit module
 
 /// A codable snapshot of a story's state at a moment in time.
 public struct StorySave<State: StoryState & Codable & Sendable>: Codable, Sendable {

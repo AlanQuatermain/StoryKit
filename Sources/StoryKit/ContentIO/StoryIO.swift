@@ -1,5 +1,5 @@
 import Foundation
-import Core
+// merged into StoryKit module
 import CryptoKit
 import Dispatch
 

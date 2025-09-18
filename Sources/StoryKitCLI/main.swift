@@ -1,7 +1,6 @@
 import Foundation
 import ArgumentParser
-import ContentIO
-import Core
+import StoryKit
 
 @main
 struct StoryKitCLI: ParsableCommand {

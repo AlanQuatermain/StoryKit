@@ -1,5 +1,5 @@
 import Foundation
-import Core
+// merged into StoryKit module
 
 /// A validation issue discovered while analyzing a story.
 public struct StoryIssue: Codable, Hashable, CustomStringConvertible, Sendable {

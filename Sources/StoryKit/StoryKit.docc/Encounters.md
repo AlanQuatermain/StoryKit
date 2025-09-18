@@ -32,8 +32,7 @@ Model multi‑step battles in your app while keeping content data‑only.
 Define state that can hold an encounter sub‑state. Your app controls the rules.
 
 ```swift
-import Core
-import Engine
+import StoryKit
 
 struct EncounterState: Sendable, Codable {
     struct Participant: Sendable, Codable { var id: String; var hp: Int }
@@ -111,4 +110,3 @@ Notes:
 - Actions run on the engine actor and autosave (if configured) after each call.
 - Global actions apply on‑enter effects of their destination and autosave, just like normal transitions.
 - Encode richer parameters by convention (e.g., JSON in a string) if you need more structure.
-

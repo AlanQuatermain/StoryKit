@@ -1,6 +1,6 @@
 import Foundation
 import Testing
-import Core
+import StoryKit
 
 @Suite("CoreRegistries")
 struct CoreRegistryTests {

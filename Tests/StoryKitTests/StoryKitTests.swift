@@ -1,6 +1,5 @@
 import Testing
-import Core
-import Engine
+import StoryKit
 
 private struct SimpleState: StoryState {
     var currentNode: NodeID

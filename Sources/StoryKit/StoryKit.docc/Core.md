@@ -1,0 +1,40 @@
+# Core
+
+Understand StoryKit’s core data model and identifiers.
+
+## Overview
+
+The Core module defines the schema for stories and the foundational types used across the package. It is deliberately small and `Sendable` to support safe use with Swift Concurrency.
+
+### Identifiers
+
+- ``StoryKit/NodeID``: Strongly‑typed identifier for nodes.
+- ``StoryKit/ChoiceID``: Strongly‑typed identifier for choices.
+
+Both wrap `String` and conform to `Codable`, `Hashable`, and `Sendable`.
+
+### Content References
+
+- ``StoryKit/TextRef``: Points to the prose for a node via `file` (Markdown filename) and `section` (a labeled region within the file).
+
+### Story Graph
+
+- ``StoryKit/Choice``: A labeled edge from one node to another with optional predicates and effects.
+- ``StoryKit/Node``: A story node with text reference, optional tags, on‑enter effects, and a list of choices. Nodes may also be marked `terminal` to indicate intentional leaves (e.g., endings) that have no outgoing choices.
+- ``StoryKit/Story``: Aggregates metadata, the `start` node, and the `nodes` map.
+
+``StoryKit/Story`` encodes/decodes its `nodes` as a string‑keyed dictionary for authoring convenience while presenting a `[NodeID: Node]` API within Swift.
+
+### Extensibility Descriptors
+
+- ``StoryKit/PredicateDescriptor`` and ``StoryKit/EffectDescriptor``: Data‑only descriptors with an `id` and string parameters, used to bind to runtime logic registered by the host app.
+
+### Registries and State
+
+- ``StoryKit/StoryState``: Protocol for app‑defined, `Codable` and `Sendable` story state. Must include a `currentNode`.
+- ``StoryKit/PredicateRegistry``: Maps predicate ids to `@Sendable` evaluation closures.
+- ``StoryKit/EffectRegistry``: Maps effect ids to `@Sendable` mutation closures.
+- ``StoryKit/ActionRegistry``: Maps action ids to `@Sendable` closures that can throw and return an ``StoryKit/ActionOutcome``.
+- ``StoryKit/ActionOutcome``: Indicates action completion or requests host interaction.
+
+All registries are value types and store `@Sendable` closures to be safe across concurrency domains.

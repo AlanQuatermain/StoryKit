@@ -1,6 +1,6 @@
 import Foundation
 import CryptoKit
-import Core
+// merged into StoryKit module
 
 /// Metadata describing a compiled story bundle.
 public struct StoryBundleManifest: Codable, Sendable {

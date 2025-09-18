@@ -4,7 +4,7 @@ Save and load story state with pluggable backends.
 
 ## Overview
 
-The Persistence module defines protocols and default implementations for saving snapshots of your story state.
+StoryKit defines protocols and default implementations for saving snapshots of your story state.
 
 ## Key Types
 
