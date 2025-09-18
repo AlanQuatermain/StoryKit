@@ -31,6 +31,7 @@ Node objects:
 - `tags`: `[String]` — optional labels
 - `onEnter`: `[EffectDescriptor]` — effects applied when entering
 - `choices`: `[Choice]` — outgoing edges
+- `terminal`: `Bool` — optional, defaults to `false`. When `true`, the node is a terminal leaf and is allowed to have no outgoing choices (e.g., endings) without triggering validation warnings.
 - `actors` (optional): `[ActorDescriptor]` — present entities at this location (data‑only)
 
 Choice objects:
@@ -75,7 +76,8 @@ Minimal example:
       "text": { "file": "t.md", "section": "b" },
       "tags": [],
       "onEnter": [],
-      "choices": []
+      "choices": [],
+      "terminal": true
     }
   },
   "entities": {

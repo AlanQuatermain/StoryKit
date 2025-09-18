@@ -24,7 +24,7 @@ The validator analyzes your story graph and referenced text to detect common pro
 
 ## Flow Checks
 
-- Nodes with empty choices (warning)
+- Nodes with empty choices (warning). Suppressed when a node is explicitly marked `terminal: true` (e.g., ending nodes).
 - Cycles with no exits (warning)
 
 ## Content Checks
@@ -36,3 +36,5 @@ The validator analyzes your story graph and referenced text to detect common pro
 ## Using the CLI
 
 The CLI provides `storykit validate <path>` with `--format text|json`. JSON output includes aggregated counts and issue details, and exits non‑zero only when errors are present.
+
+Tip: Mark ending nodes with `"terminal": true` in `story.json` to indicate that the node intentionally has no outgoing choices. The validator will not emit the “Node has no choices” warning for terminal nodes.

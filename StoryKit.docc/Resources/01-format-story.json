@@ -1,0 +1,11 @@
+{
+  "metadata": { "id": "example", "title": "Example", "version": 1 },
+  "start": "start_node",
+  "nodes": {
+    "start_node": { "id": "start_node", "text": {"file": "haunted.md", "section": "start_node"}, "choices": [
+      {"id": "go_next", "destination": "next"}
+    ]},
+    "next": { "id": "next", "text": {"file": "haunted.md", "section": "next"}, "choices": [] }
+  }
+}
+

@@ -1,0 +1,9 @@
+HauntedHouseBundle/
+  HauntedHouseBundle/texts/haunted.md
+  HauntedHouseBundle/manifest.json
+  HauntedHouseBundle/graph.json
+
+HauntedHouseBundle/
+  HauntedHouseBundle/texts/haunted.md
+  HauntedHouseBundle/manifest.json
+  HauntedHouseBundle/graph.json

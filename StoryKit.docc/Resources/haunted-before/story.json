@@ -1,0 +1,58 @@
+{
+  "metadata": { "id": "haunted_house", "title": "Haunted House", "version": 1 },
+  "entities": {
+    "nameless_presence": { "name": "Nameless Presence", "tags": ["eldritch"] },
+    "bone_servant": { "name": "Bone Servant", "tags": ["undead"] }
+  },
+  "globals": { "globalActions": { "player_died": { "destination": "end_dead" } } },
+  "nodes": {
+    "arrival_gate": { "id": "arrival_gate", "text": {"file": "haunted.md", "section": "arrival_gate"}, "tags": [], "onEnter": [], "choices": [ {"id": "to_garden", "destination": "garden_path", "predicates": [], "effects": [] } ], "actors": [] },
+    "garden_path": { "id": "garden_path", "text": {"file": "haunted.md", "section": "garden_path"}, "tags": [], "onEnter": [], "choices": [ {"id": "to_foyer", "destination": "foyer", "predicates": [], "effects": []}, {"id": "to_conservatory", "destination": "conservatory", "predicates": [], "effects": []} ], "actors": [] },
+    "foyer": { "id": "foyer", "text": {"file": "haunted.md", "section": "foyer"}, "tags": [], "onEnter": [], "choices": [
+      {"id": "to_dining", "destination": "dining_room", "predicates": [], "effects": []},
+      {"id": "to_dining", "destination": "study", "predicates": [], "effects": []},
+      {"id": "to_kitchen", "destination": "kitchen", "predicates": [], "effects": []},
+      {"id": "to_parlor", "destination": "parlor", "predicates": [], "effects": []},
+      {"id": "to_stairs", "destination": "grand_staircase", "predicates": [], "effects": []},
+      {"id": "to_garden", "destination": "garden_path", "predicates": [], "effects": []}
+    ], "actors": [] },
+    "dining_room": { "id": "dining_room", "text": {"file": "haunted.md", "section": "dining_room"}, "tags": [], "onEnter": [], "choices": [ {"id": "to_study", "destination": "study", "predicates": [], "effects": []}, {"id": "to_kitchen", "destination": "kitchen", "predicates": [], "effects": []}, {"id": "to_foyer", "destination": "foyer", "predicates": [], "effects": []} ], "actors": [] },
+    "study": { "id": "study", "text": {"file": "haunted.md", "section": "study"}, "tags": [], "onEnter": [ {"id": "gain-item", "parameters": {"item": "iron_key"}} ], "choices": [ {"id": "to_foyer", "destination": "foyer", "predicates": [], "effects": []} ], "actors": [] },
+    "kitchen": { "id": "kitchen", "text": {"file": "haunted.md", "section": "kitchen"}, "tags": [], "onEnter": [], "choices": [ {"id": "to_pantry", "destination": "pantry", "predicates": [], "effects": []}, {"id": "to_foyer", "destination": "foyer", "predicates": [], "effects": []} ], "actors": [] },
+    "pantry": { "id": "pantry", "text": {"file": "haunted.md", "section": "pantry"}, "tags": [], "onEnter": [], "choices": [ {"id": "reveal_cellar", "destination": "cellar_entrance", "predicates": [], "effects": []}, {"id": "back_kitchen", "destination": "kitchen", "predicates": [], "effects": []} ], "actors": [] },
+    "cellar_entrance": { "id": "cellar_entrance", "text": {"file": "haunted.md", "section": "cellar_entrance"}, "tags": [], "onEnter": [], "choices": [ {"id": "downstairs", "destination": "basement_stairs", "predicates": [], "effects": []}, {"id": "back_pantry", "destination": "pantry", "predicates": [], "effects": []} ], "actors": [] },
+    "parlor": { "id": "parlor", "text": {"file": "haunted.md", "section": "parlor"}, "tags": [], "onEnter": [], "choices": [ {"id": "to_conservatory", "destination": "conservatory", "predicates": [], "effects": []}, {"id": "to_foyer", "destination": "foyer", "predicates": [], "effects": []} ], "actors": [] },
+    "conservatory": { "id": "conservatory", "text": {"file": "haunted.md", "section": "conservatory"}, "tags": [], "onEnter": [], "choices": [ {"id": "to_garden", "destination": "garden_path", "predicates": [], "effects": []}, {"id": "to_parlor", "destination": "parlor", "predicates": [], "effects": []} ], "actors": [] },
+    "grand_staircase": { "id": "grand_staircase", "text": {"file": "haunted.md", "section": "grand_staircase"}, "tags": [], "onEnter": [], "choices": [ {"id": "up", "destination": "landing", "predicates": [], "effects": []}, {"id": "down", "destination": "foyer", "predicates": [], "effects": []} ], "actors": [] },
+    "landing": { "id": "landing", "text": {"file": "haunted.md", "section": "landing"}, "tags": [], "onEnter": [], "choices": [
+      {"id": "to_bed_a", "destination": "bedroom_a", "predicates": [], "effects": []},
+      {"id": "to_bed_b", "destination": "bedroom_b", "predicates": [], "effects": []},
+      {"id": "to_nursery", "destination": "nursery", "predicates": [], "effects": []},
+      {"id": "to_library", "destination": "library", "predicates": [{"id":"has-item","parameters":{"item":"iron_key"}}], "effects": []},
+      {"id": "to_master", "destination": "master_suite", "predicates": [{"id":"has-item","parameters":{"item":"iron_key"}}], "effects": []},
+      {"id": "to_balcony", "destination": "balcony", "predicates": [], "effects": []}
+    ], "actors": [] },
+    "bedroom_a": { "id": "bedroom_a", "text": {"file": "haunted.md", "section": "bedroom_a"}, "tags": [], "onEnter": [], "choices": [ {"id": "back_landing", "destination": "landing", "predicates": [], "effects": []} ], "actors": [] },
+    "bedroom_b": { "id": "bedroom_b", "text": {"file": "haunted.md", "section": "bedroom_b"}, "tags": [], "onEnter": [], "choices": [ {"id": "back_landing", "destination": "landing", "predicates": [], "effects": []} ], "actors": [] },
+    "nursery": { "id": "nursery", "text": {"file": "haunted.md", "section": "nursery"}, "tags": [], "onEnter": [], "choices": [ {"id": "face_vision", "destination": "end_madness_1", "predicates": [], "effects": []}, {"id": "back_landing", "destination": "landing", "predicates": [], "effects": []} ], "actors": [] },
+    "library": { "id": "library", "text": {"file": "haunted.md", "section": "library"}, "tags": [], "onEnter": [ {"id": "gain-item", "parameters": {"item": "forbidden_tome"}} ], "choices": [ {"id": "secret_passage", "destination": "ritual_chamber", "predicates": [], "effects": []}, {"id": "back_landing", "destination": "landing", "predicates": [], "effects": []} ], "actors": [] },
+    "master_suite": { "id": "master_suite", "text": {"file": "haunted.md", "section": "master_suite"}, "tags": [], "onEnter": [ {"id": "gain-item", "parameters": {"item": "silver_dagger"}} ], "choices": [ {"id": "back_landing", "destination": "landing", "predicates": [], "effects": []} ], "actors": [] },
+    "balcony": { "id": "balcony", "text": {"file": "haunted.md", "section": "balcony"}, "tags": [], "onEnter": [], "choices": [ {"id": "leap", "destination": "end_scarred_1", "predicates": [], "effects": []}, {"id": "back_landing", "destination": "landing", "predicates": [], "effects": []} ], "actors": [] },
+    "basement_stairs": { "id": "basement_stairs", "text": {"file": "haunted.md", "section": "basement_stairs"}, "tags": [], "onEnter": [], "choices": [ {"id": "to_boiler", "destination": "boiler_room", "predicates": [], "effects": []}, {"id": "to_cat1", "destination": "catacombs_1", "predicates": [], "effects": []}, {"id": "up", "destination": "landing", "predicates": [], "effects": []} ], "actors": [] },
+    "boiler_room": { "id": "boiler_room", "text": {"file": "haunted.md", "section": "boiler_room"}, "tags": [], "onEnter": [], "choices": [ {"id": "collapse", "destination": "end_scarred_2", "predicates": [], "effects": []}, {"id": "back_stairs", "destination": "basement_stairs", "predicates": [], "effects": []} ], "actors": [] },
+    "catacombs_1": { "id": "catacombs_1", "text": {"file": "haunted.md", "section": "catacombs_1"}, "tags": [], "onEnter": [], "choices": [ {"id": "to_cat2", "destination": "catacombs_2", "predicates": [], "effects": []}, {"id": "to_ritual", "destination": "ritual_chamber", "predicates": [], "effects": []} ], "actors": [] },
+    "catacombs_2": { "id": "catacombs_2", "text": {"file": "haunted.md", "section": "catacombs_2"}, "tags": [], "onEnter": [], "choices": [ {"id": "to_cat3", "destination": "catacombs_3", "predicates": [], "effects": []}, {"id": "to_cat1", "destination": "catacombs_1", "predicates": [], "effects": []} ], "actors": [] },
+    "catacombs_3": { "id": "catacombs_3", "text": {"file": "haunted.md", "section": "catacombs_3"}, "tags": [], "onEnter": [], "choices": [ {"id": "to_cat4", "destination": "catacombs_4", "predicates": [], "effects": []}, {"id": "to_cat2", "destination": "catacombs_2", "predicates": [], "effects": []} ], "actors": [] },
+    "catacombs_4": { "id": "catacombs_4", "text": {"file": "haunted.md", "section": "catacombs_4"}, "tags": [], "onEnter": [], "choices": [ {"id": "to_cat5", "destination": "catacombs_5", "predicates": [], "effects": []}, {"id": "to_cat3", "destination": "catacombs_3", "predicates": [], "effects": []} ], "actors": [] },
+    "catacombs_5": { "id": "catacombs_5", "text": {"file": "haunted.md", "section": "catacombs_5"}, "tags": [], "onEnter": [], "choices": [ {"id": "fight", "destination": "catacombs_3", "predicates": [], "effects": []}, {"id": "panic", "destination": "end_madness_2", "predicates": [], "effects": []} ], "actors": [] },
+    "ritual_chamber": { "id": "ritual_chamber", "text": {"file": "haunted.md", "section": "ritual_chamber"}, "tags": [], "onEnter": [], "choices": [ {"id": "attempt_ritual", "destination": "end_succesful", "predicates": [], "effects": []}, {"id": "falter", "destination": "end_dead", "predicates": [], "effects": []}, {"id": "flee", "destination": "end_scarred_2", "predicates": [], "effects": []} ], "actors": [] },
+    "end_successful": { "id": "end_successful", "text": {"file": "haunted.md", "section": "end_successful"}, "tags": [], "onEnter": [], "choices": [], "actors": [] },
+    "end_dead": { "id": "end_dead", "text": {"file": "haunted.md", "section": "end_dead"}, "tags": [], "onEnter": [], "choices": [], "actors": [] },
+    "end_madness_1": { "id": "end_madness_1", "text": {"file": "haunted.md", "section": "end_madness_1"}, "tags": [], "onEnter": [], "choices": [], "actors": [] },
+    "end_madness_2": { "id": "end_madness_2", "text": {"file": "haunted.md", "section": "end_madness_2"}, "tags": [], "onEnter": [], "choices": [], "actors": [] },
+    "end_scarred_1": { "id": "end_scarred_1", "text": {"file": "haunted.md", "section": "end_scarred_1"}, "tags": [], "onEnter": [], "choices": [], "actors": [] },
+    "end_scarred_2": { "id": "end_scarred_2", "text": {"file": "haunted.md", "section": "end_scarred_2"}, "tags": [], "onEnter": [], "choices": [], "actors": [] },
+    "attic_void": { "id": "attic_void", "text": {"file": "haunted.md", "section": "attic_void"}, "tags": [], "onEnter": [], "choices": [], "actors": [] }
+  }
+}
+

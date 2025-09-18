@@ -1,0 +1,9 @@
+{
+  "id": "ritual_chamber",
+  "choices": [
+    {"id": "attempt_ritual", "destination": "end_successful"},
+    {"id": "falter", "destination": "end_dead"},
+    {"id": "flee", "destination": "end_scarred_2"}
+  ]
+}
+

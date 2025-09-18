@@ -1,0 +1,98 @@
+@Intro(title: "Checks, Effects, Actions, Battles, and the Ritual") {
+    In this tutorial you’ll enrich the minimal CLI from Tutorial 2 with mechanics described in Story-Design.md: roll–under d20 checks, health and sanity tracking, inventory and flags, predicates and effects to gate and mutate state, a multi–round melee system with flee, and an ordered ritual sequence that branches to All–Good, Madness, or Scarred outcomes. The emphasis is equal parts theory and practice: why these mechanics fit the tone, and how to implement them using StoryKit’s extensibility points.
+
+    StoryKit’s philosophy is that content should remain declarative and portable while mechanics live in your app. Predicates, effects, and actions are registered against string ids in the story, keeping the graph free of code while letting your runtime decide what “has-item”, “lose-sanity”, or “ritual” really mean. This separation lets you author and validate content without recompiling your app and gives designers guard rails as they experiment with difficulty and pacing.
+
+    By the end, your CLI will present checks with narrative feedback, support multi–round fights with a chance to flee, and enforce the ritual’s required items and order. You’ll also wire autosave so that progress survives between rounds and after risky choices.
+}
+
+@Section(title: "Designing Game State") {
+    @ContentAndMedia {
+        Treat your `StoryState` like a character sheet. It should capture the single source of truth for stats (health, sanity), inventory (a set of item ids), and flags that mark global or local accomplishments. Keep it serializable and sendable. Add small helpers that make updates clear and safe: `gain(_:)`, `has(_:)`, and `setFlag(_:to:)`.
+
+        The story remains declarative: nodes and choices never know about integers or timers; they talk in terms of ids and parameters. Your state and registries speak both languages.
+    }
+    @Steps {
+        @Step {
+            Extend `HauntedState` with fields and helpers. Initialize conservative defaults and prefer value semantics.
+
+            @Code(name: "HauntedState (extended)", file: 03-01-HauntedState-Extended.swift)
+        }
+    }
+}
+
+@Section(title: "Roll-Under Checks & Predicates") {
+    @ContentAndMedia {
+        Roll–under checks fit horror because success is often narrow and failure meaningful. Implement a simple `rollD20()` and a helper that evaluates “under X” for a stat. Then register predicates for content gating: `has-item` and a generic `stat-at-least` are immediately useful and map cleanly from authored parameters to code.
+
+        Predicates are pure: they take state and string parameters and return a Bool. They should not mutate. In contrast, effects will mutate state after selections or arrivals.
+    }
+    @Steps {
+        @Step {
+            Add the dice and check helpers, and register `has-item` and `stat-at-least` into a `PredicateRegistry`.
+
+            @Code(name: "Checks & Predicates", file: 03-02-ChecksAndPredicates.swift)
+        }
+    }
+}
+
+@Section(title: "Effects: Damage, Sanity, Items, Flags") {
+    @ContentAndMedia {
+        Effects are deterministic state mutations invoked on selection or on–enter. Keep them small and composable, and map string parameters to integers and booleans carefully. This is where narrative consequences become concrete: a sanity drop, an injury, an inventory gain, a flag that opens later branches.
+    }
+    @Steps {
+        @Step {
+            Register `lose-sanity`, `take-damage`, `gain-item`, and `set-flag`. Favor clamping to safe ranges and defensive parsing of parameters.
+
+            @Code(name: "Effects", file: 03-03-Effects.swift)
+        }
+    }
+}
+
+@Section(title: "Entities & Multi-Round Battles with Flee") {
+    @ContentAndMedia {
+        Encounters benefit from pacing. A melee round should produce narration, potentially modify state (damage to player or enemy), and offer a flee option keyed to a check (dexterity by default). Model opponents minimally—hp, attack range, name—and drive the action through an `ActionRegistry` closure. Return `.requiresUserInput` to indicate that the loop should prompt again; return `.completed` when the round ends or the player flees.
+
+        In production, track enemy hp across rounds in state; for brevity, this sample hints at that and focuses on loop mechanics and flee.
+    }
+    @Steps {
+        @Step {
+            Define a tiny entity model and register a `melee-round` action that advances a fight, handles misses/retaliation, and supports flee with a roll–under gate.
+
+            @Code(name: "Battle System", file: 03-04-BattleSystem.swift)
+        }
+    }
+}
+
+@Section(title: "The Final Ritual (Ordered Sequence)") {
+    @ContentAndMedia {
+        The ritual requires multiple items and a strict order. Author the action as a single `ritual` id that accepts an `order` parameter (comma–joined steps). In code, verify inventory and order; set flags to route to outcomes. This keeps branching logic out of the story graph while preserving authoring clarity.
+    }
+    @Steps {
+        @Step {
+            Register a `ritual` action that checks for the Black Candle, Forbidden Tome, and Silver Dagger, validates the item order (candle → tome → dagger), and toggles outcome flags.
+
+            @Code(name: "Ritual", file: 03-05-Ritual.swift)
+        }
+    }
+}
+
+@Section(title: "Autosave Between Rounds") {
+    @ContentAndMedia {
+        Long encounters and risky sequences should persist. Use `JSONFileSaveProvider` with `makeAutoSaveHandler` to write a snapshot after transitions and actions. The engine’s `autosave` closure is invoked after successful `select` and `performAction` calls.
+    }
+    @Steps {
+        @Step {
+            Create a small factory for an autosave closure keyed by a story id and slot name. In your engine construction, pass it as `autosave:`.
+
+            @Code(name: "Autosave", file: 03-06-AutoSave.swift)
+        }
+    }
+}
+
+@Section(title: "Outcome") {
+    @ContentAndMedia {
+        Your CLI now supports checks, registered predicates/effects, a multi–round melee action with flee, the ordered ritual, and autosave. From here, you can enrich narration, route results to specialized nodes, or transition via `performGlobalAction` to endings. The mechanics remain cleanly separated from authored content, so designers retain control over prose while engineers retain control over behavior.
+    }
+}
+

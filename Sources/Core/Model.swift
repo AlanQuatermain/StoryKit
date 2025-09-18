@@ -61,6 +61,9 @@ public struct Node: Codable, Sendable, Identifiable, Hashable {
     public var tags: [String]
     public var onEnter: [EffectDescriptor]
     public var choices: [Choice]
+    /// If true, this node is a terminal leaf and is allowed to have no outgoing choices.
+    /// Typical usage is for ending nodes. Validators may suppress empty-choice warnings when `terminal` is true.
+    public var terminal: Bool
     /// Declarative list of actors present at this node (data-only; no mechanics).
     public var actors: [ActorDescriptor]
 
@@ -70,6 +73,7 @@ public struct Node: Codable, Sendable, Identifiable, Hashable {
         tags: [String] = [],
         onEnter: [EffectDescriptor] = [],
         choices: [Choice] = [],
+        terminal: Bool = false,
         actors: [ActorDescriptor] = []
     ) {
         self.id = id
@@ -77,10 +81,11 @@ public struct Node: Codable, Sendable, Identifiable, Hashable {
         self.tags = tags
         self.onEnter = onEnter
         self.choices = choices
+        self.terminal = terminal
         self.actors = actors
     }
 
-    private enum CodingKeys: String, CodingKey { case id, text, tags, onEnter, choices, actors }
+    private enum CodingKeys: String, CodingKey { case id, text, tags, onEnter, choices, terminal, actors }
 
     public init(from decoder: any Decoder) throws {
         let c = try decoder.container(keyedBy: CodingKeys.self)
@@ -89,6 +94,7 @@ public struct Node: Codable, Sendable, Identifiable, Hashable {
         self.tags = (try? c.decode([String].self, forKey: .tags)) ?? []
         self.onEnter = (try? c.decode([EffectDescriptor].self, forKey: .onEnter)) ?? []
         self.choices = (try? c.decode([Choice].self, forKey: .choices)) ?? []
+        self.terminal = (try? c.decode(Bool.self, forKey: .terminal)) ?? false
         self.actors = (try? c.decode([ActorDescriptor].self, forKey: .actors)) ?? []
     }
 
@@ -99,6 +105,7 @@ public struct Node: Codable, Sendable, Identifiable, Hashable {
         if !tags.isEmpty { try c.encode(tags, forKey: .tags) } else { try c.encode([String](), forKey: .tags) }
         if !onEnter.isEmpty { try c.encode(onEnter, forKey: .onEnter) } else { try c.encode([EffectDescriptor](), forKey: .onEnter) }
         try c.encode(choices, forKey: .choices)
+        if terminal { try c.encode(terminal, forKey: .terminal) }
         if !actors.isEmpty { try c.encode(actors, forKey: .actors) } else { try c.encode([ActorDescriptor](), forKey: .actors) }
     }
 }

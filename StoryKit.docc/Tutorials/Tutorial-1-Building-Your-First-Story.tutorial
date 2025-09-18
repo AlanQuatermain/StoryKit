@@ -1,0 +1,124 @@
+@Intro(title: "Validating and Repairing a Haunted House Story") {
+    In this tutorial you will become comfortable with the StoryKit authoring model and the validator that keeps your story graphs honest. We start from a deliberately broken Haunted House story and repair it step by step until it validates cleanly and compiles into a runtime-ready bundle. Along the way, we will examine the on–disk formats, run the CLI, and verify each fix by re–running validation.
+
+    The goals here are practical and conceptual. Practically, you will learn how `story.json` declares nodes and choices, how Markdown sections provide prose for each node, and how compiled `.storybundle` directories package everything an app needs. Conceptually, you'll see how the validator’s structural, flow, and content checks help you spot missing starts, unreachable nodes, duplicate choice identifiers, bad destinations, and mismatches between your graph and your Markdown. These mechanics are simple enough to keep you moving, but strong enough to catch hard–to–spot mistakes early.
+
+    We will follow strict guard rails: canonical world and design details live in Story-Design.md, and broken vs. final differences come from Story-Variants.md. This keeps creative content, authoring practice, and validator rules cleanly separated. If you are reading this outside the codebase, open the `.build/Instructions` folder and skim Story-Design and Story-Variants before you proceed—this tutorial assumes that shared context.
+}
+
+@Section(title: "StoryKit File Formats") {
+    @ContentAndMedia {
+        StoryKit authoring centers on three artifacts that work together: the story graph (`story.json`), prose (`texts/*.md`), and compiled bundles (`.storybundle`). Keeping these boundaries clean makes iteration fast and validation meaningful.
+
+        1. `story.json` is the brain: it declares a starting node (`start`) and a dictionary of `nodes`. Each node includes an `id`, a `text` reference pointing to Markdown (`file` + `section`), a list of `choices` (each with an `id` and a `destination`), and optional predicate/effect descriptors and declarative `actors`. The file is canonical for traversal and static checks.
+        2. Markdown is the voice: each file in `texts/` can hold multiple node sections, delimited by lines like `=== node: foyer ===`. This is where you write prose that breathes—multi–paragraph descriptions, atmospheric beats, and encounter narration. The `TextSectionParser` splits big files into section maps at load time.
+        3. A `.storybundle` is the runtime package: it contains `manifest.json` (metadata + `graph.json` hash), `graph.json` (a compiled copy of the story JSON), and a `texts/` folder copied from source. Apps load bundles with `StoryBundleLoader` to avoid touching your authoring directory structure at runtime.
+
+        Below are small excerpts. Your real files will be larger, but these convey the schema and the Markdown delimiter.
+    }
+    @Steps {
+        @Step {
+            Inspect a minimal `story.json` excerpt.
+
+            @Code(name: "story.json excerpt", file: 01-format-story.json)
+        }
+        @Step {
+            Inspect a Markdown file with multiple node sections.
+
+            @Code(name: "haunted.md excerpt", file: 01-format-haunted.md)
+        }
+        @Step {
+            Inspect a compiled bundle directory layout.
+
+            @Code(name: "storybundle tree", file: 01-format-bundle.txt)
+        }
+    }
+}
+
+@Section(title: "Validate the Broken Story") {
+    @ContentAndMedia {
+        We begin with `haunted-before`, a deliberately broken variant created from the canonical Haunted House story. Its issues come from Story-Variants.md and are intentionally varied to exercise multiple validator rules: a missing `start`, a duplicate choice id, a misspelled destination, an unreachable orphan node, a truncated Markdown section, and an orphan Markdown section that no node references.
+
+        The validator is exposed through the `storykit` CLI. It loads either a source folder (containing `story.json` and `texts/`) or a compiled bundle (containing `manifest.json`, `graph.json`, and `texts/`). By default, the text output lists warnings and errors. JSON output includes counts and a serializable issue list that CI can gate on. The tool exits non–zero on errors, allowing you to wire validation into pre–commit hooks or build scripts.
+    }
+    @Steps {
+        @Step {
+            Run the validator on the broken source directory. Because the `start` field is missing, you’ll see a decoding error before structural checks can even begin.
+
+            @Code(name: "validator output (broken)", file: 02-validate-errors.txt)
+        }
+    }
+}
+
+@Section(title: "Fix story.json") {
+    @ContentAndMedia {
+        Now repair structural issues in `story.json`. We will add the missing `start`, make duplicate choice identifiers unique, and correct the misspelled destination. After each change you should re–run validation to confirm that the issue count shrinks and that you haven’t introduced new problems.
+
+        The duplicate choice fix matters because choice `id`s must be unique per node: they become UI handles and analytic keys. The destination fix matters because traversal would otherwise point at a node that doesn’t exist—precisely the kind of mistake that sinks playtests. Small, careful diffs and frequent validation runs keep you honest and fast.
+    }
+    @Steps {
+        @Step {
+            Add the missing `start` field to `story.json`. The canonical opening is the `foyer`.
+
+            @Code(name: "before (no start)", file: 03-before-no-start.json)
+            @Code(name: "after (start set)", file: 03-after-with-start.json)
+        }
+        @Step {
+            Resolve the duplicate choice identifier inside `foyer`: split the two `to_dining` entries into `to_dining` and `to_study` so analytics and UI can identify the selected edge.
+
+            @Code(name: "before (duplicate ids)", file: 03-before-duplicate-choices.json)
+            @Code(name: "after (unique ids)", file: 03-after-duplicate-choices.json)
+        }
+        @Step {
+            Correct the misspelled destination id `end_succesful` → `end_successful` in the `ritual_chamber` node. Misspellings like this will otherwise survive until runtime.
+
+            @Code(name: "before (misspelled destination)", file: 03-before-dest-typo.json)
+            @Code(name: "after (fixed destination)", file: 03-after-dest-typo.json)
+        }
+        @Step {
+            Re–run validation after the JSON fixes. You should now see content–level problems in Markdown: a missing dining room section and an orphan `attic_extra` section, along with warnings for ending nodes having no choices (this is allowed).
+
+            @Code(name: "validator after JSON fixes", file: 03-validate-after-json.txt)
+        }
+    }
+}
+
+@Section(title: "Fix haunted.md") {
+    @ContentAndMedia {
+        With the graph repaired, turn to prose. The broken variant intentionally removes the `dining_room` section header and includes an orphan `attic_extra` section. Restore the dining room prose and delete the orphan. In your own stories, this is where you’ll spend most of your time: writing and rewriting text while the validator guards the contract between graph and prose.
+    }
+    @Steps {
+        @Step {
+            Replace the broken Markdown (missing section, orphaned extra) with a corrected file. Below is a compact before/after excerpt to show the exact header changes.
+
+            @Code(name: "broken haunted.md", file: 04-haunted-before.md)
+            @Code(name: "fixed haunted.md", file: 04-haunted-fixed.md)
+        }
+        @Step {
+            Run validation again. With all fixes applied, you should see only warnings for terminal nodes lacking choices, which is expected for endings.
+
+            @Code(name: "validator clean", file: 04-validate-clean.txt)
+        }
+    }
+}
+
+@Section(title: "Compile the Story") {
+    @ContentAndMedia {
+        Compile the repaired source into a directory–based `.storybundle`. The compiler copies your `texts/`, writes a `manifest.json` that records a hash of the graph for integrity checks, and saves the graph into `graph.json`. You can ship bundles as app resources, download them, or mount them from disk during development.
+    }
+    @Steps {
+        @Step {
+            Run the compiler and review the bundle structure. You can load this bundle at runtime with `StoryBundleLoader`.
+
+            @Code(name: "compiler invocation", file: 05-compile-command.txt)
+            @Code(name: "bundle structure", file: 05-bundle-tree.txt)
+        }
+    }
+}
+
+@Section(title: "Outcome") {
+    @ContentAndMedia {
+        You now have a validated Haunted House story and a compiled `.storybundle` that mirrors your source. This is the foundation for the next tutorial, where you’ll load the bundle, create a `StoryEngine`, and build a small CLI to read text and advance by choice. Keep `storykit validate` in your loop—every meaningful authoring change should be followed by a validation run to prevent errors from batching up where they hurt most: during play.
+    }
+}
+

@@ -77,7 +77,9 @@ public struct StoryValidator: Sendable {
                 if visited.contains(id) { continue }
                 visited.insert(id)
                 if let node = story.nodes[id] {
-                    if node.choices.isEmpty { issues.append(.init(.emptyChoices, "Node has no choices: \(id.rawValue)", severity: .warning)) }
+                    if node.choices.isEmpty && node.terminal == false {
+                        issues.append(.init(.emptyChoices, "Node has no choices: \(id.rawValue)", severity: .warning))
+                    }
                     for c in node.choices { queue.append(c.destination) }
                 }
             }

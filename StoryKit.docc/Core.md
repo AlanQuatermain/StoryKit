@@ -20,7 +20,7 @@ Both wrap `String` and conform to `Codable`, `Hashable`, and `Sendable`.
 ### Story Graph
 
 - ``Core/Choice``: A labeled edge from one node to another with optional predicates and effects.
-- ``Core/Node``: A story node with text reference, optional tags, on‑enter effects, and a list of choices.
+- ``Core/Node``: A story node with text reference, optional tags, on‑enter effects, and a list of choices. Nodes may also be marked `terminal` to indicate intentional leaves (e.g., endings) that have no outgoing choices.
 - ``Core/Story``: Aggregates metadata, the `start` node, and the `nodes` map.
 
 ``Core/Story`` encodes/decodes its `nodes` as a string‑keyed dictionary for authoring convenience while presenting a `[NodeID: Node]` API within Swift.
@@ -38,4 +38,3 @@ Both wrap `String` and conform to `Codable`, `Hashable`, and `Sendable`.
 - ``Core/ActionOutcome``: Indicates action completion or requests host interaction.
 
 All registries are value types and store `@Sendable` closures to be safe across concurrency domains.
-

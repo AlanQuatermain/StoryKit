@@ -1,0 +1,13 @@
+- [WARNING] Node has no choices: end_madness_1
+- [WARNING] Node has no choices: end_scarred_1
+- [WARNING] Node has no choices: end_successful
+- [WARNING] Node has no choices: end_dead
+- [WARNING] Node has no choices: end_scarred_2
+- [WARNING] Node has no choices: end_madness_2
+- [ERROR] Unreachable node: arrival_gate
+- [ERROR] Missing text section 'dining_room' in file haunted.md
+- [WARNING] Orphan text section 'attic_extra' in file haunted.md
+
+Entities (2):
+  - bone_servant — Bone Servant [undead]
+  - nameless_presence — Nameless Presence [eldritch]

@@ -1,0 +1,4 @@
+swift run storykit compile StoryKit.docc/Resources/haunted-after --out StoryKit.docc/Resources/HauntedHouseBundle
+✅ Wrote bundle to /Users/jim/Projects/Quatermain/StoryKit/StoryKit.docc/Resources/HauntedHouseBundle
+✅ Wrote bundle to /Users/jim/Projects/Quatermain/StoryKit/StoryKit.docc/Resources/HauntedHouseBundle
+✅ Wrote bundle to /Users/jim/Projects/Quatermain/StoryKit/StoryKit.docc/Resources/HauntedHouseBundle

@@ -1,0 +1,82 @@
+@Intro(title: "Playing a Story with StoryEngine") {
+    In this tutorial you will build a small command–line runner that loads the compiled Haunted House bundle and lets a player move through the narrative by choosing options. You will learn how to load a bundle, construct a `StoryEngine`, print the current node’s prose, enumerate available choices, and call `select(choiceID:)` to advance. The result is a minimal, idiomatic Swift program that uses StoryKit as intended.
+
+    StoryKit’s runtime model is deliberately small. Your application defines state by conforming to `StoryState` (at minimum, a `currentNode` of type `NodeID`). Predicates, effects, and actions live in registries that map string identifiers from your content to sendable closures in your app’s domain. The engine is an actor that owns the story and state; it filters choices through predicates, applies effects when moving between nodes, and (optionally) triggers autosave after transitions and actions. There is no `run()` method: the engine exposes current context and moves forward only when your code calls `select` with a specific choice id.
+
+    The CLI runner you build here is intentionally simple: print text, present choices, read a line, and select. In the next tutorial you’ll enrich this with mechanics like skill checks, battles, and the final ritual action. For now, focus on the runtime plumbing—loading, printing, choosing—so the next layer has a clean place to land.
+}
+
+@Section(title: "Project Setup") {
+    @ContentAndMedia {
+        Create a new executable Swift package and add a dependency on StoryKit. During development, a path dependency is convenient if the package is adjacent to your StoryKit checkout; for teams, pin to a Git revision or a version tag. The sample `Package.swift` below uses a path dependency for local builds.
+    }
+    @Steps {
+        @Step {
+            Initialize a package and open it in your editor. Replace `Package.swift` and scaffold a minimal `main.swift`.
+
+            @Code(name: "Package.swift (CLI)", file: 02-01-package.swift)
+            @Code(name: "main.swift (stub)", file: 02-01-main-stub.swift)
+        }
+    }
+}
+
+@Section(title: "Define Minimal State") {
+    @ContentAndMedia {
+        Implement a tiny `HauntedState` conforming to `StoryState`. The engine only requires `currentNode`; everything else is up to your app. In later tutorials you’ll add health, sanity, inventory, and flags.
+    }
+    @Steps {
+        @Step {
+            Add a single-file state definition. Keep it small; you’ll extend it later.
+
+            @Code(name: "HauntedState.swift", file: 02-02-HauntedState.swift)
+        }
+    }
+}
+
+@Section(title: "Load the Story Bundle") {
+    @ContentAndMedia {
+        Use `StoryBundleLoader` to load the compiled bundle emitted by Tutorial 1. A bundle must contain `manifest.json`, `graph.json`, and a `texts/` directory; the loader decodes `graph.json` into a `Story` value. If you prefer to load authoring JSON directly, use `StoryLoader` with a `story.json` URL.
+    }
+    @Steps {
+        @Step {
+            Implement a helper that returns a `Story` for a bundle path. This keeps `main.swift` clean and makes testing straightforward.
+
+            @Code(name: "LoadBundle.swift", file: 02-03-LoadBundle.swift)
+        }
+    }
+}
+
+@Section(title: "Create the Engine & Print Nodes") {
+    @ContentAndMedia {
+        Construct the engine with your `Story`, `HauntedState`, and (for now) empty predicate/effect/action registries. The engine starts at `story.start`; there is no explicit `run()`. To play, query the current node, print its text via a `TextProvider` (here, `BundleTextProvider`), list available choices, and call `select(choiceID:)` using the choice’s `id`.
+
+        Reading from stdin is sufficient for a first pass. Production apps replace this loop with UI, but the control flow is identical: render, select, render.
+    }
+    @Steps {
+        @Step {
+            Implement a simple read–eval–print loop for exploring a story. The loop prints a section header, the current node’s text from the bundle, enumerates choice ids, reads a line, and advances the engine.
+
+            @Code(name: "EngineLoop.swift", file: 02-04-EngineLoop.swift)
+        }
+    }
+}
+
+@Section(title: "ArgumentParser Main Entry") {
+    @ContentAndMedia {
+        `swift-argument-parser` makes CLI argument handling tidy. Use it to accept a `--bundle` path, then load and play. Return a non–zero exit code if loading fails so CI can catch broken bundles.
+    }
+    @Steps {
+        @Step {
+            Compose the CLI entry point that loads the bundle and runs the loop.
+
+            @Code(name: "Main.swift", file: 02-05-Main.swift)
+        }
+    }
+}
+
+@Section(title: "Outcome") {
+    @ContentAndMedia {
+        You can now play the validated Haunted House story interactively. This runner demonstrates StoryKit’s core rhythm: load, render, choose. In the next tutorial you’ll register predicates, effects, and actions to add mechanics for checks, battles, and the final ritual.
+    }
+}
+

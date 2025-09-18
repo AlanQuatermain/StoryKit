@@ -1,0 +1,9 @@
+{
+  "id": "foyer",
+  "choices": [
+    {"id": "to_dining", "destination": "dining_room"},
+    {"id": "to_dining", "destination": "study"},
+    {"id": "to_kitchen", "destination": "kitchen"}
+  ]
+}
+
