@@ -127,50 +127,63 @@ These tutorials are a priority for onboarding story authors and app teams.
 - Umbrella DocC articles live under `Sources/StoryKit/StoryKit.docc` (no per-module catalogs).
 - Symbol-level docs are present across public APIs in `Core`, `Engine`, `Persistence`, and `ContentIO`.
 
-## Haunted House Tutorials — Active TODOs & Working Notes
+## Haunted House Tutorials — Status & Next Session
 
-This section captures the current state of work on the Haunted House story suite and DocC tutorials so the next session can resume smoothly.
+This section captures the current state of work on the Haunted House story suite and DocC tutorials, plus what we’ll do next.
 
 ### Status Snapshot (as of last edit)
 
-- Variants and bundle live under `StoryKit.docc/Resources/`:
-  - `haunted-before/` — deliberately broken variant used in Tutorial 1.
-  - `haunted-after/` — repaired variant; should match `haunted-final`.
-  - `haunted-final/` — canonical working story; should validate/compile.
-  - `HauntedHouseBundle/` — compiled bundle output for reference.
-- Node counts (via `jq '.nodes | length'`):
-  - `haunted-before`: 33
-  - `haunted-final`: 102
-  - `haunted-after`: 151
-- Requirement per `.build/Instructions/Story-Design.md`: total 300–350 nodes with distribution by area and a healthy set of endings.
-- Tutorials exist under `StoryKit.docc/Tutorials/` and reference code/output snippets under `StoryKit.docc/Resources/`.
+- Story validates and compiles; node count ~322.
+- All tutorials live under `Sources/StoryKit/StoryKit.docc/Tutorials/` with code/output snippets under `Sources/StoryKit/StoryKit.docc/Resources/`.
+- Terminal endings are marked to suppress empty‑choice warnings.
 
-### Immediate Actions (next session)
+### Tutorials — Completion
 
-1. Align variants: make `haunted-final` match `haunted-after` exactly (graph + prose). Keep `haunted-before` broken per `.build/Instructions/Story-Variants.md`.
-2. Expand content to meet node targets (300–350) using `.build/Instructions/Story-Design.md` for canonical design:
-   - Ground: grow from ~54 (after) toward 100–120.
-   - Upper: grow from ~38 (after) toward 100–120.
-   - Basement: grow from ~42 (after) toward 85–95 (Catacombs already ~35 OK; expand Boiler, Stairs, Ritual Chamber micro-scenes).
-   - Endings: expand from 14 toward 20–25 (8–10 Madness, 6–8 Scarred, plus All-Good + Death).
-3. Maintain reachability and guard rails:
-   - Every non-ending node must have at least one outgoing choice.
-   - No unreachable or orphaned nodes/sections. Keep choice ids unique per node.
-   - All nodes in `story.json` must have a corresponding Markdown section in `haunted.md`.
-4. Re-run validation and compile after each batch:
-   - `swift run storykit validate StoryKit.docc/Resources/haunted-final`
-   - `swift run storykit compile StoryKit.docc/Resources/haunted-final --out StoryKit.docc/Resources/HauntedHouseBundle`
-5. Verify DocC tutorials still resolve all `@Code(file:)` references. Update snippets only if tutorial narrative changes (counts are not asserted in current snippets).
-6. If `haunted-after` is used as the working base, update `haunted-final` by copying graph + markdown; then delete any drift between the two.
+- Tutorial 1 (validating & repairing a story): friendlier tone, download/build steps, clear error explanations, and aligned snippets (arrival_road start, end_successful fix). Validator outputs are clean.
+- Tutorial 2 (playing a story in Swift): multi‑step CLI section, casual rationale for StoryState and loader/caching, granular engine loop steps, refined outcome (what you built vs. what StoryKit handles).
+- Tutorial 3 (state, checks, actions, battle, ritual, autosave): restructured into multi‑step sections with incremental snippets; emphasizes engine‑agnostic design (mechanics in client, content declarative).
 
-### Targets by Area (from Story-Design.md)
+### Next Session (Reader QA pass)
 
-- Ground Floor (target 100–120): Foyer, Dining, Kitchen & Pantry, Study, Parlor & Conservatory, Cellar Entrance.
-- Upper Floor (target 100–120): Landing, Bedroom A/B, Nursery, Library, Master Suite, Balcony.
-- Basement (target 85–95): Basement Stairs, Boiler Room, Catacombs (30–35 OK), Ritual Chamber.
-- Endings (target 20–25): All-Good (1), Death (1), Madness (8–10), Scarred (6–8).
+- Run through Tutorials 1–3 end‑to‑end as a reader:
+  - Follow each step, run commands, and confirm snippets match current code and outputs.
+  - Check tone/clarity/pacing; ensure each change is incremental and the “why” is obvious.
+  - Verify all `@Code(file:)` references resolve; fix any drift.
+- Validate and build docs post‑pass:
+  - `swift build && swift test`
+  - `swift package --disable-sandbox --allow-writing-to-directory docs generate-documentation --target StoryKit --output-dir docs --transform-for-static-hosting --hosting-base-path StoryKit`
+  - Address any structural DocC warnings (e.g., ensure each Section has Steps).
 
-Current rough counts in `haunted-after` (for planning): foyer 3, dining 9, kitchen 8, pantry 4, study 9, parlor 7, conservatory 7, garden 3, cellar entrance 4, stairs 3; landing 3, bedroom A 6, bedroom B 4, nursery 8, library 9, master 6, balcony 2; basement stairs 1, boiler 5, catacombs 35, ritual chamber 1; endings 14.
+#### QA Checklist (commands to run)
+
+- Tutorial 1 (Validating a Story → Compiling)
+  - Prepare a scratch folder (e.g., `~/Downloads/HauntedStarter`) with the starter zip (as described in the tutorial).
+  - From StoryKit package root:
+    - `swift build`
+    - `swift run storykit validate ~/Downloads/HauntedStarter --format text`
+    - `swift run storykit validate ~/Downloads/HauntedStarter --format json | jq .`
+  - After each fix (per steps), re‑run validate and confirm outputs match snippets:
+    - Post‑JSON fixes: `swift run storykit validate ~/Downloads/HauntedStarter --format text`
+  - Compile and verify bundle structure:
+    - `swift run storykit compile ~/Downloads/HauntedStarter --out HauntedHouse.storybundle`
+    - `ls -R HauntedHouse.storybundle`
+
+- Tutorial 2 (CLI + State + Loop)
+  - In a separate temp directory, initialize a new executable package and add StoryKit as a path dependency (per snippet).
+  - Build and run help:
+    - `swift build`
+    - `swift run haunted --help`
+  - Play a bundle (use the one compiled above):
+    - `swift run haunted ./HauntedHouse.storybundle`
+  - Confirm loop shows header, text, and numbered choices; pick a few choices and verify output formatting.
+
+- Tutorial 3 (Extended state, checks, actions, ritual, autosave)
+  - Integrate snippet code into the CLI project from Tutorial 2 (or a scratch project):
+    - Extend HauntedState; register predicates/effects/actions; wire autosave.
+  - Sanity run with the same bundle:
+    - `swift build`
+    - `swift run haunted ./HauntedHouse.storybundle`
+  - Confirm: checks gate choices as expected; melee‑round and flee actions advance narration; ritual action toggles flags based on order.
 
 ### Authoring Conventions (must follow)
 
