@@ -1,129 +1,122 @@
-@Intro(title: "Playing a Story with StoryEngine") {
+@Tutorial(time: 35) {
+  @Intro(title: "Playing a Story with StoryEngine") {
     In this tutorial you will build a small command–line runner that loads the compiled Haunted House bundle and lets a player move through the narrative by choosing options. You will learn how to load a bundle, construct a `StoryEngine`, print the current node’s prose, enumerate available choices, and call `select(choiceID:)` to advance. The result is a minimal, idiomatic Swift program that uses StoryKit as intended.
 
     StoryKit’s runtime model is deliberately small. Your application defines state by conforming to `StoryState` (at minimum, a `currentNode` of type `NodeID`). Predicates, effects, and actions live in registries that map string identifiers from your content to sendable closures in your app’s domain. The engine is an actor that owns the story and state; it filters choices through predicates, applies effects when moving between nodes, and (optionally) triggers autosave after transitions and actions. There is no `run()` method: the engine exposes current context and moves forward only when your code calls `select` with a specific choice id.
 
     The CLI runner you build here is intentionally simple: print text, present choices, read a line, and select. In the next tutorial you’ll enrich this with mechanics like skill checks, battles, and the final ritual action. For now, focus on the runtime plumbing—loading, printing, choosing—so the next layer has a clean place to land.
-}
+  }
 
-@Section(title: "Project Setup") {
+  @Section(title: "Project Setup") {
     @ContentAndMedia {
-        Create a new executable Swift package and add a dependency on StoryKit. During development, a path dependency is convenient if the package is adjacent to your StoryKit checkout; for teams, pin to a Git revision or a version tag. The sample `Package.swift` below uses a path dependency for local builds.
+      Create a new executable Swift package and add a dependency on StoryKit. During development, a path dependency is convenient if the package is adjacent to your StoryKit checkout; for teams, pin to a Git revision or a version tag. The sample `Package.swift` below uses a path dependency for local builds.
     }
     @Steps {
-        @Step {
-            Initialize a package and open it in your editor. Replace `Package.swift` and scaffold a minimal `main.swift`.
+      @Step {
+        Initialize a package and open it in your editor. Replace `Package.swift` and scaffold a minimal `main.swift`.
 
-            @Code(name: "Package.swift (CLI)", file: 02-01-package.swift)
-            @Code(name: "main.swift (stub)", file: 02-01-main-stub.swift)
-        }
+        @Code(name: "Package.swift (CLI)", file: 02-01-package.swift)
+        @Code(name: "main.swift (stub)", file: 02-01-main-stub.swift)
+      }
     }
-}
+  }
 
-@Section(title: "Command-Line Interface") {
+  @Section(title: "Command-Line Interface") {
     @ContentAndMedia {
-        Start with a tiny command that accepts the path to a compiled `.storybundle`. Using a positional argument keeps it easy to type and feels like other Unix tools. You can add options and subcommands later as your runner grows.
+      Start with a tiny command that accepts the path to a compiled `.storybundle`. Using a positional argument keeps it easy to type and feels like other Unix tools. You can add options and subcommands later as your runner grows.
 
-        To explore the API surface, the code below shows the whole file — each step calls out the specific line to add and why.
-        See the ArgumentParser docs to learn more: https://github.com/apple/swift-argument-parser
+      To explore the API surface, the code below shows the whole file — each step calls out the specific line to add and why.
+      See the ArgumentParser docs to learn more: https://github.com/apple/swift-argument-parser
     }
     @Steps {
-        @Step {
-            Create the command structure with a type that conforms to `ParsableCommand` and a simple abstract description.
+      @Step {
+        Create the command structure with a type that conforms to `ParsableCommand` and a simple abstract description.
 
-            @Code(name: "Main.swift", file: 02-05-Main.swift)
-        }
-        @Step {
-            Declare a positional argument for the bundle path using the `@Argument` property wrapper. Positional keeps the command short and obvious: `haunted --help` vs `haunted <bundle>`.
+        @Code(name: "Main.swift", file: 02-05-Main.swift)
+      }
+      @Step {
+        Declare a positional argument for the bundle path using the `@Argument` property wrapper. Positional keeps the command short and obvious: `haunted --help` vs `haunted <bundle>`.
 
-            @Code(name: "Main.swift", file: 02-05-Main.swift)
-        }
-        @Step {
-            Add a `run()` function (even a skeleton is fine) that will load the bundle and kick off the loop you’ll build next.
+        @Code(name: "Main.swift", file: 02-05-Main.swift)
+      }
+      @Step {
+        Add a `run()` function (even a skeleton is fine) that will load the bundle and kick off the loop you’ll build next.
 
-            @Code(name: "Main.swift", file: 02-05-Main.swift)
-        }
+        @Code(name: "Main.swift", file: 02-05-Main.swift)
+      }
     }
-}
+  }
 
-@Section(title: "Define Minimal State") {
+  @Section(title: "Define Minimal State") {
     @ContentAndMedia {
-        Implement a tiny `HauntedState` conforming to `StoryState`. The engine only requires `currentNode`; everything else is up to you. This design keeps content and mechanics separate: the story stays declarative, and your app owns the rules. You can evolve health, sanity, inventory, or flags without rewriting content, and reuse the same story in different apps with different state models. StoryKit, for its part, stays focused on traversal and validation rather than your game’s details.
+      Implement a tiny `HauntedState` conforming to `StoryState`. The engine only requires `currentNode`; everything else is up to you. This design keeps content and mechanics separate: the story stays declarative, and your app owns the rules. You can evolve health, sanity, inventory, or flags without rewriting content, and reuse the same story in different apps with different state models. StoryKit, for its part, stays focused on traversal and validation rather than your game’s details.
     }
     @Steps {
-        @Step {
-            Add a single-file state definition. Keep it small; you’ll extend it later.
+      @Step {
+        Add a single-file state definition. Keep it small; you’ll extend it later.
 
-            @Code(name: "HauntedState.swift", file: 02-02-HauntedState.swift)
-        }
+        @Code(name: "HauntedState.swift", file: 02-02-HauntedState.swift)
+      }
     }
-}
+  }
 
-@Section(title: "Load the Story Bundle") {
+  @Section(title: "Load the Story Bundle") {
     @ContentAndMedia {
-        Use `StoryBundleLoader` to load a compiled bundle. A bundle contains `manifest.json`, `graph.json`, and a `texts/` directory; the loader decodes `graph.json` into a `Story`. Markdown files are read on demand and provide a performant, memory‑efficient, concurrency‑safe caching mechanism for excellent steady‑state performance. This keeps authoring files out of your runtime while giving you fast text lookups when you need them.
+      Use `StoryBundleLoader` to load a compiled bundle. A bundle contains `manifest.json`, `graph.json`, and a `texts/` directory; the loader decodes `graph.json` into a `Story`. Markdown files are read on demand and provide a performant, memory‑efficient, concurrency‑safe caching mechanism for excellent steady‑state performance. This keeps authoring files out of your runtime while giving you fast text lookups when you need them.
     }
     @Steps {
-        @Step {
-            Implement a helper that returns a `Story` for a bundle path. This keeps `main.swift` clean and makes testing straightforward.
+      @Step {
+        Implement a helper that returns a `Story` for a bundle path. This keeps `main.swift` clean and makes testing straightforward.
 
-            @Code(name: "LoadBundle.swift", file: 02-03-LoadBundle.swift)
-        }
+        @Code(name: "LoadBundle.swift", file: 02-03-LoadBundle.swift)
+      }
     }
-}
+  }
 
-@Section(title: "Create the Engine & Print Nodes") {
+  @Section(title: "Create the Engine & Print Nodes") {
     @ContentAndMedia {
-        Construct the engine with your `Story`, `HauntedState`, and (for now) empty predicate/effect/action registries. The engine starts at `story.start`; there’s no `run()`—you stay in control. Build the loop as a series of small, focused steps so it’s easy to reason about and test. Reading from stdin is fine for a first pass; production apps swap this for UI, but the rhythm remains the same: render, choose, advance.
+      Construct the engine with your `Story`, `HauntedState`, and (for now) empty predicate/effect/action registries. The engine starts at `story.start`; there’s no `run()`—you stay in control. Build the loop as a series of small, focused steps so it’s easy to reason about and test. Reading from stdin is fine for a first pass; production apps swap this for UI, but the rhythm remains the same: render, choose, advance.
     }
     @Steps {
-        @Step {
-            Ask for the current node. Keeping this explicit makes state inspection and testing straightforward.
+      @Step {
+        Ask for the current node. Keeping this explicit makes state inspection and testing straightforward.
 
-            @Code(name: "EngineLoop.swift", file: 02-04-EngineLoop.swift)
-        }
-        @Step {
-            Print a clear header like `=== <node id> ===` to ground the reader before the prose.
+        @Code(name: "EngineLoop.swift", file: 02-04-EngineLoop.swift)
+      }
+      @Step {
+        Print a clear header like `=== <node id> ===` to ground the reader before the prose.
 
-            @Code(name: "EngineLoop.swift", file: 02-04-EngineLoop.swift)
-        }
-        @Step {
-            Fetch and print the node’s text using `BundleTextProvider` and the node’s `TextRef`. StoryKit keeps prose separate from the graph so you decide how it’s presented.
+        @Code(name: "EngineLoop.swift", file: 02-04-EngineLoop.swift)
+      }
+      @Step {
+        Fetch and print the node’s text using `BundleTextProvider` and the node’s `TextRef`. StoryKit keeps prose separate from the graph so you decide how it’s presented.
 
-            @Code(name: "EngineLoop.swift", file: 02-04-EngineLoop.swift)
-        }
-        @Step {
-            List the available choices with 1‑based indices. This keeps input mapping simple and readable.
+        @Code(name: "EngineLoop.swift", file: 02-04-EngineLoop.swift)
+      }
+      @Step {
+        List the available choices with 1‑based indices. This keeps input mapping simple and readable.
 
-            @Code(name: "EngineLoop.swift", file: 02-04-EngineLoop.swift)
-        }
-        @Step {
-            Read input from stdin and map it to a selected choice. This keeps I/O concerns out of the engine proper.
+        @Code(name: "EngineLoop.swift", file: 02-04-EngineLoop.swift)
+      }
+      @Step {
+        Read input from stdin and map it to a selected choice. This keeps I/O concerns out of the engine proper.
 
-            @Code(name: "EngineLoop.swift", file: 02-04-EngineLoop.swift)
-        }
-        @Step {
-            Advance the engine by calling `select(choiceID:)`. Behind the scenes the engine evaluates predicates, applies effects, transitions to the destination, applies destination on‑enter effects, and then returns control to you for the next render.
+        @Code(name: "EngineLoop.swift", file: 02-04-EngineLoop.swift)
+      }
+      @Step {
+        Advance the engine by calling `select(choiceID:)`. Behind the scenes the engine evaluates predicates, applies effects, transitions to the destination, applies destination on‑enter effects, and then returns control to you for the next render.
 
-            @Code(name: "EngineLoop.swift", file: 02-04-EngineLoop.swift)
-        }
+        @Code(name: "EngineLoop.swift", file: 02-04-EngineLoop.swift)
+      }
     }
-}
+  }
 
-@Section(title: "Outcome") {
+  @Section(title: "Outcome") {
     @ContentAndMedia {
-        You now have a small but capable CLI that can load and play a StoryKit bundle. Here’s what you built:
-
-        - A command‑line interface using ArgumentParser with a positional bundle path.
-        - A minimal `StoryState` and a loop that prints headers, text, and choices.
-        - A selection flow that advances the engine cleanly.
-
-        These are the things you haven’t had to worry about, because StoryKit handles them:
-        - Loading and decoding the graph from a bundle.
-        - Reading Markdown text on demand and caching it automatically for steady, responsive performance.
-        - Keeping text loading concurrency‑safe and cooperating with the system to keep memory usage in check.
-        - Applying predicates and effects, handling destination on‑enter hooks, and supporting autosave as you advance.
-
-        Next, you’ll layer in mechanics that StoryKit is designed to help with: gating choices with predicates, changing state with effects, and driving richer encounters with actions.
+      You now have a small CLI that can load and play a StoryKit bundle: a positional-argument command, a minimal `StoryState`, and a loop that prints headers, text, and choices and advances the engine. StoryKit handled loading/decoding, text caching, concurrency safety, and predicate/effect application; next you’ll add checks, effects, and actions.
     }
+    @Steps {
+      @Step { Proceed to learn checks, effects, actions, and autosave. }
+    }
+  }
 }

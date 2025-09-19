@@ -1,158 +1,160 @@
-@Intro(title: "Checks, Effects, Actions, Battles, and the Ritual") {
+@Tutorial(time: 60) {
+  @Intro(title: "Checks, Effects, Actions, Battles, and the Ritual") {
     In this tutorial you’ll enrich the minimal CLI from Tutorial 2 with game‑flavored mechanics: roll‑under d20 checks, health and sanity tracking, inventory and flags, predicates and effects to gate and mutate state, a simple multi‑round fight with flee, and an ordered ritual that branches to different endings. The emphasis is equal parts “why” and “how”: why these pieces fit the tone, and how to implement them using StoryKit’s registries and engine flow.
 
     StoryKit is deliberately agnostic to any specific game engine. It focuses on node‑to‑node flow and flexible metadata, while leaving rules and systems to your app. Because mechanics live in your client, the same story can drive very different experiences—your rules decide what “has‑item”, “lose‑sanity”, or “ritual” mean. Content stays declarative and portable; you can validate and iterate without recompiling your app.
 
     By the end, your CLI will present checks with narrative feedback, support short fights with a chance to flee, and enforce a ritual’s required items and order. You’ll also wire autosave so progress survives between rounds and after risky choices.
-}
+  }
 
-@Section(title: "Designing Game State") {
+  @Section(title: "Designing Game State") {
     @ContentAndMedia {
-        Treat your `StoryState` like a character sheet. It’s the single source of truth for stats (health, sanity), inventory (item ids), and flags. Keeping this in your app means you can evolve mechanics freely while the story stays declarative and portable. It’s also what lets StoryKit be engine‑agnostic: it handles node flow and metadata, and your client supplies the rules.
+      Treat your `StoryState` like a character sheet. It’s the single source of truth for stats (health, sanity), inventory (item ids), and flags. Keeping this in your app means you can evolve mechanics freely while the story stays declarative and portable. It’s also what lets StoryKit be engine‑agnostic: it handles node flow and metadata, and your client supplies the rules.
 
-        We’ll build it up in small steps so each addition is obvious and testable.
+      We’ll build it up in small steps so each addition is obvious and testable.
     }
     @Steps {
-        @Step {
-            Start with a minimal state that only satisfies the engine: a `currentNode`.
+      @Step {
+        Start with a minimal state that only satisfies the engine: a `currentNode`.
 
-            @Code(name: "State (minimal)", file: 03-01a-HauntedState-Struct.swift)
-        }
-        @Step {
-            Add fields you’ll use throughout the story: `health`, `sanity`, `inventory`, and `flags`.
+        @Code(name: "State (minimal)", file: 03-01a-HauntedState-Struct.swift)
+      }
+      @Step {
+        Add fields you’ll use throughout the story: `health`, `sanity`, `inventory`, and `flags`.
 
-            @Code(name: "State (fields)", file: 03-01b-HauntedState-Fields.swift)
-        }
-        @Step {
-            Add tiny helpers so updates are safe and readable: `gain(_:)`, `has(_:)`, and `setFlag(_:to:)`.
+        @Code(name: "State (fields)", file: 03-01b-HauntedState-Fields.swift)
+      }
+      @Step {
+        Add tiny helpers so updates are safe and readable: `gain(_:)`, `has(_:)`, and `setFlag(_:to:)`.
 
-            @Code(name: "State (helpers)", file: 03-01c-HauntedState-Helpers.swift)
-        }
+        @Code(name: "State (helpers)", file: 03-01c-HauntedState-Helpers.swift)
+      }
     }
-}
+  }
 
-@Section(title: "Roll-Under Checks & Predicates") {
+  @Section(title: "Roll-Under Checks & Predicates") {
     @ContentAndMedia {
-        Roll‑under checks fit horror because success is often narrow and failure meaningful. We’ll add a tiny dice helper, then register two useful predicates. Predicates are pure: they read state and parameters and return a Bool.
+      Roll‑under checks fit horror because success is often narrow and failure meaningful. We’ll add a tiny dice helper, then register two useful predicates. Predicates are pure: they read state and parameters and return a Bool.
     }
     @Steps {
-        @Step {
-            Add a `rollD20()` and a `checkUnder(_:)` helper to support roll‑under checks.
+      @Step {
+        Add a `rollD20()` and a `checkUnder(_:)` helper to support roll‑under checks.
 
-            @Code(name: "Dice & check helpers", file: 03-02a-Dice.swift)
-        }
-        @Step {
-            Register a `has-item` predicate that maps directly to your inventory semantics.
+        @Code(name: "Dice & check helpers", file: 03-02a-Dice.swift)
+      }
+      @Step {
+        Register a `has-item` predicate that maps directly to your inventory semantics.
 
-            @Code(name: "Predicate: has-item", file: 03-02b-Register-HasItem.swift)
-        }
-        @Step {
-            Register a `stat-at-least` predicate that compares a stat to a threshold provided in parameters.
+        @Code(name: "Predicate: has-item", file: 03-02b-Register-HasItem.swift)
+      }
+      @Step {
+        Register a `stat-at-least` predicate that compares a stat to a threshold provided in parameters.
 
-            @Code(name: "Predicate: stat-at-least", file: 03-02c-Register-StatAtLeast.swift)
-        }
+        @Code(name: "Predicate: stat-at-least", file: 03-02c-Register-StatAtLeast.swift)
+      }
     }
-}
+  }
 
-@Section(title: "Effects: Damage, Sanity, Items, Flags") {
+  @Section(title: "Effects: Damage, Sanity, Items, Flags") {
     @ContentAndMedia {
-        Effects are deterministic state changes invoked on selection or on‑enter. Keep them small and composable, and map string parameters to integers and booleans carefully. This is where narrative consequences become concrete: a sanity drop, an injury, an inventory gain, a flag that opens later branches.
+      Effects are deterministic state changes invoked on selection or on‑enter. Keep them small and composable, and map string parameters to integers and booleans carefully. This is where narrative consequences become concrete: a sanity drop, an injury, an inventory gain, a flag that opens later branches.
     }
     @Steps {
-        @Step {
-            Register a `lose-sanity` effect. Clamp values to safe ranges so state never goes out of bounds.
+      @Step {
+        Register a `lose-sanity` effect. Clamp values to safe ranges so state never goes out of bounds.
 
-            @Code(name: "Effect: lose-sanity", file: 03-03a-Register-LoseSanity.swift)
-        }
-        @Step {
-            Register a `take-damage` effect. Again, clamp to keep state valid.
+        @Code(name: "Effect: lose-sanity", file: 03-03a-Register-LoseSanity.swift)
+      }
+      @Step {
+        Register a `take-damage` effect. Again, clamp to keep state valid.
 
-            @Code(name: "Effect: take-damage", file: 03-03b-Register-TakeDamage.swift)
-        }
-        @Step {
-            Register a `gain-item` effect. Treat inventory additions as idempotent.
+        @Code(name: "Effect: take-damage", file: 03-03b-Register-TakeDamage.swift)
+      }
+      @Step {
+        Register a `gain-item` effect. Treat inventory additions as idempotent.
 
-            @Code(name: "Effect: gain-item", file: 03-03c-Register-GainItem.swift)
-        }
-        @Step {
-            Register a `set-flag` effect. Flags open later branches.
+        @Code(name: "Effect: gain-item", file: 03-03c-Register-GainItem.swift)
+      }
+      @Step {
+        Register a `set-flag` effect. Flags open later branches.
 
-            @Code(name: "Effect: set-flag", file: 03-03d-Register-SetFlag.swift)
-        }
+        @Code(name: "Effect: set-flag", file: 03-03d-Register-SetFlag.swift)
+      }
     }
-}
+  }
 
-@Section(title: "Entities & Multi-Round Battles with Flee") {
+  @Section(title: "Entities & Multi-Round Battles with Flee") {
     @ContentAndMedia {
-        Encounters benefit from pacing. A melee round should produce narration, potentially modify state (damage to player or enemy), and offer a flee option keyed to a check. Model opponents minimally—hp, attack range, name—and drive the action through an `ActionRegistry` closure. Return `.requiresUserInput` when the fight continues; return `.completed` when it ends.
+      Encounters benefit from pacing. A melee round should produce narration, potentially modify state (damage to player or enemy), and offer a flee option keyed to a check. Model opponents minimally—hp, attack range, name—and drive the action through an `ActionRegistry` closure. Return `.requiresUserInput` when the fight continues; return `.completed` when it ends.
     }
     @Steps {
-        @Step {
-            Define a tiny entity model (hp, attack range, name). Keep it small on purpose.
+      @Step {
+        Define a tiny entity model (hp, attack range, name). Keep it small on purpose.
 
-            @Code(name: "Entity model", file: 03-04a-EntityModel.swift)
-        }
-        @Step {
-            Register a `melee-round` action that advances the fight and narrates a round, including hits/misses and retaliation.
+        @Code(name: "Entity model", file: 03-04a-EntityModel.swift)
+      }
+      @Step {
+        Register a `melee-round` action that advances the fight and narrates a round, including hits/misses and retaliation.
 
-            @Code(name: "Action: melee-round", file: 03-04b-Action-MeleeRound.swift)
-        }
-        @Step {
-            Add flee support using a roll‑under check. Return `.completed` when the player escapes.
+        @Code(name: "Action: melee-round", file: 03-04b-Action-MeleeRound.swift)
+      }
+      @Step {
+        Add flee support using a roll‑under check. Return `.completed` when the player escapes.
 
-            @Code(name: "Flee logic", file: 03-04c-Flee-Logic.swift)
-        }
+        @Code(name: "Flee logic", file: 03-04c-Flee-Logic.swift)
+      }
     }
-}
+  }
 
-@Section(title: "The Final Ritual (Ordered Sequence)") {
+  @Section(title: "The Final Ritual (Ordered Sequence)") {
     @ContentAndMedia {
-        The ritual requires multiple items and a strict order. Author the action as a single `ritual` id that accepts an `order` parameter (comma‑joined steps). In code, verify inventory and order; set flags to route to outcomes. This keeps branching logic out of the story graph while preserving authoring clarity.
+      The ritual requires multiple items and a strict order. Author the action as a single `ritual` id that accepts an `order` parameter (comma‑joined steps). In code, verify inventory and order; set flags to route to outcomes. This keeps branching logic out of the story graph while preserving authoring clarity.
     }
     @Steps {
-        @Step {
-            Declare the ritual action signature and parse the `order` parameter.
+      @Step {
+        Declare the ritual action signature and parse the `order` parameter.
 
-            @Code(name: "Ritual (signature)", file: 03-05a-Action-Ritual-Signature.swift)
-        }
-        @Step {
-            Verify required items and validate the item order (candle → tome → dagger).
+        @Code(name: "Ritual (signature)", file: 03-05a-Action-Ritual-Signature.swift)
+      }
+      @Step {
+        Verify required items and validate the item order (candle → tome → dagger).
 
-            @Code(name: "Ritual (checks)", file: 03-05b-Action-Ritual-Checks.swift)
-        }
-        @Step {
-            Toggle outcome flags to route success/failure branches cleanly.
+        @Code(name: "Ritual (checks)", file: 03-05b-Action-Ritual-Checks.swift)
+      }
+      @Step {
+        Toggle outcome flags to route success/failure branches cleanly.
 
-            @Code(name: "Ritual (outcomes)", file: 03-05c-Action-Ritual-Outcomes.swift)
-        }
+        @Code(name: "Ritual (outcomes)", file: 03-05c-Action-Ritual-Outcomes.swift)
+      }
     }
-}
+  }
 
-@Section(title: "Autosave Between Rounds") {
+  @Section(title: "Autosave Between Rounds") {
     @ContentAndMedia {
-        Long encounters and risky sequences should persist. Use `JSONFileSaveProvider` with `makeAutoSaveHandler` to write a snapshot after transitions and actions. The engine’s `autosave` closure is invoked after successful `select` and `performAction` calls.
+      Long encounters and risky sequences should persist. Use `JSONFileSaveProvider` with `makeAutoSaveHandler` to write a snapshot after transitions and actions. The engine’s `autosave` closure is invoked after successful `select` and `performAction` calls.
     }
     @Steps {
-        @Step {
-            Create a small factory for an autosave closure keyed by a story id and slot name.
+      @Step {
+        Create a small factory for an autosave closure keyed by a story id and slot name.
 
-            @Code(name: "Autosave (factory)", file: 03-06a-AutoSave-Factory.swift)
-        }
-        @Step {
-            Pass the closure to `StoryEngine` as `autosave:` when you construct the engine.
+        @Code(name: "Autosave (factory)", file: 03-06a-AutoSave-Factory.swift)
+      }
+      @Step {
+        Pass the closure to `StoryEngine` as `autosave:` when you construct the engine.
 
-            @Code(name: "Autosave (engine init)", file: 03-06b-Engine-Init-Autosave.swift)
-        }
+        @Code(name: "Autosave (engine init)", file: 03-06b-Engine-Init-AutoSave.swift)
+      }
     }
-}
+  }
 
-@Section(title: "Outcome") {
+  @Section(title: "Outcome") {
     @ContentAndMedia {
-        Your CLI now supports checks, registered predicates/effects, a multi‑round melee action with flee, the ordered ritual, and autosave. Mechanics stay in your client while content stays declarative and portable; StoryKit remains agnostic to the game engine and focused on node flow and metadata.
+      Your CLI now supports checks, registered predicates/effects, a multi‑round melee action with flee, the ordered ritual, and autosave. Mechanics stay in your client while content stays declarative and portable; StoryKit remains agnostic to the game engine and focused on node flow and metadata.
     }
     @Steps {
-        @Step {
-            You can now enrich narration, route results to specialized nodes, or transition via `performGlobalAction` to endings—without changing the story’s structure. Next up, you can refine rules, make checks probabilistic or stat‑driven, and expand encounters, all while StoryKit continues to handle traversal, loading, and validation.
-        }
+      @Step {
+        You can now enrich narration, route results to specialized nodes, or transition via `performGlobalAction` to endings—without changing the story’s structure. Next up, you can refine rules, make checks probabilistic or stat‑driven, and expand encounters, all while StoryKit continues to handle traversal, loading, and validation.
+      }
     }
+  }
 }

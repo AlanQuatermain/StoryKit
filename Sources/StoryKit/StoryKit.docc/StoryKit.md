@@ -1,11 +1,5 @@
 # ``StoryKit``
 
-@Metadata {
-  @TechnologyRoot
-  @Title("StoryKit")
-  @Abstract("An extensible engine and toolchain for building choose-your-own-adventure style interactive stories.")
-}
-
 Build rich, data‑driven “choose your own adventure” experiences with a small, composable core and first‑class tooling.
 
 ## Overview
@@ -21,14 +15,14 @@ Author your story using a `story.json` graph and Markdown prose with lightweight
 ### Authoring & Formats
 - <doc:DataFormats>
 
-### Validation
+### Validation Guide
 - <doc:Validation>
 
-### Extensibility
+### Extensibility Guide
 - <doc:Extensibility>
 
-### Encounters
+### Encounters Guide
 - <doc:Encounters>
 
-### CLI
+### CLI Guide
 - <doc:CLI>

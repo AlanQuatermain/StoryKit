@@ -182,6 +182,7 @@ public actor CachedSourceTextProvider {
     private var pressureSource: DispatchSourceMemoryPressure?
 
     /// Creates a cached provider for a source layout.
+    /// - Parameter source: The on-disk source layout containing `story.json` and a `texts/` directory.
     /// - Parameter maxBytes: Cache budget; files are evicted LRU when exceeded.
     public init(source: StorySourceLayout, maxBytes: Int = 8 * 1024 * 1024) {
         self.layout = source
@@ -270,6 +271,7 @@ public actor CachedBundleTextProvider {
     private var pressureSource: DispatchSourceMemoryPressure?
 
     /// Creates a cached provider for a compiled bundle.
+    /// - Parameter bundle: The compiled bundle layout containing `manifest.json`, `graph.json`, and a `texts/` directory.
     /// - Parameter maxBytes: Cache budget; files are evicted LRU when exceeded.
     public init(bundle: StoryBundleLayout, maxBytes: Int = 8 * 1024 * 1024) {
         self.layout = bundle

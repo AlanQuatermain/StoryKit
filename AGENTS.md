@@ -233,3 +233,107 @@ This section captures the current state of work on the Haunted House story suite
 - All three tutorials build in DocC and all `@Code(file:)` references resolve to existing files.
 - `swift run storykit validate StoryKit.docc/Resources/haunted-final` yields no errors; only expected warnings for ending nodes with no choices.
 - Compiled bundle updated and consistent with final.
+
+## DocC Tutorials — Agent Guide
+
+This section captures how to author, structure, and maintain DocC tutorials for StoryKit. Agents should follow these rules when editing `.tutorial` files or documentation resources.
+
+### Core Concepts
+
+- Documentation kinds:
+  - Tutorials: Interactive, step‑driven pages with code diffs and media.
+  - Tutorials Table of Contents (ToC): The root `@Tutorials` page that organizes tutorials into chapters and references.
+  - Articles: Free‑form `.md` pages (no steps) used for conceptual docs.
+- File types:
+  - `.tutorial` files contain one of: `@Tutorials`, `@Tutorial`, or `@Article` as the top‑level directive.
+  - Assets live under the DocC catalog’s `Resources/` folder and are referenced by relative path.
+
+### Tutorials Table of Contents
+
+- Use `@Tutorials(name: "StoryKit")` to define the tutorial hierarchy for this package.
+- Children of `@Tutorials`:
+  - `@Intro(title: "…")`: short overview; can include `@Image`.
+  - `@Chapter(name: "…")`: brief description and optional `@Image`.
+    - Each chapter must include one or more `@TutorialReference(tutorial: "doc:YourTutorialFileName")` items that link to `@Tutorial` pages.
+
+Official docs:
+- https://www.swift.org/documentation/docc/tutorials
+- https://www.swift.org/documentation/docc/intro
+- https://www.swift.org/documentation/docc/chapter
+- https://www.swift.org/documentation/docc/tutorialreference
+
+### Tutorial Pages
+
+- Top‑level directive: `@Tutorial(time: <minutes>, resourceReference: "path/To/Zip")`.
+  - `time`: Estimated minutes for an engaged reader to complete.
+  - `resourceReference` (optional): Path under `Resources/` to a downloadable zip; DocC surfaces a “Download Materials” link.
+- Title and overview: Provided by nested `@Intro(title: "…")` (do not put a `title:` on `@Tutorial`).
+- Sections:
+  - Each `@Section(title: "…")` may include a `@ContentAndMedia` block (context prose, inline media).
+  - Every `@Section` must contain exactly one `@Steps` block.
+- Steps:
+  - Each `@Step` must contain exactly one instruction paragraph (DocC warns on lists or extra blocks) and may include a single `@Code(file:)` or `@Image`.
+  - Keep changes per step small (1–2 lines) with a succinct explanation.
+
+Official docs:
+- https://www.swift.org/documentation/docc/tutorial
+- https://www.swift.org/documentation/docc/code
+- https://www.swift.org/documentation/docc/image
+- Syntax overview: https://www.swift.org/documentation/docc/tutorial-syntax
+
+### Code Snippets and Diffs
+
+- `@Code(file: "…", name: "…")` must reference a complete file, not a fragment.
+- For DocC to highlight diffs between steps:
+  - Use the same logical filename across the steps of a section (e.g., `Main.swift`).
+  - Provide complete, cumulative files for each step (i.e., each file contains everything from the previous step plus the new change).
+  - You can use DocC’s step suffix convention (e.g., `Main.swift`, `Main@2.swift`, `Main@3.swift`) for resource files while keeping `file: "Main.swift"` in the directive. DocC pairs consecutive step resources to compute diffs.
+
+### Images and Media
+
+- Use `@Image(source: "Images/placeholder.svg", alt: "Accessible description")`.
+- Store all images under `Resources/Images/`.
+
+### Linking and Disambiguation
+
+- Use `doc:` links for cross‑references (e.g., `@TutorialReference(tutorial: "doc:Tutorial-1-Building-Your-First-Story")`, or `- <doc:Validation>` in articles).
+- If DocC reports an ambiguous link, adjust headings (e.g., “Validation Guide”) or provide anchors.
+
+### Resource Hygiene (Important)
+
+- DocC treats `.md` files under `Resources/` as articles and warns if they don’t start with a top‑level heading. For code/text excerpts, use `.txt` or another non‑article format.
+- Keep only referenced assets in `Resources/`. Do not check in large unzipped project trees—zip them and reference via `resourceReference`.
+- For this repo, organize resources as follows:
+  - `Resources/Images/`: tutorial images (placeholder.svg, etc.).
+  - `Resources/Tutorial-1/`, `Resources/Tutorial-2/`, `Resources/Tutorial-3/`: code/text snippets for each tutorial, grouped by logical file with step variants (e.g., `Main.swift`, `Main@2.swift`).
+  - `Resources/Projects/`: downloadable zips:
+    - Tutorial 1: broken starter zip (e.g., `HauntedStarter.zip`).
+    - Tutorials 2–3: complete bundle zip (e.g., `HauntedHouseBundle.zip`).
+
+### Common Pitfalls to Avoid
+
+- Putting the title on `@Tutorial` instead of inside `@Intro(title:)`.
+- Omitting `@Steps` or adding multiple `@Steps` within a `@Section`.
+- Using lists or multiple paragraphs inside `@Step` (causes warnings).
+- Using code fragments instead of complete files in `@Code(file:)`.
+- Leaving unpacked `.md` story files in `Resources/` (DocC warns about missing titles). Prefer `.txt` for excerpts, and zipped projects for full content.
+- Using `@TechnologyRoot`/unsupported `@Metadata` children in documentation extensions (not supported here).
+
+### Checklist for Agents Editing Tutorials
+
+- Update or add entries in the ToC (`@Tutorials`) for any new tutorials; keep chapter images/descriptions in sync.
+- Ensure each tutorial has a realistic `time:` and a `resourceReference` if materials are needed.
+- Validate that every `@Section` has exactly one `@Steps`, and every `@Step` has exactly one paragraph and one `@Code`/`@Image`.
+- Verify snippet files exist under `Resources/Tutorial-X/` and represent complete files per step with diffs computable across steps.
+- Rebuild docs and fix all warnings: `swift package --disable-sandbox --allow-writing-to-directory docs generate-documentation --target StoryKit --output-dir docs --transform-for-static-hosting --hosting-base-path StoryKit`.
+
+### Official References
+
+- Tutorial Syntax (overview): https://www.swift.org/documentation/docc/tutorial-syntax
+- Code directive: https://www.swift.org/documentation/docc/code
+- Tutorials root: https://www.swift.org/documentation/docc/tutorials
+- Tutorial page: https://www.swift.org/documentation/docc/tutorial
+- Intro directive: https://www.swift.org/documentation/docc/intro
+- Chapter directive: https://www.swift.org/documentation/docc/chapter
+- TutorialReference: https://www.swift.org/documentation/docc/tutorialreference
+- Image directive: https://www.swift.org/documentation/docc/image
