@@ -1,16 +1,16 @@
 @Intro(title: "Checks, Effects, Actions, Battles, and the Ritual") {
-    In this tutorial you’ll enrich the minimal CLI from Tutorial 2 with mechanics described in Story-Design.md: roll–under d20 checks, health and sanity tracking, inventory and flags, predicates and effects to gate and mutate state, a multi–round melee system with flee, and an ordered ritual sequence that branches to All–Good, Madness, or Scarred outcomes. The emphasis is equal parts theory and practice: why these mechanics fit the tone, and how to implement them using StoryKit’s extensibility points.
+    In this tutorial you’ll enrich the minimal CLI from Tutorial 2 with game‑flavored mechanics: roll‑under d20 checks, health and sanity tracking, inventory and flags, predicates and effects to gate and mutate state, a simple multi‑round fight with flee, and an ordered ritual that branches to different endings. The emphasis is equal parts “why” and “how”: why these pieces fit the tone, and how to implement them using StoryKit’s registries and engine flow.
 
-    StoryKit’s philosophy is that content should remain declarative and portable while mechanics live in your app. Predicates, effects, and actions are registered against string ids in the story, keeping the graph free of code while letting your runtime decide what “has-item”, “lose-sanity”, or “ritual” really mean. This separation lets you author and validate content without recompiling your app and gives designers guard rails as they experiment with difficulty and pacing.
+    StoryKit is deliberately agnostic to any specific game engine. It focuses on node‑to‑node flow and flexible metadata, while leaving rules and systems to your app. Because mechanics live in your client, the same story can drive very different experiences—your rules decide what “has‑item”, “lose‑sanity”, or “ritual” mean. Content stays declarative and portable; you can validate and iterate without recompiling your app.
 
-    By the end, your CLI will present checks with narrative feedback, support multi–round fights with a chance to flee, and enforce the ritual’s required items and order. You’ll also wire autosave so that progress survives between rounds and after risky choices.
+    By the end, your CLI will present checks with narrative feedback, support short fights with a chance to flee, and enforce a ritual’s required items and order. You’ll also wire autosave so progress survives between rounds and after risky choices.
 }
 
 @Section(title: "Designing Game State") {
     @ContentAndMedia {
-        Treat your `StoryState` like a character sheet. It should capture the single source of truth for stats (health, sanity), inventory (a set of item ids), and flags that mark global or local accomplishments. Keep it serializable and sendable. Add small helpers that make updates clear and safe: `gain(_:)`, `has(_:)`, and `setFlag(_:to:)`.
+        Treat your `StoryState` like a character sheet. It’s the single source of truth for stats (health, sanity), inventory (item ids), and flags. Keeping this in your app means you can evolve mechanics freely while the story stays declarative and portable. It’s also what lets StoryKit be engine‑agnostic: it handles node flow and metadata, and your client supplies the rules.
 
-        The story remains declarative: nodes and choices never know about integers or timers; they talk in terms of ids and parameters. Your state and registries speak both languages.
+        Keep the state `Codable`/`Sendable` and add small helpers—`gain(_:)`, `has(_:)`, `setFlag(_:to:)`—so updates are clear and safe.
     }
     @Steps {
         @Step {
@@ -23,9 +23,7 @@
 
 @Section(title: "Roll-Under Checks & Predicates") {
     @ContentAndMedia {
-        Roll–under checks fit horror because success is often narrow and failure meaningful. Implement a simple `rollD20()` and a helper that evaluates “under X” for a stat. Then register predicates for content gating: `has-item` and a generic `stat-at-least` are immediately useful and map cleanly from authored parameters to code.
-
-        Predicates are pure: they take state and string parameters and return a Bool. They should not mutate. In contrast, effects will mutate state after selections or arrivals.
+        Roll‑under checks fit horror because success is often narrow and failure meaningful. Add a simple `rollD20()` and a helper that evaluates “under X” for a stat. Then register predicates for gating: `has-item` and a generic `stat-at-least` are immediately useful and map cleanly from authored parameters to code. Predicates are pure: they read state and parameters and return a Bool.
     }
     @Steps {
         @Step {
@@ -38,7 +36,7 @@
 
 @Section(title: "Effects: Damage, Sanity, Items, Flags") {
     @ContentAndMedia {
-        Effects are deterministic state mutations invoked on selection or on–enter. Keep them small and composable, and map string parameters to integers and booleans carefully. This is where narrative consequences become concrete: a sanity drop, an injury, an inventory gain, a flag that opens later branches.
+        Effects are deterministic state changes invoked on selection or on‑enter. Keep them small and composable, and map string parameters to integers and booleans carefully. This is where narrative consequences become concrete: a sanity drop, an injury, an inventory gain, a flag that opens later branches.
     }
     @Steps {
         @Step {
@@ -51,9 +49,7 @@
 
 @Section(title: "Entities & Multi-Round Battles with Flee") {
     @ContentAndMedia {
-        Encounters benefit from pacing. A melee round should produce narration, potentially modify state (damage to player or enemy), and offer a flee option keyed to a check (dexterity by default). Model opponents minimally—hp, attack range, name—and drive the action through an `ActionRegistry` closure. Return `.requiresUserInput` to indicate that the loop should prompt again; return `.completed` when the round ends or the player flees.
-
-        In production, track enemy hp across rounds in state; for brevity, this sample hints at that and focuses on loop mechanics and flee.
+        Encounters benefit from pacing. A melee round should produce narration, potentially modify state (damage to player or enemy), and offer a flee option keyed to a check. Model opponents minimally—hp, attack range, name—and drive the action through an `ActionRegistry` closure. Return `.requiresUserInput` when the fight continues; return `.completed` when it ends.
     }
     @Steps {
         @Step {
@@ -66,7 +62,7 @@
 
 @Section(title: "The Final Ritual (Ordered Sequence)") {
     @ContentAndMedia {
-        The ritual requires multiple items and a strict order. Author the action as a single `ritual` id that accepts an `order` parameter (comma–joined steps). In code, verify inventory and order; set flags to route to outcomes. This keeps branching logic out of the story graph while preserving authoring clarity.
+        The ritual requires multiple items and a strict order. Author the action as a single `ritual` id that accepts an `order` parameter (comma‑joined steps). In code, verify inventory and order; set flags to route to outcomes. This keeps branching logic out of the story graph while preserving authoring clarity.
     }
     @Steps {
         @Step {
@@ -92,7 +88,11 @@
 
 @Section(title: "Outcome") {
     @ContentAndMedia {
-        Your CLI now supports checks, registered predicates/effects, a multi–round melee action with flee, the ordered ritual, and autosave. From here, you can enrich narration, route results to specialized nodes, or transition via `performGlobalAction` to endings. The mechanics remain cleanly separated from authored content, so designers retain control over prose while engineers retain control over behavior.
+        Your CLI now supports checks, registered predicates/effects, a multi‑round melee action with flee, the ordered ritual, and autosave. Mechanics stay in your client while content stays declarative and portable; StoryKit remains agnostic to the game engine and focused on node flow and metadata.
+    }
+    @Steps {
+        @Step {
+            You can now enrich narration, route results to specialized nodes, or transition via `performGlobalAction` to endings—without changing the story’s structure. Next up, you can refine rules, make checks probabilistic or stat‑driven, and expand encounters, all while StoryKit continues to handle traversal, loading, and validation.
+        }
     }
 }
-
