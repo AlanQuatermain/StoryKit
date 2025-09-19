@@ -10,26 +10,46 @@
     @ContentAndMedia {
         Treat your `StoryState` like a character sheet. It’s the single source of truth for stats (health, sanity), inventory (item ids), and flags. Keeping this in your app means you can evolve mechanics freely while the story stays declarative and portable. It’s also what lets StoryKit be engine‑agnostic: it handles node flow and metadata, and your client supplies the rules.
 
-        Keep the state `Codable`/`Sendable` and add small helpers—`gain(_:)`, `has(_:)`, `setFlag(_:to:)`—so updates are clear and safe.
+        We’ll build it up in small steps so each addition is obvious and testable.
     }
     @Steps {
         @Step {
-            Extend `HauntedState` with fields and helpers. Initialize conservative defaults and prefer value semantics.
+            Start with a minimal state that only satisfies the engine: a `currentNode`.
 
-            @Code(name: "HauntedState (extended)", file: 03-01-HauntedState-Extended.swift)
+            @Code(name: "State (minimal)", file: 03-01a-HauntedState-Struct.swift)
+        }
+        @Step {
+            Add fields you’ll use throughout the story: `health`, `sanity`, `inventory`, and `flags`.
+
+            @Code(name: "State (fields)", file: 03-01b-HauntedState-Fields.swift)
+        }
+        @Step {
+            Add tiny helpers so updates are safe and readable: `gain(_:)`, `has(_:)`, and `setFlag(_:to:)`.
+
+            @Code(name: "State (helpers)", file: 03-01c-HauntedState-Helpers.swift)
         }
     }
 }
 
 @Section(title: "Roll-Under Checks & Predicates") {
     @ContentAndMedia {
-        Roll‑under checks fit horror because success is often narrow and failure meaningful. Add a simple `rollD20()` and a helper that evaluates “under X” for a stat. Then register predicates for gating: `has-item` and a generic `stat-at-least` are immediately useful and map cleanly from authored parameters to code. Predicates are pure: they read state and parameters and return a Bool.
+        Roll‑under checks fit horror because success is often narrow and failure meaningful. We’ll add a tiny dice helper, then register two useful predicates. Predicates are pure: they read state and parameters and return a Bool.
     }
     @Steps {
         @Step {
-            Add the dice and check helpers, and register `has-item` and `stat-at-least` into a `PredicateRegistry`.
+            Add a `rollD20()` and a `checkUnder(_:)` helper to support roll‑under checks.
 
-            @Code(name: "Checks & Predicates", file: 03-02-ChecksAndPredicates.swift)
+            @Code(name: "Dice & check helpers", file: 03-02a-Dice.swift)
+        }
+        @Step {
+            Register a `has-item` predicate that maps directly to your inventory semantics.
+
+            @Code(name: "Predicate: has-item", file: 03-02b-Register-HasItem.swift)
+        }
+        @Step {
+            Register a `stat-at-least` predicate that compares a stat to a threshold provided in parameters.
+
+            @Code(name: "Predicate: stat-at-least", file: 03-02c-Register-StatAtLeast.swift)
         }
     }
 }
@@ -40,9 +60,24 @@
     }
     @Steps {
         @Step {
-            Register `lose-sanity`, `take-damage`, `gain-item`, and `set-flag`. Favor clamping to safe ranges and defensive parsing of parameters.
+            Register a `lose-sanity` effect. Clamp values to safe ranges so state never goes out of bounds.
 
-            @Code(name: "Effects", file: 03-03-Effects.swift)
+            @Code(name: "Effect: lose-sanity", file: 03-03a-Register-LoseSanity.swift)
+        }
+        @Step {
+            Register a `take-damage` effect. Again, clamp to keep state valid.
+
+            @Code(name: "Effect: take-damage", file: 03-03b-Register-TakeDamage.swift)
+        }
+        @Step {
+            Register a `gain-item` effect. Treat inventory additions as idempotent.
+
+            @Code(name: "Effect: gain-item", file: 03-03c-Register-GainItem.swift)
+        }
+        @Step {
+            Register a `set-flag` effect. Flags open later branches.
+
+            @Code(name: "Effect: set-flag", file: 03-03d-Register-SetFlag.swift)
         }
     }
 }
@@ -53,9 +88,19 @@
     }
     @Steps {
         @Step {
-            Define a tiny entity model and register a `melee-round` action that advances a fight, handles misses/retaliation, and supports flee with a roll–under gate.
+            Define a tiny entity model (hp, attack range, name). Keep it small on purpose.
 
-            @Code(name: "Battle System", file: 03-04-BattleSystem.swift)
+            @Code(name: "Entity model", file: 03-04a-EntityModel.swift)
+        }
+        @Step {
+            Register a `melee-round` action that advances the fight and narrates a round, including hits/misses and retaliation.
+
+            @Code(name: "Action: melee-round", file: 03-04b-Action-MeleeRound.swift)
+        }
+        @Step {
+            Add flee support using a roll‑under check. Return `.completed` when the player escapes.
+
+            @Code(name: "Flee logic", file: 03-04c-Flee-Logic.swift)
         }
     }
 }
@@ -66,9 +111,19 @@
     }
     @Steps {
         @Step {
-            Register a `ritual` action that checks for the Black Candle, Forbidden Tome, and Silver Dagger, validates the item order (candle → tome → dagger), and toggles outcome flags.
+            Declare the ritual action signature and parse the `order` parameter.
 
-            @Code(name: "Ritual", file: 03-05-Ritual.swift)
+            @Code(name: "Ritual (signature)", file: 03-05a-Action-Ritual-Signature.swift)
+        }
+        @Step {
+            Verify required items and validate the item order (candle → tome → dagger).
+
+            @Code(name: "Ritual (checks)", file: 03-05b-Action-Ritual-Checks.swift)
+        }
+        @Step {
+            Toggle outcome flags to route success/failure branches cleanly.
+
+            @Code(name: "Ritual (outcomes)", file: 03-05c-Action-Ritual-Outcomes.swift)
         }
     }
 }
@@ -79,9 +134,14 @@
     }
     @Steps {
         @Step {
-            Create a small factory for an autosave closure keyed by a story id and slot name. In your engine construction, pass it as `autosave:`.
+            Create a small factory for an autosave closure keyed by a story id and slot name.
 
-            @Code(name: "Autosave", file: 03-06-AutoSave.swift)
+            @Code(name: "Autosave (factory)", file: 03-06a-AutoSave-Factory.swift)
+        }
+        @Step {
+            Pass the closure to `StoryEngine` as `autosave:` when you construct the engine.
+
+            @Code(name: "Autosave (engine init)", file: 03-06b-Engine-Init-Autosave.swift)
         }
     }
 }
