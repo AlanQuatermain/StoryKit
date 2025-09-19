@@ -1,4 +1,4 @@
-@Intro(title: "Validating and Repairing a Haunted House Story") {
+@Intro(title: "Building and Validating a Story") {
     In this tutorial you’ll get comfortable with the StoryKit authoring model and the validator that keeps your story graph honest. You’ll start from a small broken version of the Haunted House story and repair it step by step until it validates cleanly and compiles into a runtime‑ready bundle. Along the way, you’ll examine the on‑disk formats, run the CLI, and verify each fix by re‑running validation.
 
     The goals are practical and conceptual. Practically, you’ll learn how `story.json` declares nodes and choices, how Markdown sections provide prose for each node, and how compiled `.storybundle` directories package everything an app needs. Conceptually, you’ll see how the validator’s structural, flow, and content checks help you spot missing starts, duplicate choice identifiers, bad destinations, and mismatches between your graph and your Markdown.
