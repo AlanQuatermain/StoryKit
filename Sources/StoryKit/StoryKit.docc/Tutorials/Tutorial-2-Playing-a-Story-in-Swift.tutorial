@@ -22,13 +22,24 @@
 
 @Section(title: "Command-Line Interface") {
     @ContentAndMedia {
-        Use `swift-argument-parser` to define a simple command that accepts a positional path to a compiled `.storybundle`. A positional argument keeps the command easy to type and mirrors many Unix tools. You can expand this later with options or subcommands.
+        Start with a tiny command that accepts the path to a compiled `.storybundle`. Using a positional argument keeps it easy to type and feels like other Unix tools. You can add options and subcommands later as your runner grows.
 
+        To explore the API surface, the code below shows the whole file — each step calls out the specific line to add and why.
         See the ArgumentParser docs to learn more: https://github.com/apple/swift-argument-parser
     }
     @Steps {
         @Step {
-            Create a command type with a single positional argument for the bundle path, then call into your `run()` implementation. This keeps the CLI’s entry point focused while the rest of the code handles loading and play.
+            Create the command structure with a type that conforms to `ParsableCommand` and a simple abstract description.
+
+            @Code(name: "Main.swift", file: 02-05-Main.swift)
+        }
+        @Step {
+            Declare a positional argument for the bundle path using the `@Argument` property wrapper. Positional keeps the command short and obvious: `haunted --help` vs `haunted <bundle>`.
+
+            @Code(name: "Main.swift", file: 02-05-Main.swift)
+        }
+        @Step {
+            Add a `run()` function (even a skeleton is fine) that will load the bundle and kick off the loop you’ll build next.
 
             @Code(name: "Main.swift", file: 02-05-Main.swift)
         }
@@ -37,11 +48,7 @@
 
 @Section(title: "Define Minimal State") {
     @ContentAndMedia {
-        Implement a tiny `HauntedState` conforming to `StoryState`. The engine only requires `currentNode`; everything else is up to your app. Why this design?
-
-        - Purpose: StoryKit separates content (the graph) from mechanics (your rules). `StoryState` lives in your app so you can evolve mechanics without rewriting content.
-        - What the client gains: You own the shape of state (health, sanity, inventory, flags) and control how it changes. Tests can construct state directly, and different apps can reuse the same story with different state models.
-        - What StoryKit gains: A small, stable core focused on traversal and validation. The engine doesn’t need to know your game’s details to run safely and predictably.
+        Implement a tiny `HauntedState` conforming to `StoryState`. The engine only requires `currentNode`; everything else is up to you. This design keeps content and mechanics separate: the story stays declarative, and your app owns the rules. You can evolve health, sanity, inventory, or flags without rewriting content, and reuse the same story in different apps with different state models. StoryKit, for its part, stays focused on traversal and validation rather than your game’s details.
     }
     @Steps {
         @Step {
@@ -54,12 +61,7 @@
 
 @Section(title: "Load the Story Bundle") {
     @ContentAndMedia {
-        Use `StoryBundleLoader` to load a compiled bundle. A bundle contains `manifest.json`, `graph.json`, and a `texts/` directory; the loader decodes `graph.json` into a `Story` value.
-
-        How loading and caching work together:
-        - `StoryBundleLoader` performs a straightforward decode of the graph; it’s fast and keeps authoring files out of your runtime.
-        - For prose, StoryKit provides text providers and actor‑based cached providers. They parse Markdown on demand and cache sections with LRU eviction, purging on memory pressure. This lets you trade a tiny amount of first‑read cost for excellent steady‑state performance.
-        - Concurrency: cached providers are actors and integrate naturally with Swift Concurrency. Your app can call into the engine and providers without sharing mutable state across threads.
+        Use `StoryBundleLoader` to load a compiled bundle. A bundle contains `manifest.json`, `graph.json`, and a `texts/` directory; the loader decodes `graph.json` into a `Story`. Markdown files are read on demand and provide a performant, memory‑efficient, concurrency‑safe caching mechanism for excellent steady‑state performance. This keeps authoring files out of your runtime while giving you fast text lookups when you need them.
     }
     @Steps {
         @Step {
@@ -72,27 +74,36 @@
 
 @Section(title: "Create the Engine & Print Nodes") {
     @ContentAndMedia {
-        Construct the engine with your `Story`, `HauntedState`, and (for now) empty predicate/effect/action registries. The engine starts at `story.start`; there is no explicit `run()`—you stay in control. The loop is built in small, understandable steps:
-
-        1) Ask the engine for the current node. Keeping this explicit makes state easy to inspect and test.
-        2) Render a clear header, the node’s text, and a list of choices. StoryKit separates prose (Markdown) from the graph, so you choose how to present text.
-        3) Read a line from stdin and map it to a choice. This keeps I/O concerns out of the engine.
-        4) Advance the engine by calling `select(choiceID:)`. Behind the scenes, the engine evaluates predicates, applies effects, moves to the destination, and (optionally) triggers autosave.
-
-        Reading from stdin is enough for a first pass. Production apps replace stdin with UI, but the control flow remains: render, choose, advance.
+        Construct the engine with your `Story`, `HauntedState`, and (for now) empty predicate/effect/action registries. The engine starts at `story.start`; there’s no `run()`—you stay in control. Build the loop as a series of small, focused steps so it’s easy to reason about and test. Reading from stdin is fine for a first pass; production apps swap this for UI, but the rhythm remains the same: render, choose, advance.
     }
     @Steps {
         @Step {
-            Implement the loop in steps.
-
-            1) Header: print `=== <node id> ===` to ground the reader.
-            2) Node text: use `BundleTextProvider` to fetch the Markdown section for the node’s `TextRef`.
-            3) Choices: list the available choices with 1‑based indices and their `id`s.
+            Ask for the current node. Keeping this explicit makes state inspection and testing straightforward.
 
             @Code(name: "EngineLoop.swift", file: 02-04-EngineLoop.swift)
         }
         @Step {
-            Advance the engine. Read an index, look up the selected choice, and call `select(choiceID:)`. The engine evaluates predicates, applies effects, transitions to the destination, applies destination on‑enter effects, and then returns control to you for the next render.
+            Print a clear header like `=== <node id> ===` to ground the reader before the prose.
+
+            @Code(name: "EngineLoop.swift", file: 02-04-EngineLoop.swift)
+        }
+        @Step {
+            Fetch and print the node’s text using `BundleTextProvider` and the node’s `TextRef`. StoryKit keeps prose separate from the graph so you decide how it’s presented.
+
+            @Code(name: "EngineLoop.swift", file: 02-04-EngineLoop.swift)
+        }
+        @Step {
+            List the available choices with 1‑based indices. This keeps input mapping simple and readable.
+
+            @Code(name: "EngineLoop.swift", file: 02-04-EngineLoop.swift)
+        }
+        @Step {
+            Read input from stdin and map it to a selected choice. This keeps I/O concerns out of the engine proper.
+
+            @Code(name: "EngineLoop.swift", file: 02-04-EngineLoop.swift)
+        }
+        @Step {
+            Advance the engine by calling `select(choiceID:)`. Behind the scenes the engine evaluates predicates, applies effects, transitions to the destination, applies destination on‑enter effects, and then returns control to you for the next render.
 
             @Code(name: "EngineLoop.swift", file: 02-04-EngineLoop.swift)
         }
@@ -103,17 +114,16 @@
     @ContentAndMedia {
         You now have a small but capable CLI that can load and play a StoryKit bundle. Here’s what you built:
 
-        - Your work:
-          - A command‑line interface using ArgumentParser with a positional bundle path.
-          - A minimal `StoryState` and a loop that prints headers, text, and choices.
-          - A selection flow that advances the engine cleanly.
+        - A command‑line interface using ArgumentParser with a positional bundle path.
+        - A minimal `StoryState` and a loop that prints headers, text, and choices.
+        - A selection flow that advances the engine cleanly.
 
-        - StoryKit’s contributions (for free):
-          - Safe concurrency via actors for the engine and cached text providers.
-          - Markdown parsing and caching with LRU eviction and memory‑pressure purging.
-          - A compact engine API that evaluates predicates, applies effects, handles on‑enter hooks, and supports autosave.
-          - A consistent file format and a loader that keeps authoring files out of your runtime.
+        These are the things you haven’t had to worry about, because StoryKit handles them:
+        - Loading and decoding the graph from a bundle.
+        - Reading Markdown text on demand and caching it automatically for steady, responsive performance.
+        - Keeping text loading concurrency‑safe and cooperating with the system to keep memory usage in check.
+        - Applying predicates and effects, handling destination on‑enter hooks, and supporting autosave as you advance.
 
-        Next, you’ll layer in the mechanics that make stories feel interactive and reactive: predicates for gating choices, effects for state changes, and actions for richer encounters. StoryKit provides the scaffolding so you can focus on rules and prose—not plumbing.
+        Next, you’ll layer in mechanics that StoryKit is designed to help with: gating choices with predicates, changing state with effects, and driving richer encounters with actions.
     }
 }
