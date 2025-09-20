@@ -1,0 +1,2 @@
+swift run storykit compile ~/Downloads/HauntedStarter --out HauntedHouse.storybundle
+✅ Wrote bundle to /path/to/HauntedHouse.storybundle

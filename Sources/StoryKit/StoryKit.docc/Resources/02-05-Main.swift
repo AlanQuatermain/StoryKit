@@ -5,12 +5,4 @@ import StoryKit
 @main
 struct Haunted: ParsableCommand {
     static let configuration = CommandConfiguration(abstract: "Play a StoryKit bundle")
-
-    @Argument(help: "Path to compiled .storybundle directory")
-    var bundlePath: String
-
-    func run() throws {
-        let story = try loadStory(from: bundlePath)
-        try play(story: story, bundlePath: bundlePath)
-    }
 }

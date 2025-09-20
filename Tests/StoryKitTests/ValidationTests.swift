@@ -177,4 +177,55 @@ struct ValidationTests {
         #expect(arr.first?.id == "a1")
         #expect(arr.first?.ref == "ent")
     }
+
+    @Test("Missing choice title is error")
+    func missingChoiceTitleIsError() {
+        let a = NodeID(rawValue: "A")
+        let b = NodeID(rawValue: "B")
+        let story = Story(
+            metadata: .init(id: "s", title: "S"),
+            start: a,
+            nodes: [
+                a: Node(
+                    id: a,
+                    text: TextRef(file: "t.md", section: "a"),
+                    choices: [
+                        Choice(id: ChoiceID(rawValue: "good"), title: "Good Choice", destination: b),
+                        Choice(id: ChoiceID(rawValue: "bad"), title: nil, destination: b), // Missing title
+                        Choice(id: ChoiceID(rawValue: "empty"), title: "   ", destination: b) // Empty title
+                    ]
+                ),
+                b: Node(id: b, text: TextRef(file: "t.md", section: "b"), choices: [])
+            ]
+        )
+        let issues = StoryValidator().validate(story: story)
+        let titleErrors = issues.filter { $0.kind == .missingChoiceTitle && $0.severity == .error }
+        #expect(titleErrors.count == 2) // Should find both the nil and empty title
+        #expect(titleErrors.contains { $0.message.contains("bad") })
+        #expect(titleErrors.contains { $0.message.contains("empty") })
+    }
+
+    @Test("Valid choice titles pass validation")
+    func validChoiceTitlesPassValidation() {
+        let a = NodeID(rawValue: "A")
+        let b = NodeID(rawValue: "B")
+        let story = Story(
+            metadata: .init(id: "s", title: "S"),
+            start: a,
+            nodes: [
+                a: Node(
+                    id: a,
+                    text: TextRef(file: "t.md", section: "a"),
+                    choices: [
+                        Choice(id: ChoiceID(rawValue: "choice1"), title: "Go to B", destination: b),
+                        Choice(id: ChoiceID(rawValue: "choice2"), title: "Another option", destination: b)
+                    ]
+                ),
+                b: Node(id: b, text: TextRef(file: "t.md", section: "b"), choices: [])
+            ]
+        )
+        let issues = StoryValidator().validate(story: story)
+        let titleErrors = issues.filter { $0.kind == .missingChoiceTitle }
+        #expect(titleErrors.isEmpty) // Should have no title errors
+    }
 }

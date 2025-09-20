@@ -1,0 +1,7 @@
+{
+  "metadata": { "id": "haunted_house", "title": "Haunted House", "version": 1 },
+  "start": "arrival_road",
+  "entities": { /* … */ },
+  "globals": { /* … */ },
+  "nodes": { /* … */ }
+}

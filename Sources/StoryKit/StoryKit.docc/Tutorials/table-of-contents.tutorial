@@ -2,23 +2,23 @@
   @Intro(title: "Meet StoryKit") {
     StoryKit is a data‑driven engine and toolset for building branching, text‑forward experiences. These tutorials guide you from validating a story, to playing it with a small Swift app, to layering mechanics like checks, effects, and actions.
 
-    @Image(source: "placeholder.svg", alt: "Stylized placeholder for StoryKit tutorials.")
+    @Image(source: "placeholder.png", alt: "Stylized placeholder for StoryKit tutorials.")
   }
 
   @Chapter(name: "Building and Validating a Story") {
-    @Image(source: "placeholder.svg", alt: "Placeholder chapter image.")
+    @Image(source: "placeholder.png", alt: "Placeholder chapter image.")
     Learn the authoring model, fix common validation issues, and compile to a runtime bundle.
     @TutorialReference(tutorial: "doc:Tutorial-1-Building-Your-First-Story")
   }
 
   @Chapter(name: "Playing a Story with StoryEngine") {
-    @Image(source: "placeholder.svg", alt: "Placeholder chapter image.")
+    @Image(source: "placeholder.png", alt: "Placeholder chapter image.")
     Build a small CLI that loads a bundle, renders text, shows choices, and advances the engine.
     @TutorialReference(tutorial: "doc:Tutorial-2-Playing-a-Story-in-Swift")
   }
 
   @Chapter(name: "Checks, Effects, Actions, Battles, and the Ritual") {
-    @Image(source: "placeholder.svg", alt: "Placeholder chapter image.")
+    @Image(source: "placeholder.png", alt: "Placeholder chapter image.")
     Extend your runner with state, predicates/effects, a simple battle, a final ritual, and autosave.
     @TutorialReference(tutorial: "doc:Tutorial-3-Adding-State-and-Skill-Checks")
   }

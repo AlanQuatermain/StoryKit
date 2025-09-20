@@ -1,4 +1,4 @@
-@Tutorial(time: 60) {
+@Tutorial(time: 60, projectFiles: ["HauntedHouseBundle.zip"]) {
   @Intro(title: "Checks, Effects, Actions, Battles, and the Ritual") {
     In this tutorial you’ll enrich the minimal CLI from Tutorial 2 with game‑flavored mechanics: roll‑under d20 checks, health and sanity tracking, inventory and flags, predicates and effects to gate and mutate state, a simple multi‑round fight with flee, and an ordered ritual that branches to different endings. The emphasis is equal parts “why” and “how”: why these pieces fit the tone, and how to implement them using StoryKit’s registries and engine flow.
 
@@ -9,25 +9,50 @@
 
   @Section(title: "Designing Game State") {
     @ContentAndMedia {
-      Treat your `StoryState` like a character sheet. It’s the single source of truth for stats (health, sanity), inventory (item ids), and flags. Keeping this in your app means you can evolve mechanics freely while the story stays declarative and portable. It’s also what lets StoryKit be engine‑agnostic: it handles node flow and metadata, and your client supplies the rules.
+      Treat your `StoryState` like a character sheet. It's the single source of truth for stats (health, sanity), inventory (item ids), and flags. Keeping this in your app means you can evolve mechanics freely while the story stays declarative and portable. It's also what lets StoryKit be engine‑agnostic: it handles node flow and metadata, and your client supplies the rules.
 
-      We’ll build it up in small steps so each addition is obvious and testable.
+      We'll build it up in small steps so each addition is obvious and testable, then demonstrate advanced patterns with custom structures for complex mechanics.
     }
     @Steps {
       @Step {
         Start with a minimal state that only satisfies the engine: a `currentNode`.
 
-        @Code(name: "State (minimal)", file: 03-01a-HauntedState-Struct.swift)
+        @Code(name: "HauntedState.swift", file: HauntedState.swift)
       }
       @Step {
-        Add fields you’ll use throughout the story: `health`, `sanity`, `inventory`, and `flags`.
+        Add fields you'll use throughout the story: `health`, `sanity`, `inventory`, and `flags`.
 
-        @Code(name: "State (fields)", file: 03-01b-HauntedState-Fields.swift)
+        @Code(name: "HauntedState.swift", file: HauntedState@2.swift)
       }
       @Step {
         Add tiny helpers so updates are safe and readable: `gain(_:)`, `has(_:)`, and `setFlag(_:to:)`.
 
-        @Code(name: "State (helpers)", file: 03-01c-HauntedState-Helpers.swift)
+        @Code(name: "HauntedState.swift", file: HauntedState@3.swift)
+      }
+      @Step {
+        For complex mechanics, create dedicated structures. Add a `Ritual` struct to track multi‑step sequences properly.
+
+        @Code(name: "HauntedState.swift", file: HauntedState@4.swift)
+      }
+      @Step {
+        Add a `BoneServant` struct for chase mechanics, demonstrating how structured state management scales to advanced game systems.
+
+        @Code(name: "HauntedState.swift", file: HauntedState@5.swift)
+      }
+      @Step {
+        Add methods to the `Ritual` struct to encapsulate the logic for each ritual step with proper validation.
+
+        @Code(name: "HauntedState.swift", file: HauntedState@6.swift)
+      }
+      @Step {
+        Complete the `Ritual` methods to support the full three‑step sequence: candle, tome, sacrifice.
+
+        @Code(name: "HauntedState.swift", file: HauntedState@7.swift)
+      }
+      @Step {
+        Finalize the state design with the complete `Ritual` struct including the final sacrifice method that activates the bone servant.
+
+        @Code(name: "HauntedState.swift", file: HauntedState@8.swift)
       }
     }
   }
@@ -40,17 +65,17 @@
       @Step {
         Add a `rollD20()` and a `checkUnder(_:)` helper to support roll‑under checks.
 
-        @Code(name: "Dice & check helpers", file: 03-02a-Dice.swift)
+        @Code(name: "Predicates.swift", file: Predicates.swift)
       }
       @Step {
         Register a `has-item` predicate that maps directly to your inventory semantics.
 
-        @Code(name: "Predicate: has-item", file: 03-02b-Register-HasItem.swift)
+        @Code(name: "Predicates.swift", file: Predicates@2.swift)
       }
       @Step {
         Register a `stat-at-least` predicate that compares a stat to a threshold provided in parameters.
 
-        @Code(name: "Predicate: stat-at-least", file: 03-02c-Register-StatAtLeast.swift)
+        @Code(name: "Predicates.swift", file: Predicates@3.swift)
       }
     }
   }
@@ -63,68 +88,73 @@
       @Step {
         Register a `lose-sanity` effect. Clamp values to safe ranges so state never goes out of bounds.
 
-        @Code(name: "Effect: lose-sanity", file: 03-03a-Register-LoseSanity.swift)
+        @Code(name: "Effects.swift", file: Effects.swift)
       }
       @Step {
         Register a `take-damage` effect. Again, clamp to keep state valid.
 
-        @Code(name: "Effect: take-damage", file: 03-03b-Register-TakeDamage.swift)
+        @Code(name: "Effects.swift", file: Effects@2.swift)
       }
       @Step {
         Register a `gain-item` effect. Treat inventory additions as idempotent.
 
-        @Code(name: "Effect: gain-item", file: 03-03c-Register-GainItem.swift)
+        @Code(name: "Effects.swift", file: Effects@3.swift)
       }
       @Step {
         Register a `set-flag` effect. Flags open later branches.
 
-        @Code(name: "Effect: set-flag", file: 03-03d-Register-SetFlag.swift)
+        @Code(name: "Effects.swift", file: Effects@4.swift)
       }
     }
   }
 
-  @Section(title: "Entities & Multi-Round Battles with Flee") {
+  @Section(title: "Chase Mechanics & Bone Servant Encounters") {
     @ContentAndMedia {
-      Encounters benefit from pacing. A melee round should produce narration, potentially modify state (damage to player or enemy), and offer a flee option keyed to a check. Model opponents minimally—hp, attack range, name—and drive the action through an `ActionRegistry` closure. Return `.requiresUserInput` when the fight continues; return `.completed` when it ends.
+      Advanced encounters benefit from structured mechanics. The bone servant represents a persistent threat that tracks the player through multiple rooms. Model this using dedicated structures and actions that work with those structures through extensions.
     }
     @Steps {
       @Step {
-        Define a tiny entity model (hp, attack range, name). Keep it small on purpose.
+        Create an extension to organize bone servant actions. Start with the basic structure.
 
-        @Code(name: "Entity model", file: 03-04a-EntityModel.swift)
+        @Code(name: "Battle.swift", file: Battle.swift)
       }
       @Step {
-        Register a `melee-round` action that advances the fight and narrates a round, including hits/misses and retaliation.
+        Register a `check_pursuit` action that advances the chase and checks if the bone servant has arrived.
 
-        @Code(name: "Action: melee-round", file: 03-04b-Action-MeleeRound.swift)
+        @Code(name: "Battle.swift", file: Battle@2.swift)
       }
       @Step {
-        Add flee support using a roll‑under check. Return `.completed` when the player escapes.
+        Add flee support for escaping the bone servant using a dexterity check. Reset the servant on successful escape.
 
-        @Code(name: "Flee logic", file: 03-04c-Flee-Logic.swift)
+        @Code(name: "Battle.swift", file: Battle@3.swift)
       }
     }
   }
 
-  @Section(title: "The Final Ritual (Ordered Sequence)") {
+  @Section(title: "The Final Ritual (Individual Actions)") {
     @ContentAndMedia {
-      The ritual requires multiple items and a strict order. Author the action as a single `ritual` id that accepts an `order` parameter (comma‑joined steps). In code, verify inventory and order; set flags to route to outcomes. This keeps branching logic out of the story graph while preserving authoring clarity.
+      The ritual requires multiple items and a strict sequence of individual actions. Rather than a single action with ordering parameters, implement each step as its own action that works with the `Ritual` struct methods. This provides clearer narrative control and better user experience.
     }
     @Steps {
       @Step {
-        Declare the ritual action signature and parse the `order` parameter.
+        Create an extension to organize ritual actions. Start with the basic structure.
 
-        @Code(name: "Ritual (signature)", file: 03-05a-Action-Ritual-Signature.swift)
+        @Code(name: "Ritual.swift", file: Ritual.swift)
       }
       @Step {
-        Verify required items and validate the item order (candle → tome → dagger).
+        Register the `light_candle` action that validates inventory and calls the appropriate `Ritual` method.
 
-        @Code(name: "Ritual (checks)", file: 03-05b-Action-Ritual-Checks.swift)
+        @Code(name: "Ritual.swift", file: Ritual@2.swift)
       }
       @Step {
-        Toggle outcome flags to route success/failure branches cleanly.
+        Add the `read_tome` action that enforces the proper sequence through the `Ritual` struct's logic.
 
-        @Code(name: "Ritual (outcomes)", file: 03-05c-Action-Ritual-Outcomes.swift)
+        @Code(name: "Ritual.swift", file: Ritual@3.swift)
+      }
+      @Step {
+        Complete the ritual with `make_sacrifice` action that activates the bone servant on successful completion.
+
+        @Code(name: "Ritual.swift", file: Ritual@4.swift)
       }
     }
   }
@@ -137,12 +167,12 @@
       @Step {
         Create a small factory for an autosave closure keyed by a story id and slot name.
 
-        @Code(name: "Autosave (factory)", file: 03-06a-AutoSave-Factory.swift)
+        @Code(name: "AutoSave.swift", file: AutoSave.swift)
       }
       @Step {
         Pass the closure to `StoryEngine` as `autosave:` when you construct the engine.
 
-        @Code(name: "Autosave (engine init)", file: 03-06b-Engine-Init-AutoSave.swift)
+        @Code(name: "AutoSave.swift", file: AutoSave@2.swift)
       }
     }
   }

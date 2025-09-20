@@ -17,6 +17,7 @@ public struct StoryIssue: Codable, Hashable, CustomStringConvertible, Sendable {
         case duplicateActorID
         case unknownEntity
         case invalidGlobalActionDestination
+        case missingChoiceTitle
     }
     public enum Severity: String, Sendable, Codable { case error, warning }
     public var kind: Kind
@@ -54,6 +55,9 @@ public struct StoryValidator: Sendable {
                 }
                 if story.nodes[c.destination] == nil {
                     issues.append(.init(.missingDestination, "Node \(node.id.rawValue) has choice \(c.id.rawValue) to missing node \(c.destination.rawValue)", severity: .error))
+                }
+                if c.title == nil || c.title?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty == true {
+                    issues.append(.init(.missingChoiceTitle, "Choice \(c.id.rawValue) in node \(node.id.rawValue) is missing a title", severity: .error))
                 }
             }
             // Duplicate actor ids and unknown entity references

@@ -1,4 +1,4 @@
-@Tutorial(time: 35) {
+@Tutorial(time: 35, projectFiles: ["HauntedHouseBundle.zip"]) {
   @Intro(title: "Playing a Story with StoryEngine") {
     In this tutorial you will build a small command–line runner that loads the compiled Haunted House bundle and lets a player move through the narrative by choosing options. You will learn how to load a bundle, construct a `StoryEngine`, print the current node’s prose, enumerate available choices, and call `select(choiceID:)` to advance. The result is a minimal, idiomatic Swift program that uses StoryKit as intended.
 
@@ -15,8 +15,8 @@
       @Step {
         Initialize a package and open it in your editor. Replace `Package.swift` and scaffold a minimal `main.swift`.
 
-        @Code(name: "Package.swift (CLI)", file: 02-01-package.swift)
-        @Code(name: "main.swift (stub)", file: 02-01-main-stub.swift)
+        @Code(name: "Package.swift", file: 02-01-package.swift)
+        @Code(name: "main.swift", file: 02-01-main-stub.swift)
       }
     }
   }
@@ -37,12 +37,12 @@
       @Step {
         Declare a positional argument for the bundle path using the `@Argument` property wrapper. Positional keeps the command short and obvious: `haunted --help` vs `haunted <bundle>`.
 
-        @Code(name: "Main.swift", file: 02-05-Main.swift)
+        @Code(name: "Main.swift", file: 02-05-Main@2.swift)
       }
       @Step {
-        Add a `run()` function (even a skeleton is fine) that will load the bundle and kick off the loop you’ll build next.
+        Add a `run()` function (even a skeleton is fine) that will load the bundle and kick off the loop you'll build next.
 
-        @Code(name: "Main.swift", file: 02-05-Main.swift)
+        @Code(name: "Main.swift", file: 02-05-Main@3.swift)
       }
     }
   }
@@ -86,27 +86,27 @@
       @Step {
         Print a clear header like `=== <node id> ===` to ground the reader before the prose.
 
-        @Code(name: "EngineLoop.swift", file: 02-04-EngineLoop.swift)
+        @Code(name: "EngineLoop.swift", file: 02-04-EngineLoop@2.swift)
       }
       @Step {
-        Fetch and print the node’s text using `BundleTextProvider` and the node’s `TextRef`. StoryKit keeps prose separate from the graph so you decide how it’s presented.
+        Fetch and print the node's text using `BundleTextProvider` and the node's `TextRef`. StoryKit keeps prose separate from the graph so you decide how it's presented.
 
-        @Code(name: "EngineLoop.swift", file: 02-04-EngineLoop.swift)
+        @Code(name: "EngineLoop.swift", file: 02-04-EngineLoop@3.swift)
       }
       @Step {
         List the available choices with 1‑based indices. This keeps input mapping simple and readable.
 
-        @Code(name: "EngineLoop.swift", file: 02-04-EngineLoop.swift)
+        @Code(name: "EngineLoop.swift", file: 02-04-EngineLoop@4.swift)
       }
       @Step {
         Read input from stdin and map it to a selected choice. This keeps I/O concerns out of the engine proper.
 
-        @Code(name: "EngineLoop.swift", file: 02-04-EngineLoop.swift)
+        @Code(name: "EngineLoop.swift", file: 02-04-EngineLoop@5.swift)
       }
       @Step {
         Advance the engine by calling `select(choiceID:)`. Behind the scenes the engine evaluates predicates, applies effects, transitions to the destination, applies destination on‑enter effects, and then returns control to you for the next render.
 
-        @Code(name: "EngineLoop.swift", file: 02-04-EngineLoop.swift)
+        @Code(name: "EngineLoop.swift", file: 02-04-EngineLoop@5.swift)
       }
     }
   }

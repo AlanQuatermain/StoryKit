@@ -1,4 +1,4 @@
-@Tutorial(time: 30) {
+@Tutorial(time: 30, projectFiles: ["HauntedStarter.zip"]) {
   @Intro(title: "Building and Validating a Story") {
     In this tutorial you’ll get comfortable with the StoryKit authoring model and the validator that keeps your story graph honest. You’ll start from a small broken version of the Haunted House story and repair it step by step until it validates cleanly and compiles into a runtime‑ready bundle. Along the way, you’ll examine the on‑disk formats, run the CLI, and verify each fix by re‑running validation.
 
@@ -19,17 +19,17 @@
       @Step {
         Inspect a minimal `story.json` excerpt.
 
-        @Code(name: "story.json excerpt", file: 01-format-story.json)
+        @Code(name: "story.json", file: 01-format-story.json)
       }
       @Step {
         Inspect a Markdown file with multiple node sections.
 
-        @Code(name: "haunted.md excerpt", file: 01-format-haunted.txt)
+        @Code(name: "haunted.md", file: 01-format-haunted.txt)
       }
       @Step {
         Inspect a compiled bundle directory layout.
 
-        @Code(name: "storybundle tree", file: 01-format-bundle.txt)
+        @Code(name: "bundle structure", file: 01-format-bundle.txt)
       }
     }
   }
@@ -45,7 +45,7 @@
       @Step {
         Build the package and run the validator from the root of the StoryKit checkout: `swift build` then `swift run storykit validate ~/Downloads/HauntedStarter --format text`. The output will list structural and content issues to fix.
 
-        @Code(name: "validator output (broken)", file: 02-validate-errors.txt)
+        @Code(name: "validator.txt", file: 02-validate-errors.txt)
       }
     }
   }
@@ -64,22 +64,22 @@
       @Step {
         Set the start node. The story engine needs to know which node to begin the story at, and you want to begin outside the house, so you set the starting node to `arrival_road`.
 
-        @Code(name: "start set", file: 03-after-with-start.json)
+        @Code(name: "story.json", file: 03-after-with-start.json)
       }
       @Step {
         Make duplicate choice ids unique. All choice ids under a node need to be unique. In the starter files, `to_dining` appeared twice. Change one of them to `to_study` so each choice has its own name.
 
-        @Code(name: "unique ids", file: 03-after-duplicate-choices.json)
+        @Code(name: "story.json", file: 03-after-duplicate-choices.json)
       }
       @Step {
         Fix the misspelled destination. A choice pointed to `end_succesful`. This looks like a simple typo — it’s missing an “S”. Correct it to `end_successful` so the choice leads to a real node.
 
-        @Code(name: "fixed destination", file: 03-after-dest-typo.json)
+        @Code(name: "story.json", file: 03-after-dest-typo.json)
       }
       @Step {
         Validate again after the JSON fixes. At this point the structure is sound; what remains are text issues in Markdown: a missing `dining_room` section and an orphan `attic_extra` section.
 
-        @Code(name: "validator after JSON fixes", file: 03-validate-after-json.txt)
+        @Code(name: "validator.txt", file: 03-validate-after-json.txt)
       }
     }
   }
@@ -95,12 +95,12 @@
       @Step {
         Restore the missing section and remove the orphan. Below is an excerpt of the corrected Markdown, with the `dining_room` section present and the orphan removed.
 
-        @Code(name: "fixed haunted.md", file: 04-haunted-fixed.txt)
+        @Code(name: "haunted.md", file: 04-haunted-fixed.txt)
       }
       @Step {
         Validate again. With these fixes applied, the report should be clean.
 
-        @Code(name: "validator clean", file: 04-validate-clean.txt)
+        @Code(name: "validator.txt", file: 04-validate-clean.txt)
       }
     }
   }
@@ -113,7 +113,7 @@
       @Step {
         Run the compiler and review the bundle structure. You can load this bundle at runtime with `StoryBundleLoader`.
 
-        @Code(name: "compiler invocation", file: 05-compile-command.txt)
+        @Code(name: "compiler.txt", file: 05-compile-command.txt)
         @Code(name: "bundle structure", file: 05-bundle-tree.txt)
       }
     }

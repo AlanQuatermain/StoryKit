@@ -1,0 +1,6 @@
+HauntedHouseBundle/
+├── manifest.json
+├── graph.json
+└── texts/
+    └── haunted.md
+

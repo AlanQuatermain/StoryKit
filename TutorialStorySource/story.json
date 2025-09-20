@@ -56,79 +56,92 @@
           "id": "smell_jasmine",
           "destination": "garden_jasmine",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Smell the jasmine"
         },
         {
           "id": "inspect_fountain",
           "destination": "garden_fountain",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Inspect the fountain"
         },
         {
           "id": "ivy_trellis",
           "destination": "garden_ivy_trellis",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Examine ivy trellis"
         },
         {
           "id": "gate_chain",
           "destination": "garden_gate_chain",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Examine gate chain"
         },
         {
           "id": "shell_path",
           "destination": "garden_shell_path",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Examine shell path"
         },
         {
           "id": "cicada_shells",
           "destination": "garden_cicada_shells",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Examine cicada shells"
         },
         {
           "id": "wrought_iron",
           "destination": "garden_wrought_iron",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Examine wrought iron"
         },
         {
           "id": "ant_mound",
           "destination": "garden_ant_mound",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Examine ant mound"
         },
         {
           "id": "gate_creak",
           "destination": "garden_gate_creak",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Listen to gate creak"
         },
         {
           "id": "lizard_on_wall",
           "destination": "garden_lizard_on_wall",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Watch lizard on wall"
         },
         {
           "id": "mud_print",
           "destination": "garden_mud_print",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Examine mud print"
         },
         {
           "id": "orange_peel",
           "destination": "garden_orange_peel",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Examine orange peel"
         },
         {
           "id": "crawl_tunnel",
           "destination": "end_scarred_9",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Crawl through tunnel"
         }
       ],
       "actors": []
@@ -148,91 +161,106 @@
           "id": "to_dining",
           "destination": "dining_room",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Go to dining room"
         },
         {
           "id": "to_study",
           "destination": "study",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Go to study"
         },
         {
           "id": "to_kitchen",
           "destination": "kitchen",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Go to kitchen"
         },
         {
           "id": "to_parlor",
           "destination": "parlor",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Go to parlor"
         },
         {
           "id": "to_stairs",
           "destination": "grand_staircase",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Go upstairs"
         },
         {
           "id": "to_garden",
           "destination": "garden_path",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Go to garden"
         },
         {
           "id": "inspect_cards",
           "destination": "foyer_calling_cards",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Inspect calling cards"
         },
         {
           "id": "check_tray",
           "destination": "foyer_console_tray",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Check the tray"
         },
         {
           "id": "chandelier_prisms",
           "destination": "foyer_chandelier_prisms",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Examine chandelier prisms"
         },
         {
           "id": "checkerboard_chip",
           "destination": "foyer_checkerboard_chip",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Notice checkerboard chip"
         },
         {
           "id": "umbrella_stand",
           "destination": "foyer_umbrella_stand",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Check umbrella stand"
         },
         {
           "id": "knocker_lion",
           "destination": "foyer_knocker_lion",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Examine door knocker"
         },
         {
           "id": "tile_hairline",
           "destination": "foyer_tile_hairline",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Trace tile hairline"
         },
         {
           "id": "coat_tree",
           "destination": "foyer_coat_tree",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Examine coat tree"
         },
         {
           "id": "telephone_cradle",
           "destination": "foyer_telephone_cradle",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Check telephone cradle"
         }
       ],
       "actors": []
@@ -252,139 +280,162 @@
           "id": "read_letter",
           "destination": "dining_letter",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Read the letter"
         },
         {
           "id": "inspect_sideboard",
           "destination": "dining_sideboard",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Inspect the sideboard"
         },
         {
           "id": "draw_drapes",
           "destination": "dining_drapes",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Draw the drapes"
         },
         {
           "id": "study_mirror",
           "destination": "dining_mirror",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Study the mirror"
         },
         {
           "id": "look_chandelier",
           "destination": "dining_chandelier",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Look at chandelier"
         },
         {
           "id": "count_chairs",
           "destination": "dining_chairs",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Count the chairs"
         },
         {
           "id": "examine_china",
           "destination": "dining_china",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Examine the china"
         },
         {
           "id": "test_floorboard",
           "destination": "dining_floorboard",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Test the floorboard"
         },
         {
           "id": "to_study",
           "destination": "study",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Go to study"
         },
         {
           "id": "to_kitchen",
           "destination": "kitchen",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Go to kitchen"
         },
         {
           "id": "to_foyer",
           "destination": "foyer",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Go to foyer"
         },
         {
           "id": "table_marks",
           "destination": "dining_table_marks",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Examine table marks"
         },
         {
           "id": "servant_bell",
           "destination": "dining_servant_bell",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Ring servant bell"
         },
         {
           "id": "window_sash",
           "destination": "dining_window_sash",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Check window sash"
         },
         {
           "id": "fireplace_ash",
           "destination": "dining_fireplace_ash",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Examine fireplace ash"
         },
         {
           "id": "stain_on_linen",
           "destination": "dining_linen_stain",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Examine stain on linen"
         },
         {
           "id": "loose_panel",
           "destination": "dining_loose_panel",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Press loose panel"
         },
         {
           "id": "salt_cellar",
           "destination": "dining_salt_cellar",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Examine salt cellar"
         },
         {
           "id": "knife_nick",
           "destination": "dining_knife_nick",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Examine knife nick"
         },
         {
           "id": "lace_runner",
           "destination": "dining_lace_runner",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Adjust lace runner"
         },
         {
           "id": "place_card",
           "destination": "dining_place_card",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Read place card"
         },
         {
           "id": "decanter_ring",
           "destination": "dining_decanter_ring",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Trace decanter ring"
         },
         {
           "id": "table_wobble",
           "destination": "dining_table_wobble",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Test table wobble"
         }
       ],
       "actors": []
@@ -404,7 +455,8 @@
           "id": "back_dining",
           "destination": "dining_room",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to dining room"
         }
       ],
       "actors": []
@@ -424,7 +476,8 @@
           "id": "back_dining",
           "destination": "dining_room",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to dining room"
         }
       ],
       "actors": []
@@ -444,7 +497,8 @@
           "id": "back_dining",
           "destination": "dining_room",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to dining room"
         }
       ],
       "actors": []
@@ -464,7 +518,8 @@
           "id": "back_dining",
           "destination": "dining_room",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to dining room"
         }
       ],
       "actors": []
@@ -484,6 +539,12 @@
           "parameters": {
             "item": "iron_key"
           }
+        },
+        {
+          "id": "gain-item",
+          "parameters": {
+            "item": "brass_key"
+          }
         }
       ],
       "choices": [
@@ -491,151 +552,176 @@
           "id": "open_drawer",
           "destination": "study_drawer",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Open the drawer"
         },
         {
           "id": "examine_cabinet",
           "destination": "study_cabinet",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Examine the cabinet"
         },
         {
           "id": "read_diary",
           "destination": "study_diary",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Read the diary"
         },
         {
           "id": "spin_globe",
           "destination": "study_globe",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Spin the globe"
         },
         {
           "id": "open_window",
           "destination": "study_window",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Open the window"
         },
         {
           "id": "lift_rug",
           "destination": "study_rug",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Lift the rug"
         },
         {
           "id": "tap_wainscot",
           "destination": "study_wainscot_tap",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Tap the wainscot"
         },
         {
           "id": "check_inbox",
           "destination": "study_inbox",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Check the inbox"
         },
         {
           "id": "to_foyer",
           "destination": "foyer",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Go to foyer"
         },
         {
           "id": "to_dining",
           "destination": "dining_room",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Go to dining room"
         },
         {
           "id": "ink_blot",
           "destination": "study_ink_blot",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Examine ink blot"
         },
         {
           "id": "pen_nib",
           "destination": "study_pen_nib",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Examine pen nib"
         },
         {
           "id": "paper_smell",
           "destination": "study_paper_smell",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Smell the paper"
         },
         {
           "id": "seal_press",
           "destination": "study_seal_press",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Use the seal press"
         },
         {
           "id": "old_ledger",
           "destination": "study_ledger",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Read old ledger"
         },
         {
           "id": "map_tube",
           "destination": "study_map_tube",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Open map tube"
         },
         {
           "id": "letter_opener",
           "destination": "study_letter_opener",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Pick up letter opener"
         },
         {
           "id": "stamp_album",
           "destination": "study_stamp_album",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Browse stamp album"
         },
         {
           "id": "secret_compartment",
           "destination": "study_desk_secret_compartment",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Find secret compartment"
         },
         {
           "id": "typewriter_keys",
           "destination": "study_typewriter_keys",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Press typewriter keys"
         },
         {
           "id": "envelope_scent",
           "destination": "study_envelope_scent",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Smell envelope scent"
         },
         {
           "id": "curtain_hem",
           "destination": "study_curtain_hem",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Examine curtain hem"
         },
         {
           "id": "wax_spill",
           "destination": "study_wax_spill",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Examine wax spill"
         },
         {
           "id": "chair_castor",
           "destination": "study_chair_castor",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Check chair castor"
         },
         {
           "id": "key_scratch",
           "destination": "study_key_scratch",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Examine key scratch"
         }
       ],
       "actors": []
@@ -655,7 +741,8 @@
           "id": "back_study",
           "destination": "study",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to study"
         }
       ],
       "actors": []
@@ -675,7 +762,8 @@
           "id": "back_study",
           "destination": "study",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to study"
         }
       ],
       "actors": []
@@ -695,7 +783,8 @@
           "id": "back_study",
           "destination": "study",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to study"
         }
       ],
       "actors": []
@@ -715,7 +804,8 @@
           "id": "back_study",
           "destination": "study",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to study"
         }
       ],
       "actors": []
@@ -735,94 +825,110 @@
           "id": "inspect_range",
           "destination": "kitchen_range",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Inspect the range"
         },
         {
           "id": "check_sink",
           "destination": "kitchen_sink",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Check the sink"
         },
         {
           "id": "count_cups",
           "destination": "kitchen_cups",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Count the cups"
         },
         {
           "id": "open_icebox",
           "destination": "kitchen_icebox",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Open the icebox"
         },
         {
           "id": "sniff_spices",
           "destination": "kitchen_spices",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Sniff the spices"
         },
         {
           "id": "open_drawer",
           "destination": "kitchen_drawer",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Open the drawer"
         },
         {
           "id": "view_kniferack",
           "destination": "kitchen_knife_rack",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "View knife rack"
         },
         {
           "id": "to_pantry",
           "destination": "pantry",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Go to pantry"
         },
         {
           "id": "to_dining",
           "destination": "dining_room",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Go to dining room"
         },
         {
           "id": "to_foyer",
           "destination": "foyer",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Go to foyer"
         },
         {
           "id": "saucepan_patina",
+          "title": "Examine the saucepan patina",
           "destination": "kitchen_saucepan_patina",
           "predicates": [],
           "effects": []
         },
         {
           "id": "bread_crumbs",
+          "title": "Examine the bread crumbs",
           "destination": "kitchen_bread_crumbs",
           "predicates": [],
           "effects": []
         },
         {
           "id": "cutting_board_groove",
+          "title": "Inspect the cutting board groove",
           "destination": "kitchen_cutting_board_groove",
           "predicates": [],
           "effects": []
         },
         {
           "id": "window_screen",
+          "title": "Check the window screen",
           "destination": "kitchen_window_screen",
           "predicates": [],
           "effects": []
         },
         {
           "id": "warmth_pipe",
+          "title": "Feel the warmth from pipe",
           "destination": "kitchen_warmth_pipe",
           "predicates": [],
           "effects": []
         },
         {
           "id": "broom_corn",
+          "title": "Examine the broom corn",
           "destination": "kitchen_broom_corn",
           "predicates": [],
           "effects": []
@@ -845,7 +951,8 @@
           "id": "back_kitchen",
           "destination": "kitchen",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to kitchen"
         }
       ],
       "actors": []
@@ -865,7 +972,8 @@
           "id": "back_kitchen",
           "destination": "kitchen",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to kitchen"
         }
       ],
       "actors": []
@@ -885,7 +993,8 @@
           "id": "back_kitchen",
           "destination": "kitchen",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to kitchen"
         }
       ],
       "actors": []
@@ -904,68 +1013,101 @@
         {
           "id": "reveal_cellar",
           "destination": "cellar_entrance",
-          "predicates": [],
-          "effects": []
+          "predicates": [
+            {
+              "id": "has-item",
+              "parameters": {
+                "item": "iron_key"
+              }
+            }
+          ],
+          "effects": [],
+          "title": "Enter the cellar"
+        },
+        {
+          "id": "locked_cellar",
+          "destination": "pantry_locked",
+          "predicates": [
+            {
+              "id": "has-item",
+              "parameters": {
+                "item": "iron_key"
+              },
+              "negated": true
+            }
+          ],
+          "effects": [],
+          "title": "Try the locked door"
         },
         {
           "id": "read_labels",
           "destination": "pantry_labels",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Read the labels"
         },
         {
           "id": "inspect_peaches",
           "destination": "pantry_peaches",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Inspect peaches"
         },
         {
           "id": "check_vinegar",
           "destination": "pantry_vinegar",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Check vinegar"
         },
         {
           "id": "back_kitchen",
           "destination": "kitchen",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to kitchen"
         },
         {
           "id": "spice_tins",
           "destination": "pantry_spice_tins",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Examine spice tins"
         },
         {
           "id": "sugar_sack",
           "destination": "pantry_sugar_sack",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Check sugar sack"
         },
         {
           "id": "mouse_hole",
           "destination": "pantry_mouse_hole",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Peek into mouse hole"
         },
         {
           "id": "jar_lids",
           "destination": "pantry_jar_lids",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Check jar lids"
         },
         {
           "id": "cobweb_bead",
           "destination": "pantry_cobweb_bead",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Touch cobweb bead"
         },
         {
           "id": "rug_edge",
           "destination": "pantry_rug_edge",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Lift rug edge"
         }
       ],
       "actors": []
@@ -985,22 +1127,26 @@
           "id": "downstairs",
           "destination": "basement_stairs",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Go downstairs"
         },
         {
           "id": "peer_grate",
+          "title": "Peer through the grate",
           "destination": "cellar_grate",
           "predicates": [],
           "effects": []
         },
         {
           "id": "drip_timing",
+          "title": "Time the dripping",
           "destination": "cellar_drip_timing",
           "predicates": [],
           "effects": []
         },
         {
           "id": "step_wear",
+          "title": "Examine the step wear",
           "destination": "cellar_step_wear",
           "predicates": [],
           "effects": []
@@ -1009,28 +1155,33 @@
           "id": "back_pantry",
           "destination": "pantry",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to pantry"
         },
         {
           "id": "rug_corner_noise",
+          "title": "Listen to noise from rug corner",
           "destination": "cellar_rug_corner_noise",
           "predicates": [],
           "effects": []
         },
         {
           "id": "damp_mark",
+          "title": "Examine the damp mark",
           "destination": "cellar_damp_mark",
           "predicates": [],
           "effects": []
         },
         {
           "id": "rope_pull",
+          "title": "Pull the rope",
           "destination": "cellar_rope_pull",
           "predicates": [],
           "effects": []
         },
         {
           "id": "keyhole_smell",
+          "title": "Smell through the keyhole",
           "destination": "cellar_keyhole_smell",
           "predicates": [],
           "effects": []
@@ -1039,31 +1190,36 @@
           "id": "air_grate_rust",
           "destination": "cellar_air_grate_rust",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Examine air grate rust"
         },
         {
           "id": "cobweb_skein",
           "destination": "cellar_cobweb_skein",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Touch cobweb skein"
         },
         {
           "id": "floor_chalk",
           "destination": "cellar_floor_chalk",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Examine floor chalk"
         },
         {
           "id": "nail_head",
           "destination": "cellar_nail_head",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Examine nail head"
         },
         {
           "id": "foot_slip",
           "destination": "end_scarred_10",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Slip with foot"
         }
       ],
       "actors": []
@@ -1083,16 +1239,19 @@
           "id": "play_piano",
           "destination": "parlor_piano",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Play the piano"
         },
         {
           "id": "inspect_portrait",
           "destination": "parlor_portrait",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Inspect the portrait"
         },
         {
           "id": "smell_soap",
+          "title": "Smell the soap",
           "destination": "parlor_soap",
           "predicates": [],
           "effects": []
@@ -1101,88 +1260,103 @@
           "id": "wind_clock",
           "destination": "parlor_clock",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Wind the clock"
         },
         {
           "id": "sit_armchair",
           "destination": "parlor_armchair",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Sit in armchair"
         },
         {
           "id": "read_mantel_note",
           "destination": "parlor_mantel_note",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Read mantel note"
         },
         {
           "id": "to_conservatory",
           "destination": "conservatory",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Go to conservatory"
         },
         {
           "id": "to_foyer",
           "destination": "foyer",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Go to foyer"
         },
         {
           "id": "carpet_fringe",
+          "title": "Touch the carpet fringe",
           "destination": "parlor_carpet_fringe",
           "predicates": [],
           "effects": []
         },
         {
           "id": "curtain_fray",
+          "title": "Examine the curtain fray",
           "destination": "parlor_curtain_fray",
           "predicates": [],
           "effects": []
         },
         {
           "id": "matchbook",
+          "title": "Pick up the matchbook",
           "destination": "parlor_matchbook",
           "predicates": [],
           "effects": []
         },
         {
           "id": "window_latch",
+          "title": "Try the window latch",
           "destination": "parlor_window_latch",
           "predicates": [],
           "effects": []
         },
         {
           "id": "lampshade_smoke",
+          "title": "Smell smoke from lampshade",
           "destination": "parlor_lampshade_smoke",
           "predicates": [],
           "effects": []
         },
         {
           "id": "fireplace_tile",
+          "title": "Examine the fireplace tile",
           "destination": "parlor_fireplace_tile",
           "predicates": [],
           "effects": []
         },
         {
           "id": "ashtray",
+          "title": "Look in the ashtray",
           "destination": "parlor_ashtray",
           "predicates": [],
           "effects": []
         },
         {
           "id": "record_sleeve",
+          "title": "Check the record sleeve",
           "destination": "parlor_record_sleeve",
           "predicates": [],
           "effects": []
         },
         {
           "id": "rug_corner",
+          "title": "Lift the rug corner",
           "destination": "parlor_rug_corner",
           "predicates": [],
           "effects": []
         },
         {
           "id": "side_table_book",
+          "title": "Read the side table book",
           "destination": "parlor_side_table_book",
           "predicates": [],
           "effects": []
@@ -1205,7 +1379,8 @@
           "id": "back_parlor",
           "destination": "parlor",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to parlor"
         }
       ],
       "actors": []
@@ -1225,7 +1400,8 @@
           "id": "back_parlor",
           "destination": "parlor",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to parlor"
         }
       ],
       "actors": []
@@ -1245,7 +1421,8 @@
           "id": "back_parlor",
           "destination": "parlor",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to parlor"
         }
       ],
       "actors": []
@@ -1263,36 +1440,42 @@
       "choices": [
         {
           "id": "sit_bench",
+          "title": "Sit on the bench",
           "destination": "conservatory_bench",
           "predicates": [],
           "effects": []
         },
         {
           "id": "touch_fig",
+          "title": "Touch the fig tree",
           "destination": "conservatory_fig",
           "predicates": [],
           "effects": []
         },
         {
           "id": "inspect_rust",
+          "title": "Inspect the rust stains",
           "destination": "conservatory_rust",
           "predicates": [],
           "effects": []
         },
         {
           "id": "study_panes",
+          "title": "Study the window panes",
           "destination": "conservatory_panes",
           "predicates": [],
           "effects": []
         },
         {
           "id": "condensation_paths",
+          "title": "Trace condensation paths",
           "destination": "conservatory_condensation",
           "predicates": [],
           "effects": []
         },
         {
           "id": "root_heave",
+          "title": "Examine the root heave",
           "destination": "conservatory_root_heave",
           "predicates": [],
           "effects": []
@@ -1301,46 +1484,54 @@
           "id": "to_garden",
           "destination": "garden_path",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Go to garden"
         },
         {
           "id": "to_parlor",
           "destination": "parlor",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Go to parlor"
         },
         {
           "id": "plant_labels",
+          "title": "Read the plant labels",
           "destination": "conservatory_plant_labels",
           "predicates": [],
           "effects": []
         },
         {
           "id": "potting_table",
+          "title": "Check the potting table",
           "destination": "conservatory_potting_table",
           "predicates": [],
           "effects": []
         },
         {
           "id": "terracotta_shards",
+          "title": "Examine terracotta shards",
           "destination": "conservatory_terracotta_shards",
           "predicates": [],
           "effects": []
         },
         {
           "id": "rain_pattern",
+          "title": "Study the rain patterns on glass",
           "destination": "conservatory_rain_pattern",
           "predicates": [],
           "effects": []
         },
         {
           "id": "watering_can",
+          "title": "Pick up the watering can",
           "destination": "conservatory_watering_can",
           "predicates": [],
           "effects": []
         },
         {
           "id": "floor_drain",
+          "title": "Investigate the floor drain",
           "destination": "conservatory_floor_drain",
           "predicates": [],
           "effects": []
@@ -1363,7 +1554,8 @@
           "id": "back_conservatory",
           "destination": "conservatory",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to conservatory"
         }
       ],
       "actors": []
@@ -1383,7 +1575,8 @@
           "id": "back_conservatory",
           "destination": "conservatory",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to conservatory"
         }
       ],
       "actors": []
@@ -1403,7 +1596,8 @@
           "id": "back_conservatory",
           "destination": "conservatory",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to conservatory"
         }
       ],
       "actors": []
@@ -1423,19 +1617,22 @@
           "id": "up",
           "destination": "landing",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Go upstairs"
         },
         {
           "id": "down",
           "destination": "foyer",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Go downstairs"
         },
         {
           "id": "inspect_handrail",
           "destination": "stair_handrail_satin",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Inspect the handrail"
         }
       ],
       "actors": []
@@ -1453,18 +1650,21 @@
       "choices": [
         {
           "id": "to_bed_a",
+          "title": "Go to bedroom A",
           "destination": "bedroom_a",
           "predicates": [],
           "effects": []
         },
         {
           "id": "to_bed_b",
+          "title": "Go to bedroom B",
           "destination": "bedroom_b",
           "predicates": [],
           "effects": []
         },
         {
           "id": "to_nursery",
+          "title": "Go to nursery",
           "destination": "nursery",
           "predicates": [],
           "effects": []
@@ -1480,10 +1680,12 @@
               }
             }
           ],
-          "effects": []
+          "effects": [],
+          "title": "Go to library"
         },
         {
           "id": "to_master",
+          "title": "Go to master suite",
           "destination": "master_suite",
           "predicates": [
             {
@@ -1497,18 +1699,21 @@
         },
         {
           "id": "to_balcony",
+          "title": "Go to balcony",
           "destination": "balcony",
           "predicates": [],
           "effects": []
         },
         {
           "id": "listen_draft",
+          "title": "Listen to the draft",
           "destination": "landing_draft",
           "predicates": [],
           "effects": []
         },
         {
           "id": "carpet_nap",
+          "title": "Feel the carpet nap",
           "destination": "landing_carpet_nap",
           "predicates": [],
           "effects": []
@@ -1517,70 +1722,82 @@
           "id": "to_foyer",
           "destination": "foyer",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Go to foyer"
         },
         {
           "id": "picture_rail_dust",
+          "title": "Examine dust on picture rail",
           "destination": "landing_picture_rail_dust",
           "predicates": [],
           "effects": []
         },
         {
           "id": "runner_tack",
+          "title": "Check the runner tack",
           "destination": "landing_runner_tack",
           "predicates": [],
           "effects": []
         },
         {
           "id": "baluster_wobble",
+          "title": "Test the wobbly baluster",
           "destination": "landing_baluster_wobble",
           "predicates": [],
           "effects": []
         },
         {
           "id": "sun_bleach",
+          "title": "Inspect sun-bleached area",
           "destination": "landing_sun_bleach",
           "predicates": [],
           "effects": []
         },
         {
           "id": "doorframe_notch",
+          "title": "Examine doorframe notch",
           "destination": "landing_doorframe_notch",
           "predicates": [],
           "effects": []
         },
         {
           "id": "newel_cap",
+          "title": "Touch the newel cap",
           "destination": "landing_newel_cap",
           "predicates": [],
           "effects": []
         },
         {
           "id": "wall_hairline",
+          "title": "Trace the wall crack",
           "destination": "landing_wall_hairline",
           "predicates": [],
           "effects": []
         },
         {
           "id": "window_light",
+          "title": "Watch the window light",
           "destination": "landing_window_light",
           "predicates": [],
           "effects": []
         },
         {
           "id": "floor_creak",
+          "title": "Step on the creaky board",
           "destination": "landing_floor_creak",
           "predicates": [],
           "effects": []
         },
         {
           "id": "stair_shadow",
+          "title": "Study the stair shadow",
           "destination": "landing_stair_shadow",
           "predicates": [],
           "effects": []
         },
         {
           "id": "air_current",
+          "title": "Follow the air current",
           "destination": "landing_air_current",
           "predicates": [],
           "effects": []
@@ -1601,72 +1818,84 @@
       "choices": [
         {
           "id": "open_trunk",
+          "title": "Open the trunk",
           "destination": "bedroom_a_trunk",
           "predicates": [],
           "effects": []
         },
         {
           "id": "bed_springs",
+          "title": "Test the bed springs",
           "destination": "bedroom_a_bed_springs",
           "predicates": [],
           "effects": []
         },
         {
           "id": "back_landing",
+          "title": "Return to landing",
           "destination": "landing",
           "predicates": [],
           "effects": []
         },
         {
           "id": "open_closet",
+          "title": "Open the closet",
           "destination": "bedroom_a_closet",
           "predicates": [],
           "effects": []
         },
         {
           "id": "inspect_window",
+          "title": "Inspect the window",
           "destination": "bedroom_a_window_crack",
           "predicates": [],
           "effects": []
         },
         {
           "id": "read_bible",
+          "title": "Read the Bible",
           "destination": "bedroom_a_bible",
           "predicates": [],
           "effects": []
         },
         {
           "id": "nightstand_drawer",
+          "title": "Open the nightstand drawer",
           "destination": "bedroom_a_nightstand",
           "predicates": [],
           "effects": []
         },
         {
           "id": "photo_under_glass",
+          "title": "Look at the photo under glass",
           "destination": "bedroom_a_photo_under_glass",
           "predicates": [],
           "effects": []
         },
         {
           "id": "lace_curtain",
+          "title": "Touch the lace curtain",
           "destination": "bedroom_a_lace_curtain",
           "predicates": [],
           "effects": []
         },
         {
           "id": "quilt_patch",
+          "title": "Examine the quilt patch",
           "destination": "bedroom_a_quilt_patch",
           "predicates": [],
           "effects": []
         },
         {
           "id": "floor_scuff",
+          "title": "Examine the floor scuff",
           "destination": "bedroom_a_floor_scuff",
           "predicates": [],
           "effects": []
         },
         {
           "id": "mirror_fleck",
+          "title": "Look at the mirror fleck",
           "destination": "bedroom_a_mirror_fleck",
           "predicates": [],
           "effects": []
@@ -1689,55 +1918,64 @@
           "id": "lift_picture",
           "destination": "bedroom_b_picture",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Lift the picture"
         },
         {
           "id": "back_landing",
           "destination": "landing",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to landing"
         },
         {
           "id": "inspect_windowsill",
           "destination": "bedroom_b_windowsill_marks",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Inspect windowsill"
         },
         {
           "id": "open_wardrobe",
           "destination": "bedroom_b_wardrobe_linen",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Open the wardrobe"
         },
         {
           "id": "washstand_crack",
           "destination": "bedroom_b_washstand_crack",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Examine washstand crack"
         },
         {
           "id": "lavender_sachet",
           "destination": "bedroom_b_lavender_sachet",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Smell lavender sachet"
         },
         {
           "id": "floorboard_map",
           "destination": "bedroom_b_floorboard_map",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Study floorboard map"
         },
         {
           "id": "frame_wire",
           "destination": "bedroom_b_frame_wire",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Examine frame wire"
         },
         {
           "id": "shoebox_ribbon",
           "destination": "bedroom_b_shoebox_ribbon",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Untie shoebox ribbon"
         }
       ],
       "actors": []
@@ -1755,120 +1993,140 @@
       "choices": [
         {
           "id": "inspect_cradle",
+          "title": "Inspect the cradle",
           "destination": "nursery_cradle",
           "predicates": [],
           "effects": []
         },
         {
           "id": "watch_mobile",
+          "title": "Watch the mobile",
           "destination": "nursery_mobile",
           "predicates": [],
           "effects": []
         },
         {
           "id": "follow_laughter",
+          "title": "Follow the laughter",
           "destination": "nursery_laughter",
           "predicates": [],
           "effects": []
         },
         {
           "id": "stare_wall",
+          "title": "Stare at the wall",
           "destination": "end_madness_3",
           "predicates": [],
           "effects": []
         },
         {
           "id": "sing_lullaby",
+          "title": "Sing a lullaby",
           "destination": "end_madness_4",
           "predicates": [],
           "effects": []
         },
         {
           "id": "count_rabbits",
+          "title": "Count the rabbits on the wallpaper",
           "destination": "end_madness_5",
           "predicates": [],
           "effects": []
         },
         {
           "id": "open_toys",
+          "title": "Open the toy chest",
           "destination": "nursery_toys",
           "predicates": [],
           "effects": []
         },
         {
           "id": "face_vision",
+          "title": "Face the vision in the mirror",
           "destination": "end_madness_1",
           "predicates": [],
           "effects": []
         },
         {
           "id": "back_landing",
+          "title": "Return to landing",
           "destination": "landing",
           "predicates": [],
           "effects": []
         },
         {
           "id": "study_wallpaper",
+          "title": "Study the wallpaper closely",
           "destination": "nursery_wallpaper_hares",
           "predicates": [],
           "effects": []
         },
         {
           "id": "inspect_horse",
+          "title": "Inspect the rocking horse",
           "destination": "nursery_rocking_horse_gouge",
           "predicates": [],
           "effects": []
         },
         {
           "id": "fold_blanket",
+          "title": "Fold the blanket",
           "destination": "nursery_blanket_fold",
           "predicates": [],
           "effects": []
         },
         {
           "id": "hum_hush",
+          "title": "Hum a hushing tune",
           "destination": "end_madness_7",
           "predicates": [],
           "effects": []
         },
         {
           "id": "wind_music_box",
+          "title": "Wind the music box",
           "destination": "nursery_music_box",
           "predicates": [],
           "effects": []
         },
         {
           "id": "doll_eye",
+          "title": "Touch the doll's eye",
           "destination": "nursery_doll_eye",
           "predicates": [],
           "effects": []
         },
         {
           "id": "hare_seam",
+          "title": "Examine the stuffed hare's seam",
           "destination": "nursery_stuffed_hare_seam",
           "predicates": [],
           "effects": []
         },
         {
           "id": "window_rattle",
+          "title": "Listen to the window rattle",
           "destination": "nursery_window_rattle",
           "predicates": [],
           "effects": []
         },
         {
           "id": "chalk_dust",
+          "title": "Examine the chalk dust",
           "destination": "nursery_chalk_dust",
           "predicates": [],
           "effects": []
         },
         {
           "id": "drawer_sachet",
+          "title": "Smell the drawer sachet",
           "destination": "nursery_drawer_sachet",
           "predicates": [],
           "effects": []
         },
         {
           "id": "crayon_mark",
+          "title": "Trace the crayon mark",
           "destination": "nursery_crayon_mark",
           "predicates": [],
           "effects": []
@@ -1889,6 +2147,7 @@
       "choices": [
         {
           "id": "back_nursery",
+          "title": "Return to nursery",
           "destination": "nursery",
           "predicates": [],
           "effects": []
@@ -1909,6 +2168,7 @@
       "choices": [
         {
           "id": "back_nursery",
+          "title": "Return to nursery",
           "destination": "nursery",
           "predicates": [],
           "effects": []
@@ -1929,6 +2189,7 @@
       "choices": [
         {
           "id": "back_nursery",
+          "title": "Return to nursery",
           "destination": "nursery",
           "predicates": [],
           "effects": []
@@ -1956,135 +2217,179 @@
       "choices": [
         {
           "id": "open_case",
-          "destination": "library_case",
-          "predicates": [],
-          "effects": []
+          "destination": "library_case_unlocked",
+          "predicates": [
+            {
+              "id": "has-item",
+              "parameters": {
+                "item": "brass_key"
+              }
+            }
+          ],
+          "effects": [],
+          "title": "Open the glass case"
+        },
+        {
+          "id": "locked_case",
+          "destination": "library_case_locked",
+          "predicates": [
+            {
+              "id": "has-item",
+              "parameters": {
+                "item": "brass_key"
+              },
+              "negated": true
+            }
+          ],
+          "effects": [],
+          "title": "Try the locked case"
         },
         {
           "id": "read_tome",
           "destination": "library_tome",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Read a tome"
         },
         {
           "id": "press_seam",
           "destination": "library_seam",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Press the seam"
         },
         {
           "id": "ladder_rail",
           "destination": "library_ladder_rail",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Climb ladder rail"
         },
         {
           "id": "sort_cards",
           "destination": "library_cards",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Sort index cards"
         },
         {
           "id": "read_to_exhaustion",
           "destination": "end_madness_6",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Read until exhausted"
         },
         {
           "id": "secret_passage",
           "destination": "ritual_chamber",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Find secret passage"
         },
         {
           "id": "back_landing",
           "destination": "landing",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to landing"
         },
         {
           "id": "lamp_soot",
           "destination": "library_lamp_soot",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Examine lamp soot"
         },
         {
           "id": "step_stool_scuff",
           "destination": "library_step_stool_scuff",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Examine step stool scuff"
         },
         {
           "id": "marginalia",
           "destination": "library_marginalia",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Read marginalia"
         },
         {
           "id": "bookplate",
           "destination": "library_bookplate",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Examine bookplate"
         },
         {
           "id": "dust_lattice",
           "destination": "library_dust_lattice",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Trace dust lattice"
         },
         {
           "id": "chain_binding",
           "destination": "library_chain_binding",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Examine chain binding"
         },
         {
           "id": "call_number_misfile",
           "destination": "library_call_number_misfile",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Notice misfiled book"
         },
         {
           "id": "whisper_names",
           "destination": "end_madness_8",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Whisper the names"
         },
         {
           "id": "globe",
           "destination": "library_globe",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Spin the globe"
         },
         {
           "id": "fallen_page",
           "destination": "library_fallen_page",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Pick up fallen page"
         },
         {
           "id": "ink_bottle",
           "destination": "library_ink_bottle",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Examine ink bottle"
         },
         {
           "id": "window_shutter",
           "destination": "library_window_shutter",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Open window shutter"
         },
         {
           "id": "cobweb_thread",
           "destination": "library_cobweb_thread",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Follow cobweb thread"
         },
         {
           "id": "book_dust_smear",
           "destination": "library_book_dust_smear",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Examine dust smear"
         }
       ],
       "actors": []
@@ -2104,7 +2409,8 @@
           "id": "back_library",
           "destination": "library",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to library"
         }
       ],
       "actors": []
@@ -2124,7 +2430,8 @@
           "id": "back_library",
           "destination": "library",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to library"
         }
       ],
       "actors": []
@@ -2144,10 +2451,12 @@
           "id": "back_library",
           "destination": "library",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to library"
         },
         {
           "id": "listen_latch",
+          "title": "Listen to the latch",
           "destination": "library_latch_click",
           "predicates": [],
           "effects": []
@@ -2175,90 +2484,105 @@
       "choices": [
         {
           "id": "open_dresser",
+          "title": "Open the dresser",
           "destination": "master_dresser",
           "predicates": [],
           "effects": []
         },
         {
           "id": "inspect_dagger",
+          "title": "Inspect the dagger",
           "destination": "master_dagger",
           "predicates": [],
           "effects": []
         },
         {
           "id": "smell_perfume",
+          "title": "Smell the perfume",
           "destination": "master_perfume",
           "predicates": [],
           "effects": []
         },
         {
           "id": "turn_taps",
+          "title": "Turn the taps",
           "destination": "master_bath",
           "predicates": [],
           "effects": []
         },
         {
           "id": "back_landing",
+          "title": "Return to landing",
           "destination": "landing",
           "predicates": [],
           "effects": []
         },
         {
           "id": "open_wardrobe_left",
+          "title": "Open the left wardrobe door",
           "destination": "master_wardrobe_left",
           "predicates": [],
           "effects": []
         },
         {
           "id": "headboard_initials",
+          "title": "Examine headboard initials",
           "destination": "master_headboard_initials",
           "predicates": [],
           "effects": []
         },
         {
           "id": "lamp_switch",
+          "title": "Try the lamp switch",
           "destination": "master_lamp_switch",
           "predicates": [],
           "effects": []
         },
         {
           "id": "mirror_scratch",
+          "title": "Examine mirror scratch",
           "destination": "master_mirror_scratch",
           "predicates": [],
           "effects": []
         },
         {
           "id": "sheet_hem",
+          "title": "Touch the sheet hem",
           "destination": "master_sheet_hem",
           "predicates": [],
           "effects": []
         },
         {
           "id": "floorboard_give",
+          "title": "Test the loose floorboard",
           "destination": "master_floorboard_give",
           "predicates": [],
           "effects": []
         },
         {
           "id": "valise_lock",
+          "title": "Try the valise lock",
           "destination": "master_valise_lock",
           "predicates": [],
           "effects": []
         },
         {
           "id": "bedpost_knot",
+          "title": "Examine the bedpost knot",
           "destination": "master_bedpost_knot",
           "predicates": [],
           "effects": []
         },
         {
           "id": "window_latch",
+          "title": "Check the window latch",
           "destination": "master_window_latch",
           "predicates": [],
           "effects": []
         },
         {
           "id": "fire_screen",
+          "title": "Move the fire screen",
           "destination": "master_fire_screen",
           "predicates": [],
           "effects": []
@@ -2279,6 +2603,7 @@
       "choices": [
         {
           "id": "back_master",
+          "title": "Return to the master suite",
           "destination": "master_suite",
           "predicates": [],
           "effects": []
@@ -2299,6 +2624,7 @@
       "choices": [
         {
           "id": "back_master",
+          "title": "Return to master suite",
           "destination": "master_suite",
           "predicates": [],
           "effects": []
@@ -2319,6 +2645,7 @@
       "choices": [
         {
           "id": "back_master",
+          "title": "Return to master suite",
           "destination": "master_suite",
           "predicates": [],
           "effects": []
@@ -2339,54 +2666,63 @@
       "choices": [
         {
           "id": "leap",
+          "title": "Leap from the balcony",
           "destination": "end_scarred_1",
           "predicates": [],
           "effects": []
         },
         {
           "id": "lean_over",
+          "title": "Lean over the edge",
           "destination": "end_scarred_3",
           "predicates": [],
           "effects": []
         },
         {
           "id": "back_landing",
+          "title": "Return to landing",
           "destination": "landing",
           "predicates": [],
           "effects": []
         },
         {
           "id": "test_picket",
+          "title": "Test the loose picket",
           "destination": "balcony_loose_picket",
           "predicates": [],
           "effects": []
         },
         {
           "id": "lower_to_ledge",
+          "title": "Lower yourself to the ledge",
           "destination": "end_scarred_7",
           "predicates": [],
           "effects": []
         },
         {
           "id": "downspout_rattle",
+          "title": "Shake the downspout",
           "destination": "balcony_downspout_rattle",
           "predicates": [],
           "effects": []
         },
         {
           "id": "floor_grit",
+          "title": "Examine the floor grit",
           "destination": "balcony_floor_grit",
           "predicates": [],
           "effects": []
         },
         {
           "id": "shutter_hinge",
+          "title": "Inspect the shutter hinge",
           "destination": "balcony_shutter_hinge",
           "predicates": [],
           "effects": []
         },
         {
           "id": "rain_gutter_seed",
+          "title": "Check the seed in the gutter",
           "destination": "balcony_rain_gutter_seed",
           "predicates": [],
           "effects": []
@@ -2409,55 +2745,64 @@
           "id": "to_boiler",
           "destination": "boiler_room",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Go to boiler room"
         },
         {
           "id": "to_cat1",
           "destination": "catacombs_1",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Enter catacombs"
         },
         {
           "id": "up",
           "destination": "landing",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Go upstairs"
         },
         {
           "id": "turn_ankle",
           "destination": "end_scarred_6",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Turn ankle suddenly"
         },
         {
           "id": "touch_handprint",
           "destination": "stairs_handprint",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Touch the handprint"
         },
         {
           "id": "wet_step",
           "destination": "basement_stairs_wet_step",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Step on wet spot"
         },
         {
           "id": "rust_fleck",
           "destination": "basement_stairs_rust_fleck",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Examine rust fleck"
         },
         {
           "id": "lime_dust",
           "destination": "basement_stairs_lime_dust",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Brush lime dust"
         },
         {
           "id": "hollow_echo",
           "destination": "basement_stairs_hollow_echo",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Listen to hollow echo"
         }
       ],
       "actors": []
@@ -2477,67 +2822,78 @@
           "id": "trace_leak",
           "destination": "boiler_leak",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Trace the leak"
         },
         {
           "id": "count_coal",
           "destination": "boiler_coal",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Count coal pieces"
         },
         {
           "id": "tap_gauge",
           "destination": "boiler_gauge",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Tap the gauge"
         },
         {
           "id": "slip_on_pipe",
           "destination": "end_scarred_4",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Slip on pipe"
         },
         {
           "id": "collapse",
           "destination": "end_scarred_2",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Collapse from exhaustion"
         },
         {
           "id": "back_stairs",
           "destination": "basement_stairs",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to stairs"
         },
         {
           "id": "radiator_line",
           "destination": "boiler_radiator_line",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Follow radiator line"
         },
         {
           "id": "steam_whistle",
           "destination": "boiler_steam_whistle",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Listen to steam whistle"
         },
         {
           "id": "floor_slick",
           "destination": "boiler_floor_slick",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Notice floor slick"
         },
         {
           "id": "pressure_relief",
           "destination": "boiler_pressure_relief",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Check pressure relief"
         },
         {
           "id": "steam_burn",
           "destination": "end_scarred_8",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Touch hot steam"
         }
       ],
       "actors": []
@@ -2557,7 +2913,8 @@
           "id": "back_boiler",
           "destination": "boiler_room",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to boiler room"
         }
       ],
       "actors": []
@@ -2575,6 +2932,7 @@
       "choices": [
         {
           "id": "back_boiler",
+          "title": "Return to boiler room",
           "destination": "boiler_room",
           "predicates": [],
           "effects": []
@@ -2595,12 +2953,14 @@
       "choices": [
         {
           "id": "back_boiler",
+          "title": "Return to boiler room",
           "destination": "boiler_room",
           "predicates": [],
           "effects": []
         },
         {
           "id": "turn_valve",
+          "title": "Turn the valve",
           "destination": "boiler_valve_handle",
           "predicates": [],
           "effects": []
@@ -2623,7 +2983,8 @@
           "id": "back_dining",
           "destination": "dining_room",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to dining room"
         }
       ],
       "actors": []
@@ -2643,7 +3004,8 @@
           "id": "back_dining",
           "destination": "dining_room",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to dining room"
         }
       ],
       "actors": []
@@ -2663,7 +3025,8 @@
           "id": "back_study",
           "destination": "study",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to study"
         }
       ],
       "actors": []
@@ -2683,7 +3046,8 @@
           "id": "back_study",
           "destination": "study",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to study"
         }
       ],
       "actors": []
@@ -2703,7 +3067,8 @@
           "id": "back_kitchen",
           "destination": "kitchen",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to kitchen"
         }
       ],
       "actors": []
@@ -2723,7 +3088,8 @@
           "id": "back_kitchen",
           "destination": "kitchen",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to kitchen"
         }
       ],
       "actors": []
@@ -2743,7 +3109,8 @@
           "id": "back_pantry",
           "destination": "pantry",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to pantry"
         }
       ],
       "actors": []
@@ -2763,7 +3130,8 @@
           "id": "back_parlor",
           "destination": "parlor",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to parlor"
         }
       ],
       "actors": []
@@ -2783,7 +3151,8 @@
           "id": "back_conservatory",
           "destination": "conservatory",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to conservatory"
         }
       ],
       "actors": []
@@ -2801,6 +3170,7 @@
       "choices": [
         {
           "id": "back_cellar",
+          "title": "Return to cellar",
           "destination": "cellar_entrance",
           "predicates": [],
           "effects": []
@@ -2821,6 +3191,7 @@
       "choices": [
         {
           "id": "back_landing",
+          "title": "Return to landing",
           "destination": "landing",
           "predicates": [],
           "effects": []
@@ -2841,6 +3212,7 @@
       "choices": [
         {
           "id": "back_bedA",
+          "title": "Return to bedroom A",
           "destination": "bedroom_a",
           "predicates": [],
           "effects": []
@@ -2861,6 +3233,7 @@
       "choices": [
         {
           "id": "back_bedB",
+          "title": "Return to bedroom B",
           "destination": "bedroom_b",
           "predicates": [],
           "effects": []
@@ -2881,6 +3254,7 @@
       "choices": [
         {
           "id": "back_nursery",
+          "title": "Return to nursery",
           "destination": "nursery",
           "predicates": [],
           "effects": []
@@ -2903,10 +3277,12 @@
           "id": "back_library",
           "destination": "library",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to library"
         },
         {
           "id": "read_index_card",
+          "title": "Examine the index card",
           "destination": "library_index_card",
           "predicates": [],
           "effects": []
@@ -2927,6 +3303,7 @@
       "choices": [
         {
           "id": "back_master",
+          "title": "Return to the master suite",
           "destination": "master_suite",
           "predicates": [],
           "effects": []
@@ -2947,6 +3324,7 @@
       "choices": [
         {
           "id": "back_stairs",
+          "title": "Return to stairs",
           "destination": "basement_stairs",
           "predicates": [],
           "effects": []
@@ -2969,7 +3347,8 @@
           "id": "back_dining",
           "destination": "dining_room",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to dining room"
         }
       ],
       "actors": []
@@ -2989,7 +3368,8 @@
           "id": "back_dining",
           "destination": "dining_room",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to dining room"
         }
       ],
       "actors": []
@@ -3009,7 +3389,8 @@
           "id": "back_study",
           "destination": "study",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to study"
         }
       ],
       "actors": []
@@ -3029,7 +3410,8 @@
           "id": "back_study",
           "destination": "study",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to study"
         }
       ],
       "actors": []
@@ -3049,7 +3431,8 @@
           "id": "back_kitchen",
           "destination": "kitchen",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to kitchen"
         }
       ],
       "actors": []
@@ -3069,7 +3452,8 @@
           "id": "back_kitchen",
           "destination": "kitchen",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to kitchen"
         }
       ],
       "actors": []
@@ -3089,7 +3473,8 @@
           "id": "back_pantry",
           "destination": "pantry",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to pantry"
         }
       ],
       "actors": []
@@ -3109,7 +3494,8 @@
           "id": "back_pantry",
           "destination": "pantry",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to pantry"
         }
       ],
       "actors": []
@@ -3129,7 +3515,8 @@
           "id": "back_parlor",
           "destination": "parlor",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to parlor"
         }
       ],
       "actors": []
@@ -3149,7 +3536,8 @@
           "id": "back_parlor",
           "destination": "parlor",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to parlor"
         }
       ],
       "actors": []
@@ -3169,7 +3557,8 @@
           "id": "back_conservatory",
           "destination": "conservatory",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to conservatory"
         }
       ],
       "actors": []
@@ -3189,7 +3578,8 @@
           "id": "back_conservatory",
           "destination": "conservatory",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to conservatory"
         }
       ],
       "actors": []
@@ -3207,6 +3597,7 @@
       "choices": [
         {
           "id": "back_cellar",
+          "title": "Return to cellar",
           "destination": "cellar_entrance",
           "predicates": [],
           "effects": []
@@ -3227,6 +3618,7 @@
       "choices": [
         {
           "id": "back_cellar",
+          "title": "Return to cellar",
           "destination": "cellar_entrance",
           "predicates": [],
           "effects": []
@@ -3247,6 +3639,7 @@
       "choices": [
         {
           "id": "back_landing",
+          "title": "Return to landing",
           "destination": "landing",
           "predicates": [],
           "effects": []
@@ -3267,6 +3660,7 @@
       "choices": [
         {
           "id": "back_bedA",
+          "title": "Return to bedroom A",
           "destination": "bedroom_a",
           "predicates": [],
           "effects": []
@@ -3289,7 +3683,8 @@
           "id": "back_library",
           "destination": "library",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to library"
         }
       ],
       "actors": []
@@ -3309,7 +3704,8 @@
           "id": "back_foyer",
           "destination": "foyer",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to foyer"
         }
       ],
       "actors": []
@@ -3329,7 +3725,8 @@
           "id": "back_foyer",
           "destination": "foyer",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to foyer"
         }
       ],
       "actors": []
@@ -3349,7 +3746,8 @@
           "id": "back_garden",
           "destination": "garden_path",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to garden"
         }
       ],
       "actors": []
@@ -3369,7 +3767,8 @@
           "id": "back_garden",
           "destination": "garden_path",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to garden"
         }
       ],
       "actors": []
@@ -3389,7 +3788,8 @@
           "id": "back_stairs",
           "destination": "grand_staircase",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to staircase"
         }
       ],
       "actors": []
@@ -3407,6 +3807,7 @@
       "choices": [
         {
           "id": "back_bedA",
+          "title": "Return to bedroom A",
           "destination": "bedroom_a",
           "predicates": [],
           "effects": []
@@ -3427,6 +3828,7 @@
       "choices": [
         {
           "id": "back_bedA",
+          "title": "Return to bedroom",
           "destination": "bedroom_a",
           "predicates": [],
           "effects": []
@@ -3447,6 +3849,7 @@
       "choices": [
         {
           "id": "back_bedA",
+          "title": "Return to bedroom A",
           "destination": "bedroom_a",
           "predicates": [],
           "effects": []
@@ -3467,6 +3870,7 @@
       "choices": [
         {
           "id": "back_bedB",
+          "title": "Return to bedroom B",
           "destination": "bedroom_b",
           "predicates": [],
           "effects": []
@@ -3487,6 +3891,7 @@
       "choices": [
         {
           "id": "back_bedB",
+          "title": "Return to bedroom",
           "destination": "bedroom_b",
           "predicates": [],
           "effects": []
@@ -3507,6 +3912,7 @@
       "choices": [
         {
           "id": "back_nursery",
+          "title": "Return to nursery",
           "destination": "nursery",
           "predicates": [],
           "effects": []
@@ -3527,6 +3933,7 @@
       "choices": [
         {
           "id": "back_nursery",
+          "title": "Return to nursery",
           "destination": "nursery",
           "predicates": [],
           "effects": []
@@ -3547,6 +3954,7 @@
       "choices": [
         {
           "id": "back_nursery",
+          "title": "Return to nursery",
           "destination": "nursery",
           "predicates": [],
           "effects": []
@@ -3569,7 +3977,8 @@
           "id": "back_library",
           "destination": "library",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to library"
         }
       ],
       "actors": []
@@ -3589,7 +3998,8 @@
           "id": "back_library",
           "destination": "library",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to library"
         }
       ],
       "actors": []
@@ -3609,7 +4019,8 @@
           "id": "back_library",
           "destination": "library",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to library"
         }
       ],
       "actors": []
@@ -3627,6 +4038,7 @@
       "choices": [
         {
           "id": "back_master",
+          "title": "Return to master suite",
           "destination": "master_suite",
           "predicates": [],
           "effects": []
@@ -3647,6 +4059,7 @@
       "choices": [
         {
           "id": "back_landing",
+          "title": "Return to landing",
           "destination": "landing",
           "predicates": [],
           "effects": []
@@ -3667,6 +4080,7 @@
       "choices": [
         {
           "id": "back_boiler",
+          "title": "Return to boiler room",
           "destination": "boiler_room",
           "predicates": [],
           "effects": []
@@ -3687,18 +4101,21 @@
       "choices": [
         {
           "id": "to_cat2",
+          "title": "Continue deeper",
           "destination": "catacombs_2",
           "predicates": [],
           "effects": []
         },
         {
           "id": "to_ritual",
+          "title": "Approach the ritual chamber",
           "destination": "ritual_chamber",
           "predicates": [],
           "effects": []
         },
         {
           "id": "skull_niche",
+          "title": "Examine the skull niche",
           "destination": "catacombs_skull_niche",
           "predicates": [],
           "effects": []
@@ -3721,13 +4138,15 @@
           "id": "to_cat3",
           "destination": "catacombs_3",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Go to chamber 3"
         },
         {
           "id": "to_cat1",
           "destination": "catacombs_1",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Go to chamber 1"
         }
       ],
       "actors": []
@@ -3747,25 +4166,29 @@
           "id": "to_cat4",
           "destination": "catacombs_4",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Go to chamber 4"
         },
         {
           "id": "to_cat2",
           "destination": "catacombs_2",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Go to chamber 2"
         },
         {
           "id": "fall_pit",
           "destination": "end_scarred_5",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Fall into pit"
         },
         {
           "id": "chalk_arrow",
           "destination": "catacombs_chalk_arrow",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Follow chalk arrow"
         }
       ],
       "actors": []
@@ -3785,13 +4208,15 @@
           "id": "to_cat5",
           "destination": "catacombs_5",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Go to chamber 5"
         },
         {
           "id": "to_cat3",
           "destination": "catacombs_3",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Go to chamber 3"
         }
       ],
       "actors": []
@@ -3818,19 +4243,22 @@
           "id": "fight",
           "destination": "catacombs_3",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Fight the creature"
         },
         {
           "id": "to_cat6",
           "destination": "catacombs_6",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Go to chamber 6"
         },
         {
           "id": "panic",
           "destination": "end_madness_2",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Panic and flee"
         }
       ],
       "actors": []
@@ -3848,12 +4276,14 @@
       "choices": [
         {
           "id": "to_cat7",
+          "title": "Continue forward",
           "destination": "catacombs_7",
           "predicates": [],
           "effects": []
         },
         {
           "id": "to_cat4",
+          "title": "Turn back",
           "destination": "catacombs_4",
           "predicates": [],
           "effects": []
@@ -3874,18 +4304,21 @@
       "choices": [
         {
           "id": "to_cat8",
+          "title": "Continue deeper",
           "destination": "catacombs_8",
           "predicates": [],
           "effects": []
         },
         {
           "id": "to_cat6",
+          "title": "Turn back",
           "destination": "catacombs_6",
           "predicates": [],
           "effects": []
         },
         {
           "id": "drip_pit",
+          "title": "Investigate the dripping pit",
           "destination": "catacombs_drip_pit",
           "predicates": [],
           "effects": []
@@ -3908,13 +4341,15 @@
           "id": "to_cat9",
           "destination": "catacombs_9",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Go to chamber 9"
         },
         {
           "id": "to_cat7",
           "destination": "catacombs_7",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Go to chamber 7"
         }
       ],
       "actors": []
@@ -3934,13 +4369,15 @@
           "id": "to_cat10",
           "destination": "catacombs_10",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Go to chamber 10"
         },
         {
           "id": "to_cat8",
           "destination": "catacombs_8",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Go to chamber 8"
         }
       ],
       "actors": []
@@ -3958,24 +4395,28 @@
       "choices": [
         {
           "id": "to_cat11",
+          "title": "Continue deeper",
           "destination": "catacombs_11",
           "predicates": [],
           "effects": []
         },
         {
           "id": "to_ritual",
+          "title": "Approach the ritual chamber",
           "destination": "ritual_chamber",
           "predicates": [],
           "effects": []
         },
         {
           "id": "to_cat9",
+          "title": "Turn back",
           "destination": "catacombs_9",
           "predicates": [],
           "effects": []
         },
         {
           "id": "air_shaft",
+          "title": "Examine the air shaft",
           "destination": "catacombs_air_shaft",
           "predicates": [],
           "effects": []
@@ -3996,12 +4437,14 @@
       "choices": [
         {
           "id": "to_cat12",
+          "title": "Continue forward",
           "destination": "catacombs_12",
           "predicates": [],
           "effects": []
         },
         {
           "id": "to_cat10",
+          "title": "Turn back",
           "destination": "catacombs_10",
           "predicates": [],
           "effects": []
@@ -4022,12 +4465,14 @@
       "choices": [
         {
           "id": "to_cat13",
+          "title": "Continue forward",
           "destination": "catacombs_13",
           "predicates": [],
           "effects": []
         },
         {
           "id": "to_cat11",
+          "title": "Turn back",
           "destination": "catacombs_11",
           "predicates": [],
           "effects": []
@@ -4048,12 +4493,14 @@
       "choices": [
         {
           "id": "to_cat14",
+          "title": "Continue deeper",
           "destination": "catacombs_14",
           "predicates": [],
           "effects": []
         },
         {
           "id": "to_cat12",
+          "title": "Turn back",
           "destination": "catacombs_12",
           "predicates": [],
           "effects": []
@@ -4074,18 +4521,21 @@
       "choices": [
         {
           "id": "to_cat15",
+          "title": "Continue forward",
           "destination": "catacombs_15",
           "predicates": [],
           "effects": []
         },
         {
           "id": "to_cat13",
+          "title": "Turn back",
           "destination": "catacombs_13",
           "predicates": [],
           "effects": []
         },
         {
           "id": "broken_cart",
+          "title": "Examine the broken cart",
           "destination": "catacombs_broken_cart",
           "predicates": [],
           "effects": []
@@ -4106,12 +4556,14 @@
       "choices": [
         {
           "id": "to_cat16",
+          "title": "Continue forward",
           "destination": "catacombs_16",
           "predicates": [],
           "effects": []
         },
         {
           "id": "to_cat14",
+          "title": "Turn back",
           "destination": "catacombs_14",
           "predicates": [],
           "effects": []
@@ -4132,12 +4584,14 @@
       "choices": [
         {
           "id": "to_cat17",
+          "title": "Continue deeper",
           "destination": "catacombs_17",
           "predicates": [],
           "effects": []
         },
         {
           "id": "to_cat15",
+          "title": "Turn back",
           "destination": "catacombs_15",
           "predicates": [],
           "effects": []
@@ -4158,12 +4612,14 @@
       "choices": [
         {
           "id": "to_cat18",
+          "title": "Continue forward",
           "destination": "catacombs_18",
           "predicates": [],
           "effects": []
         },
         {
           "id": "to_cat16",
+          "title": "Turn back",
           "destination": "catacombs_16",
           "predicates": [],
           "effects": []
@@ -4184,18 +4640,21 @@
       "choices": [
         {
           "id": "to_cat19",
+          "title": "Continue deeper",
           "destination": "catacombs_19",
           "predicates": [],
           "effects": []
         },
         {
           "id": "to_cat17",
+          "title": "Turn back",
           "destination": "catacombs_17",
           "predicates": [],
           "effects": []
         },
         {
           "id": "lime_heap",
+          "title": "Investigate the lime heap",
           "destination": "catacombs_lime_heap",
           "predicates": [],
           "effects": []
@@ -4216,12 +4675,14 @@
       "choices": [
         {
           "id": "to_cat20",
+          "title": "Continue forward",
           "destination": "catacombs_20",
           "predicates": [],
           "effects": []
         },
         {
           "id": "to_cat18",
+          "title": "Turn back",
           "destination": "catacombs_18",
           "predicates": [],
           "effects": []
@@ -4244,19 +4705,22 @@
           "id": "to_cat19",
           "destination": "catacombs_19",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Go to chamber 19"
         },
         {
           "id": "to_cat10",
           "destination": "catacombs_10",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Go to chamber 10"
         },
         {
           "id": "to_cat21",
           "destination": "catacombs_21",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Go to chamber 21"
         }
       ],
       "actors": []
@@ -4276,19 +4740,22 @@
           "id": "to_cat22",
           "destination": "catacombs_22",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Go to chamber 22"
         },
         {
           "id": "to_cat20",
           "destination": "catacombs_20",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Go to chamber 20"
         },
         {
           "id": "rune",
           "destination": "catacombs_rune",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Examine the rune"
         }
       ],
       "actors": []
@@ -4308,13 +4775,15 @@
           "id": "to_cat23",
           "destination": "catacombs_23",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Go to chamber 23"
         },
         {
           "id": "to_cat21",
           "destination": "catacombs_21",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Go to chamber 21"
         }
       ],
       "actors": []
@@ -4332,12 +4801,14 @@
       "choices": [
         {
           "id": "to_cat24",
+          "title": "Continue forward",
           "destination": "catacombs_24",
           "predicates": [],
           "effects": []
         },
         {
           "id": "to_cat22",
+          "title": "Turn back",
           "destination": "catacombs_22",
           "predicates": [],
           "effects": []
@@ -4358,18 +4829,21 @@
       "choices": [
         {
           "id": "to_cat25",
+          "title": "Continue forward",
           "destination": "catacombs_25",
           "predicates": [],
           "effects": []
         },
         {
           "id": "to_cat23",
+          "title": "Turn back",
           "destination": "catacombs_23",
           "predicates": [],
           "effects": []
         },
         {
           "id": "rat_nest",
+          "title": "Investigate the rat nest",
           "destination": "catacombs_rat_nest",
           "predicates": [],
           "effects": []
@@ -4390,12 +4864,14 @@
       "choices": [
         {
           "id": "to_cat26",
+          "title": "Continue forward",
           "destination": "catacombs_26",
           "predicates": [],
           "effects": []
         },
         {
           "id": "to_cat24",
+          "title": "Turn back",
           "destination": "catacombs_24",
           "predicates": [],
           "effects": []
@@ -4416,12 +4892,14 @@
       "choices": [
         {
           "id": "to_cat27",
+          "title": "Continue forward",
           "destination": "catacombs_27",
           "predicates": [],
           "effects": []
         },
         {
           "id": "to_cat25",
+          "title": "Turn back",
           "destination": "catacombs_25",
           "predicates": [],
           "effects": []
@@ -4442,18 +4920,21 @@
       "choices": [
         {
           "id": "to_cat28",
+          "title": "Continue forward",
           "destination": "catacombs_28",
           "predicates": [],
           "effects": []
         },
         {
           "id": "to_cat26",
+          "title": "Turn back",
           "destination": "catacombs_26",
           "predicates": [],
           "effects": []
         },
         {
           "id": "bone_pile",
+          "title": "Investigate the bone pile",
           "destination": "catacombs_bone_pile",
           "predicates": [],
           "effects": []
@@ -4476,13 +4957,15 @@
           "id": "to_cat29",
           "destination": "catacombs_29",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Go to chamber 29"
         },
         {
           "id": "to_cat27",
           "destination": "catacombs_27",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Go to chamber 27"
         }
       ],
       "actors": []
@@ -4502,13 +4985,15 @@
           "id": "to_cat30",
           "destination": "catacombs_30",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Go to chamber 30"
         },
         {
           "id": "to_cat28",
           "destination": "catacombs_28",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Go to chamber 28"
         }
       ],
       "actors": []
@@ -4528,13 +5013,15 @@
           "id": "to_cat31",
           "destination": "catacombs_31",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Go to chamber 31"
         },
         {
           "id": "to_cat29",
           "destination": "catacombs_29",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Go to chamber 29"
         }
       ],
       "actors": []
@@ -4552,18 +5039,21 @@
       "choices": [
         {
           "id": "to_cat32",
+          "title": "Continue forward",
           "destination": "catacombs_32",
           "predicates": [],
           "effects": []
         },
         {
           "id": "to_cat30",
+          "title": "Turn back",
           "destination": "catacombs_30",
           "predicates": [],
           "effects": []
         },
         {
           "id": "stale_air",
+          "title": "Follow the stale air current",
           "destination": "catacombs_stale_air",
           "predicates": [],
           "effects": []
@@ -4584,12 +5074,14 @@
       "choices": [
         {
           "id": "to_cat33",
+          "title": "Continue forward",
           "destination": "catacombs_33",
           "predicates": [],
           "effects": []
         },
         {
           "id": "to_cat31",
+          "title": "Turn back",
           "destination": "catacombs_31",
           "predicates": [],
           "effects": []
@@ -4612,19 +5104,22 @@
           "id": "to_cat34",
           "destination": "catacombs_34",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Go to chamber 34"
         },
         {
           "id": "to_cat32",
           "destination": "catacombs_32",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Go to chamber 32"
         },
         {
           "id": "scratch_tally",
           "destination": "catacombs_scratch_tally",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Count scratch tally"
         }
       ],
       "actors": []
@@ -4644,13 +5139,15 @@
           "id": "to_cat35",
           "destination": "catacombs_35",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Go to chamber 35"
         },
         {
           "id": "to_cat33",
           "destination": "catacombs_33",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Go to chamber 33"
         }
       ],
       "actors": []
@@ -4670,13 +5167,15 @@
           "id": "to_ritual",
           "destination": "ritual_chamber",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Enter ritual chamber"
         },
         {
           "id": "to_cat30",
           "destination": "catacombs_30",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Go to chamber 30"
         }
       ],
       "actors": []
@@ -4690,55 +5189,94 @@
       "tags": [
         "basement"
       ],
-      "onEnter": [
-        {
-          "id": "set-flag",
-          "parameters": {
-            "flag": "ritual_ready",
-            "value": "true"
-          }
-        }
-      ],
+      "onEnter": [],
       "choices": [
         {
-          "id": "attempt_ritual",
-          "destination": "end_successful",
-          "predicates": [],
-          "effects": []
+          "id": "light_candle",
+          "title": "Light the black candle",
+          "destination": "ritual_candle_lit",
+          "predicates": [
+            {
+              "id": "has-item",
+              "parameters": {
+                "item": "black_candle"
+              }
+            },
+            {
+              "id": "ritual-candle-lit",
+              "parameters": {},
+              "negated": true
+            }
+          ],
+          "effects": [],
+          "actions": [
+            {
+              "id": "light_candle",
+              "parameters": {}
+            }
+          ]
         },
         {
-          "id": "falter",
-          "destination": "end_dead",
-          "predicates": [],
-          "effects": []
+          "id": "read_tome",
+          "title": "Read from the forbidden tome",
+          "destination": "ritual_tome_read",
+          "predicates": [
+            {
+              "id": "has-item",
+              "parameters": {
+                "item": "forbidden_tome"
+              }
+            },
+            {
+              "id": "ritual-tome-read",
+              "parameters": {},
+              "negated": true
+            }
+          ],
+          "effects": [],
+          "actions": [
+            {
+              "id": "read_tome",
+              "parameters": {}
+            }
+          ]
+        },
+        {
+          "id": "make_sacrifice",
+          "title": "Make the blood sacrifice",
+          "destination": "ritual_sacrifice_complete",
+          "predicates": [
+            {
+              "id": "has-item",
+              "parameters": {
+                "item": "silver_dagger"
+              }
+            },
+            {
+              "id": "ritual-sacrifice-made",
+              "parameters": {},
+              "negated": true
+            }
+          ],
+          "effects": [],
+          "actions": [
+            {
+              "id": "make_sacrifice",
+              "parameters": {}
+            }
+          ]
         },
         {
           "id": "flee",
+          "title": "Flee the chamber",
           "destination": "end_scarred_2",
           "predicates": [],
           "effects": []
         },
         {
-          "id": "circle_chalk",
+          "id": "examine_circle",
+          "title": "Examine the ritual circle",
           "destination": "ritual_circle_chalk",
-          "predicates": [],
-          "effects": []
-        },
-        {
-          "id": "heart_pulse",
-          "destination": "ritual_heart_pulse",
-          "predicates": [],
-          "effects": []
-        },
-        {
-          "id": "candle_sputter",
-          "destination": "ritual_candle_sputter",
-          "predicates": [],
-          "effects": []
-        },
-        {
-          "id": "whisper_return",
-          "destination": "ritual_whisper_return",
           "predicates": [],
           "effects": []
         }
@@ -4956,7 +5494,8 @@
           "id": "back_dining",
           "destination": "dining_room",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to dining room"
         }
       ],
       "actors": []
@@ -4976,7 +5515,8 @@
           "id": "back_dining",
           "destination": "dining_room",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to dining room"
         }
       ],
       "actors": []
@@ -4996,7 +5536,8 @@
           "id": "back_dining",
           "destination": "dining_room",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to dining room"
         }
       ],
       "actors": []
@@ -5016,7 +5557,8 @@
           "id": "back_dining",
           "destination": "dining_room",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to dining room"
         }
       ],
       "actors": []
@@ -5036,7 +5578,8 @@
           "id": "back_dining",
           "destination": "dining_room",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to dining room"
         }
       ],
       "actors": []
@@ -5056,7 +5599,8 @@
           "id": "back_dining",
           "destination": "dining_room",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to dining room"
         }
       ],
       "actors": []
@@ -5076,7 +5620,8 @@
           "id": "back_study",
           "destination": "study",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to study"
         }
       ],
       "actors": []
@@ -5096,7 +5641,8 @@
           "id": "back_study",
           "destination": "study",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to study"
         }
       ],
       "actors": []
@@ -5116,7 +5662,8 @@
           "id": "back_study",
           "destination": "study",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to study"
         }
       ],
       "actors": []
@@ -5136,7 +5683,8 @@
           "id": "back_study",
           "destination": "study",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to study"
         }
       ],
       "actors": []
@@ -5156,7 +5704,8 @@
           "id": "back_study",
           "destination": "study",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to study"
         }
       ],
       "actors": []
@@ -5176,7 +5725,8 @@
           "id": "back_study",
           "destination": "study",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to study"
         }
       ],
       "actors": []
@@ -5196,7 +5746,8 @@
           "id": "back_parlor",
           "destination": "parlor",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to parlor"
         }
       ],
       "actors": []
@@ -5216,7 +5767,8 @@
           "id": "back_parlor",
           "destination": "parlor",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to parlor"
         }
       ],
       "actors": []
@@ -5236,7 +5788,8 @@
           "id": "back_parlor",
           "destination": "parlor",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to parlor"
         }
       ],
       "actors": []
@@ -5256,7 +5809,8 @@
           "id": "back_parlor",
           "destination": "parlor",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to parlor"
         }
       ],
       "actors": []
@@ -5276,7 +5830,8 @@
           "id": "back_parlor",
           "destination": "parlor",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to parlor"
         }
       ],
       "actors": []
@@ -5296,7 +5851,8 @@
           "id": "back_parlor",
           "destination": "parlor",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to parlor"
         }
       ],
       "actors": []
@@ -5316,7 +5872,8 @@
           "id": "back_conservatory",
           "destination": "conservatory",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to conservatory"
         }
       ],
       "actors": []
@@ -5336,7 +5893,8 @@
           "id": "back_conservatory",
           "destination": "conservatory",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to conservatory"
         }
       ],
       "actors": []
@@ -5356,7 +5914,8 @@
           "id": "back_conservatory",
           "destination": "conservatory",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to conservatory"
         }
       ],
       "actors": []
@@ -5376,7 +5935,8 @@
           "id": "back_conservatory",
           "destination": "conservatory",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to conservatory"
         }
       ],
       "actors": []
@@ -5396,7 +5956,8 @@
           "id": "back_conservatory",
           "destination": "conservatory",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to conservatory"
         }
       ],
       "actors": []
@@ -5416,7 +5977,8 @@
           "id": "back_conservatory",
           "destination": "conservatory",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to conservatory"
         }
       ],
       "actors": []
@@ -5436,7 +5998,8 @@
           "id": "back_library",
           "destination": "library",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to library"
         }
       ],
       "actors": []
@@ -5456,7 +6019,8 @@
           "id": "back_library",
           "destination": "library",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to library"
         }
       ],
       "actors": []
@@ -5476,7 +6040,8 @@
           "id": "back_library",
           "destination": "library",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to library"
         }
       ],
       "actors": []
@@ -5496,7 +6061,8 @@
           "id": "back_library",
           "destination": "library",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to library"
         }
       ],
       "actors": []
@@ -5516,7 +6082,8 @@
           "id": "back_library",
           "destination": "library",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to library"
         }
       ],
       "actors": []
@@ -5536,7 +6103,8 @@
           "id": "back_library",
           "destination": "library",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to library"
         }
       ],
       "actors": []
@@ -5554,6 +6122,7 @@
       "choices": [
         {
           "id": "back_bedroom_a",
+          "title": "Return to bedroom",
           "destination": "bedroom_a",
           "predicates": [],
           "effects": []
@@ -5574,6 +6143,7 @@
       "choices": [
         {
           "id": "back_bedroom_a",
+          "title": "Return to bedroom A",
           "destination": "bedroom_a",
           "predicates": [],
           "effects": []
@@ -5594,6 +6164,7 @@
       "choices": [
         {
           "id": "back_bedroom_a",
+          "title": "Return to bedroom",
           "destination": "bedroom_a",
           "predicates": [],
           "effects": []
@@ -5614,6 +6185,7 @@
       "choices": [
         {
           "id": "back_bedroom_b",
+          "title": "Return to bedroom B",
           "destination": "bedroom_b",
           "predicates": [],
           "effects": []
@@ -5634,6 +6206,7 @@
       "choices": [
         {
           "id": "back_bedroom_b",
+          "title": "Return to bedroom B",
           "destination": "bedroom_b",
           "predicates": [],
           "effects": []
@@ -5654,6 +6227,7 @@
       "choices": [
         {
           "id": "back_bedroom_b",
+          "title": "Return to bedroom B",
           "destination": "bedroom_b",
           "predicates": [],
           "effects": []
@@ -5674,6 +6248,7 @@
       "choices": [
         {
           "id": "back_stairs",
+          "title": "Return to stairs",
           "destination": "basement_stairs",
           "predicates": [],
           "effects": []
@@ -5694,6 +6269,7 @@
       "choices": [
         {
           "id": "back_stairs",
+          "title": "Return to stairs",
           "destination": "basement_stairs",
           "predicates": [],
           "effects": []
@@ -5714,6 +6290,7 @@
       "choices": [
         {
           "id": "back_stairs",
+          "title": "Return to stairs",
           "destination": "basement_stairs",
           "predicates": [],
           "effects": []
@@ -5734,6 +6311,7 @@
       "choices": [
         {
           "id": "back_stairs",
+          "title": "Return to stairs",
           "destination": "basement_stairs",
           "predicates": [],
           "effects": []
@@ -5754,6 +6332,7 @@
       "choices": [
         {
           "id": "back_boiler",
+          "title": "Return to boiler room",
           "destination": "boiler_room",
           "predicates": [],
           "effects": []
@@ -5774,6 +6353,7 @@
       "choices": [
         {
           "id": "back_boiler",
+          "title": "Return to boiler room",
           "destination": "boiler_room",
           "predicates": [],
           "effects": []
@@ -5794,6 +6374,7 @@
       "choices": [
         {
           "id": "back_boiler",
+          "title": "Return to boiler room",
           "destination": "boiler_room",
           "predicates": [],
           "effects": []
@@ -5814,6 +6395,7 @@
       "choices": [
         {
           "id": "back_boiler",
+          "title": "Return to boiler room",
           "destination": "boiler_room",
           "predicates": [],
           "effects": []
@@ -5836,7 +6418,8 @@
           "id": "back_ritual",
           "destination": "ritual_chamber",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to ritual chamber"
         }
       ],
       "actors": []
@@ -5856,7 +6439,8 @@
           "id": "back_ritual",
           "destination": "ritual_chamber",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to ritual chamber"
         }
       ],
       "actors": []
@@ -5876,7 +6460,8 @@
           "id": "back_ritual",
           "destination": "ritual_chamber",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to ritual chamber"
         }
       ],
       "actors": []
@@ -5896,13 +6481,15 @@
           "id": "back_ritual",
           "destination": "ritual_chamber",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to ritual chamber"
         },
         {
           "id": "linger_whispers",
           "destination": "end_madness_9",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Linger with the whispers"
         }
       ],
       "actors": []
@@ -5976,6 +6563,7 @@
       "choices": [
         {
           "id": "back_master",
+          "title": "Return to master suite",
           "destination": "master_suite",
           "predicates": [],
           "effects": []
@@ -5996,6 +6584,7 @@
       "choices": [
         {
           "id": "back_master",
+          "title": "Return to master suite",
           "destination": "master_suite",
           "predicates": [],
           "effects": []
@@ -6016,6 +6605,7 @@
       "choices": [
         {
           "id": "back_master",
+          "title": "Return to master suite",
           "destination": "master_suite",
           "predicates": [],
           "effects": []
@@ -6036,6 +6626,7 @@
       "choices": [
         {
           "id": "back_master",
+          "title": "Return to master suite",
           "destination": "master_suite",
           "predicates": [],
           "effects": []
@@ -6056,6 +6647,7 @@
       "choices": [
         {
           "id": "back_master",
+          "title": "Return to master suite",
           "destination": "master_suite",
           "predicates": [],
           "effects": []
@@ -6076,6 +6668,7 @@
       "choices": [
         {
           "id": "back_landing",
+          "title": "Return to landing",
           "destination": "landing",
           "predicates": [],
           "effects": []
@@ -6096,6 +6689,7 @@
       "choices": [
         {
           "id": "back_landing",
+          "title": "Return to landing",
           "destination": "landing",
           "predicates": [],
           "effects": []
@@ -6116,6 +6710,7 @@
       "choices": [
         {
           "id": "back_landing",
+          "title": "Return to landing",
           "destination": "landing",
           "predicates": [],
           "effects": []
@@ -6136,6 +6731,7 @@
       "choices": [
         {
           "id": "back_landing",
+          "title": "Return to landing",
           "destination": "landing",
           "predicates": [],
           "effects": []
@@ -6156,6 +6752,7 @@
       "choices": [
         {
           "id": "back_landing",
+          "title": "Return to landing",
           "destination": "landing",
           "predicates": [],
           "effects": []
@@ -6176,12 +6773,14 @@
       "choices": [
         {
           "id": "back_nursery",
+          "title": "Return to nursery",
           "destination": "nursery",
           "predicates": [],
           "effects": []
         },
         {
           "id": "hum_tune_again",
+          "title": "Hum the tune again",
           "destination": "end_madness_10",
           "predicates": [],
           "effects": []
@@ -6202,6 +6801,7 @@
       "choices": [
         {
           "id": "back_nursery",
+          "title": "Return to nursery",
           "destination": "nursery",
           "predicates": [],
           "effects": []
@@ -6222,6 +6822,7 @@
       "choices": [
         {
           "id": "back_nursery",
+          "title": "Return to nursery",
           "destination": "nursery",
           "predicates": [],
           "effects": []
@@ -6242,6 +6843,7 @@
       "choices": [
         {
           "id": "back_nursery",
+          "title": "Return to nursery",
           "destination": "nursery",
           "predicates": [],
           "effects": []
@@ -6262,6 +6864,7 @@
       "choices": [
         {
           "id": "back_nursery",
+          "title": "Return to nursery",
           "destination": "nursery",
           "predicates": [],
           "effects": []
@@ -6282,6 +6885,7 @@
       "choices": [
         {
           "id": "back_nursery",
+          "title": "Return to nursery",
           "destination": "nursery",
           "predicates": [],
           "effects": []
@@ -6304,7 +6908,8 @@
           "id": "back_study",
           "destination": "study",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to study"
         }
       ],
       "actors": []
@@ -6324,7 +6929,8 @@
           "id": "back_study",
           "destination": "study",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to study"
         }
       ],
       "actors": []
@@ -6344,7 +6950,8 @@
           "id": "back_study",
           "destination": "study",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to study"
         }
       ],
       "actors": []
@@ -6364,7 +6971,8 @@
           "id": "back_study",
           "destination": "study",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to study"
         }
       ],
       "actors": []
@@ -6384,7 +6992,8 @@
           "id": "back_study",
           "destination": "study",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to study"
         }
       ],
       "actors": []
@@ -6404,7 +7013,8 @@
           "id": "back_study",
           "destination": "study",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to study"
         }
       ],
       "actors": []
@@ -6424,7 +7034,8 @@
           "id": "back_kitchen",
           "destination": "kitchen",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to kitchen"
         }
       ],
       "actors": []
@@ -6444,7 +7055,8 @@
           "id": "back_kitchen",
           "destination": "kitchen",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to kitchen"
         }
       ],
       "actors": []
@@ -6464,7 +7076,8 @@
           "id": "back_kitchen",
           "destination": "kitchen",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to kitchen"
         }
       ],
       "actors": []
@@ -6484,7 +7097,8 @@
           "id": "back_kitchen",
           "destination": "kitchen",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to kitchen"
         }
       ],
       "actors": []
@@ -6504,7 +7118,8 @@
           "id": "back_kitchen",
           "destination": "kitchen",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to kitchen"
         }
       ],
       "actors": []
@@ -6524,7 +7139,8 @@
           "id": "back_kitchen",
           "destination": "kitchen",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to kitchen"
         }
       ],
       "actors": []
@@ -6544,7 +7160,8 @@
           "id": "back_pantry",
           "destination": "pantry",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to pantry"
         }
       ],
       "actors": []
@@ -6564,7 +7181,8 @@
           "id": "back_pantry",
           "destination": "pantry",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to pantry"
         }
       ],
       "actors": []
@@ -6584,7 +7202,8 @@
           "id": "back_pantry",
           "destination": "pantry",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to pantry"
         }
       ],
       "actors": []
@@ -6604,7 +7223,8 @@
           "id": "back_pantry",
           "destination": "pantry",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to pantry"
         }
       ],
       "actors": []
@@ -6624,7 +7244,8 @@
           "id": "back_pantry",
           "destination": "pantry",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to pantry"
         }
       ],
       "actors": []
@@ -6644,7 +7265,8 @@
           "id": "back_pantry",
           "destination": "pantry",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to pantry"
         }
       ],
       "actors": []
@@ -6662,6 +7284,7 @@
       "choices": [
         {
           "id": "back_c1",
+          "title": "Return to catacombs",
           "destination": "catacombs_1",
           "predicates": [],
           "effects": []
@@ -6682,6 +7305,7 @@
       "choices": [
         {
           "id": "back_c3",
+          "title": "Return to passage",
           "destination": "catacombs_3",
           "predicates": [],
           "effects": []
@@ -6702,6 +7326,7 @@
       "choices": [
         {
           "id": "back_c7",
+          "title": "Return to catacombs",
           "destination": "catacombs_7",
           "predicates": [],
           "effects": []
@@ -6722,6 +7347,7 @@
       "choices": [
         {
           "id": "back_c10",
+          "title": "Return to passage",
           "destination": "catacombs_10",
           "predicates": [],
           "effects": []
@@ -6742,6 +7368,7 @@
       "choices": [
         {
           "id": "back_c14",
+          "title": "Return to catacombs",
           "destination": "catacombs_14",
           "predicates": [],
           "effects": []
@@ -6762,6 +7389,7 @@
       "choices": [
         {
           "id": "back_c18",
+          "title": "Return to passage",
           "destination": "catacombs_18",
           "predicates": [],
           "effects": []
@@ -6782,6 +7410,7 @@
       "choices": [
         {
           "id": "back_c21",
+          "title": "Return to catacombs",
           "destination": "catacombs_21",
           "predicates": [],
           "effects": []
@@ -6802,6 +7431,7 @@
       "choices": [
         {
           "id": "back_c24",
+          "title": "Return to passage",
           "destination": "catacombs_24",
           "predicates": [],
           "effects": []
@@ -6822,6 +7452,7 @@
       "choices": [
         {
           "id": "back_c27",
+          "title": "Return to catacombs",
           "destination": "catacombs_27",
           "predicates": [],
           "effects": []
@@ -6842,6 +7473,7 @@
       "choices": [
         {
           "id": "back_c31",
+          "title": "Return to catacombs",
           "destination": "catacombs_31",
           "predicates": [],
           "effects": []
@@ -6862,6 +7494,7 @@
       "choices": [
         {
           "id": "back_c33",
+          "title": "Return to catacombs",
           "destination": "catacombs_33",
           "predicates": [],
           "effects": []
@@ -6882,6 +7515,7 @@
       "choices": [
         {
           "id": "back_master",
+          "title": "Return to master suite",
           "destination": "master_suite",
           "predicates": [],
           "effects": []
@@ -6902,6 +7536,7 @@
       "choices": [
         {
           "id": "back_master",
+          "title": "Return to master suite",
           "destination": "master_suite",
           "predicates": [],
           "effects": []
@@ -6922,6 +7557,7 @@
       "choices": [
         {
           "id": "back_master",
+          "title": "Return to master suite",
           "destination": "master_suite",
           "predicates": [],
           "effects": []
@@ -6942,6 +7578,7 @@
       "choices": [
         {
           "id": "back_master",
+          "title": "Return to master suite",
           "destination": "master_suite",
           "predicates": [],
           "effects": []
@@ -6962,6 +7599,7 @@
       "choices": [
         {
           "id": "back_balcony",
+          "title": "Return to balcony",
           "destination": "balcony",
           "predicates": [],
           "effects": []
@@ -6982,12 +7620,14 @@
       "choices": [
         {
           "id": "back_balcony",
+          "title": "Return to balcony",
           "destination": "balcony",
           "predicates": [],
           "effects": []
         },
         {
           "id": "scrape_palm",
+          "title": "Scrape palm on the grit",
           "destination": "end_scarred_11",
           "predicates": [],
           "effects": []
@@ -7008,6 +7648,7 @@
       "choices": [
         {
           "id": "back_balcony",
+          "title": "Return to the balcony",
           "destination": "balcony",
           "predicates": [],
           "effects": []
@@ -7028,6 +7669,7 @@
       "choices": [
         {
           "id": "back_bedroom_a",
+          "title": "Return to bedroom",
           "destination": "bedroom_a",
           "predicates": [],
           "effects": []
@@ -7048,6 +7690,7 @@
       "choices": [
         {
           "id": "back_bedroom_a",
+          "title": "Return to bedroom",
           "destination": "bedroom_a",
           "predicates": [],
           "effects": []
@@ -7068,6 +7711,7 @@
       "choices": [
         {
           "id": "back_bedroom_a",
+          "title": "Return to bedroom",
           "destination": "bedroom_a",
           "predicates": [],
           "effects": []
@@ -7088,6 +7732,7 @@
       "choices": [
         {
           "id": "back_bedroom_b",
+          "title": "Return to bedroom B",
           "destination": "bedroom_b",
           "predicates": [],
           "effects": []
@@ -7108,6 +7753,7 @@
       "choices": [
         {
           "id": "back_bedroom_b",
+          "title": "Return to bedroom B",
           "destination": "bedroom_b",
           "predicates": [],
           "effects": []
@@ -7130,7 +7776,8 @@
           "id": "to_gate",
           "destination": "arrival_gate",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Walk to gate"
         }
       ],
       "actors": []
@@ -7148,6 +7795,7 @@
       "choices": [
         {
           "id": "to_path",
+          "title": "Follow the path",
           "destination": "arrival_path",
           "predicates": [],
           "effects": []
@@ -7170,7 +7818,8 @@
           "id": "to_front_door",
           "destination": "arrival_front_door",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Approach front door"
         }
       ],
       "actors": []
@@ -7190,13 +7839,15 @@
           "id": "enter_foyer",
           "destination": "foyer",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Enter the foyer"
         },
         {
           "id": "walk_garden",
           "destination": "garden_path",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Walk to garden"
         }
       ],
       "actors": []
@@ -7216,7 +7867,8 @@
           "id": "back_foyer",
           "destination": "foyer",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to foyer"
         }
       ],
       "actors": []
@@ -7236,7 +7888,8 @@
           "id": "back_foyer",
           "destination": "foyer",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to foyer"
         }
       ],
       "actors": []
@@ -7256,7 +7909,8 @@
           "id": "back_foyer",
           "destination": "foyer",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to foyer"
         }
       ],
       "actors": []
@@ -7276,7 +7930,8 @@
           "id": "back_foyer",
           "destination": "foyer",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to foyer"
         }
       ],
       "actors": []
@@ -7296,7 +7951,8 @@
           "id": "back_foyer",
           "destination": "foyer",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to foyer"
         }
       ],
       "actors": []
@@ -7316,7 +7972,8 @@
           "id": "back_foyer",
           "destination": "foyer",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to foyer"
         }
       ],
       "actors": []
@@ -7336,7 +7993,8 @@
           "id": "back_garden",
           "destination": "garden_path",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to garden"
         }
       ],
       "actors": []
@@ -7356,7 +8014,8 @@
           "id": "back_garden",
           "destination": "garden_path",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to garden"
         }
       ],
       "actors": []
@@ -7376,7 +8035,8 @@
           "id": "back_garden",
           "destination": "garden_path",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to garden"
         }
       ],
       "actors": []
@@ -7396,7 +8056,8 @@
           "id": "back_garden",
           "destination": "garden_path",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to garden"
         }
       ],
       "actors": []
@@ -7416,7 +8077,8 @@
           "id": "back_garden",
           "destination": "garden_path",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to garden"
         }
       ],
       "actors": []
@@ -7436,7 +8098,8 @@
           "id": "back_garden",
           "destination": "garden_path",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to garden"
         }
       ],
       "actors": []
@@ -7456,7 +8119,8 @@
           "id": "back_dining",
           "destination": "dining_room",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to dining room"
         }
       ],
       "actors": []
@@ -7476,7 +8140,8 @@
           "id": "back_dining",
           "destination": "dining_room",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to dining room"
         }
       ],
       "actors": []
@@ -7496,7 +8161,8 @@
           "id": "back_dining",
           "destination": "dining_room",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to dining room"
         }
       ],
       "actors": []
@@ -7516,7 +8182,8 @@
           "id": "back_dining",
           "destination": "dining_room",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to dining room"
         }
       ],
       "actors": []
@@ -7536,7 +8203,8 @@
           "id": "back_parlor",
           "destination": "parlor",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to parlor"
         }
       ],
       "actors": []
@@ -7556,7 +8224,8 @@
           "id": "back_parlor",
           "destination": "parlor",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to parlor"
         }
       ],
       "actors": []
@@ -7576,7 +8245,8 @@
           "id": "back_parlor",
           "destination": "parlor",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to parlor"
         }
       ],
       "actors": []
@@ -7596,7 +8266,8 @@
           "id": "back_parlor",
           "destination": "parlor",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to parlor"
         }
       ],
       "actors": []
@@ -7616,7 +8287,8 @@
           "id": "back_garden",
           "destination": "garden_path",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to garden"
         }
       ],
       "actors": []
@@ -7636,7 +8308,8 @@
           "id": "back_garden",
           "destination": "garden_path",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to garden"
         }
       ],
       "actors": []
@@ -7656,7 +8329,8 @@
           "id": "back_garden",
           "destination": "garden_path",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to garden"
         }
       ],
       "actors": []
@@ -7676,7 +8350,8 @@
           "id": "back_garden",
           "destination": "garden_path",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to garden"
         }
       ],
       "actors": []
@@ -7694,6 +8369,7 @@
       "choices": [
         {
           "id": "back_landing",
+          "title": "Return to landing",
           "destination": "landing",
           "predicates": [],
           "effects": []
@@ -7714,6 +8390,7 @@
       "choices": [
         {
           "id": "back_landing",
+          "title": "Return to landing",
           "destination": "landing",
           "predicates": [],
           "effects": []
@@ -7734,6 +8411,7 @@
       "choices": [
         {
           "id": "back_landing",
+          "title": "Return to landing",
           "destination": "landing",
           "predicates": [],
           "effects": []
@@ -7754,6 +8432,7 @@
       "choices": [
         {
           "id": "back_landing",
+          "title": "Return to landing",
           "destination": "landing",
           "predicates": [],
           "effects": []
@@ -7774,6 +8453,7 @@
       "choices": [
         {
           "id": "back_landing",
+          "title": "Return to landing",
           "destination": "landing",
           "predicates": [],
           "effects": []
@@ -7794,6 +8474,7 @@
       "choices": [
         {
           "id": "back_landing",
+          "title": "Return to landing",
           "destination": "landing",
           "predicates": [],
           "effects": []
@@ -7816,7 +8497,8 @@
           "id": "back_library",
           "destination": "library",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to library"
         }
       ],
       "actors": []
@@ -7836,7 +8518,8 @@
           "id": "back_library",
           "destination": "library",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to library"
         }
       ],
       "actors": []
@@ -7856,7 +8539,8 @@
           "id": "back_library",
           "destination": "library",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to library"
         }
       ],
       "actors": []
@@ -7876,7 +8560,8 @@
           "id": "back_library",
           "destination": "library",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to library"
         }
       ],
       "actors": []
@@ -7896,10 +8581,12 @@
           "id": "back_library",
           "destination": "library",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to library"
         },
         {
           "id": "follow_thread",
+          "title": "Follow the cobweb thread",
           "destination": "end_madness_11",
           "predicates": [],
           "effects": []
@@ -7922,7 +8609,8 @@
           "id": "back_library",
           "destination": "library",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to library"
         }
       ],
       "actors": []
@@ -7940,6 +8628,7 @@
       "choices": [
         {
           "id": "back_cellar",
+          "title": "Return to cellar",
           "destination": "cellar_entrance",
           "predicates": [],
           "effects": []
@@ -7960,6 +8649,7 @@
       "choices": [
         {
           "id": "back_cellar",
+          "title": "Return to cellar",
           "destination": "cellar_entrance",
           "predicates": [],
           "effects": []
@@ -7980,6 +8670,7 @@
       "choices": [
         {
           "id": "back_cellar",
+          "title": "Return to cellar",
           "destination": "cellar_entrance",
           "predicates": [],
           "effects": []
@@ -8000,6 +8691,7 @@
       "choices": [
         {
           "id": "back_cellar",
+          "title": "Return to cellar",
           "destination": "cellar_entrance",
           "predicates": [],
           "effects": []
@@ -8020,6 +8712,7 @@
       "choices": [
         {
           "id": "back_cellar",
+          "title": "Return to cellar entrance",
           "destination": "cellar_entrance",
           "predicates": [],
           "effects": []
@@ -8040,6 +8733,7 @@
       "choices": [
         {
           "id": "back_cellar",
+          "title": "Return to cellar",
           "destination": "cellar_entrance",
           "predicates": [],
           "effects": []
@@ -8060,6 +8754,7 @@
       "choices": [
         {
           "id": "back_cellar",
+          "title": "Return to cellar",
           "destination": "cellar_entrance",
           "predicates": [],
           "effects": []
@@ -8080,6 +8775,7 @@
       "choices": [
         {
           "id": "back_cellar",
+          "title": "Return to cellar entrance",
           "destination": "cellar_entrance",
           "predicates": [],
           "effects": []
@@ -8158,7 +8854,8 @@
           "id": "back_study",
           "destination": "study",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to study"
         }
       ],
       "actors": []
@@ -8178,7 +8875,8 @@
           "id": "back_study",
           "destination": "study",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to study"
         }
       ],
       "actors": []
@@ -8198,7 +8896,8 @@
           "id": "back_study",
           "destination": "study",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to study"
         }
       ],
       "actors": []
@@ -8218,7 +8917,8 @@
           "id": "back_dining",
           "destination": "dining_room",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to dining room"
         }
       ],
       "actors": []
@@ -8238,7 +8938,8 @@
           "id": "back_dining",
           "destination": "dining_room",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to dining room"
         }
       ],
       "actors": []
@@ -8258,7 +8959,8 @@
           "id": "back_foyer",
           "destination": "foyer",
           "predicates": [],
-          "effects": []
+          "effects": [],
+          "title": "Return to foyer"
         }
       ],
       "actors": []
@@ -8276,6 +8978,7 @@
       "choices": [
         {
           "id": "back_nursery",
+          "title": "Return to nursery",
           "destination": "nursery",
           "predicates": [],
           "effects": []
@@ -8296,6 +8999,7 @@
       "choices": [
         {
           "id": "back_balcony",
+          "title": "Return to balcony",
           "destination": "balcony",
           "predicates": [],
           "effects": []
@@ -8330,6 +9034,159 @@
       "choices": [],
       "actors": [],
       "terminal": true
+    },
+    "pantry_locked": {
+      "id": "pantry_locked",
+      "text": {
+        "file": "haunted.md",
+        "section": "pantry_locked"
+      },
+      "tags": [
+        "ground"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "back_pantry",
+          "destination": "pantry",
+          "predicates": [],
+          "effects": [],
+          "title": "Return to pantry"
+        }
+      ],
+      "actors": []
+    },
+    "library_case_locked": {
+      "id": "library_case_locked",
+      "text": {
+        "file": "haunted.md",
+        "section": "library_case_locked"
+      },
+      "tags": [
+        "upper"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "back_library",
+          "destination": "library",
+          "predicates": [],
+          "effects": [],
+          "title": "Return to library"
+        }
+      ],
+      "actors": []
+    },
+    "library_case_unlocked": {
+      "id": "library_case_unlocked",
+      "text": {
+        "file": "haunted.md",
+        "section": "library_case_unlocked"
+      },
+      "tags": [
+        "upper"
+      ],
+      "onEnter": [
+        {
+          "id": "gain-item",
+          "parameters": {
+            "item": "black_candle"
+          }
+        }
+      ],
+      "choices": [
+        {
+          "id": "back_library",
+          "destination": "library",
+          "predicates": [],
+          "effects": [],
+          "title": "Return to library"
+        }
+      ],
+      "actors": []
+    },
+    "ritual_candle_lit": {
+      "id": "ritual_candle_lit",
+      "text": {
+        "file": "haunted.md",
+        "section": "ritual_candle_lit"
+      },
+      "tags": [
+        "basement"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "back_ritual",
+          "destination": "ritual_chamber",
+          "predicates": [],
+          "effects": [],
+          "title": "Return to ritual chamber"
+        }
+      ],
+      "actors": []
+    },
+    "ritual_tome_read": {
+      "id": "ritual_tome_read",
+      "text": {
+        "file": "haunted.md",
+        "section": "ritual_tome_read"
+      },
+      "tags": [
+        "basement"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "back_ritual",
+          "destination": "ritual_chamber",
+          "predicates": [],
+          "effects": [],
+          "title": "Return to ritual chamber"
+        }
+      ],
+      "actors": []
+    },
+    "ritual_sacrifice_complete": {
+      "id": "ritual_sacrifice_complete",
+      "text": {
+        "file": "haunted.md",
+        "section": "ritual_sacrifice_complete"
+      },
+      "tags": [
+        "basement"
+      ],
+      "onEnter": [],
+      "choices": [
+        {
+          "id": "complete_ritual",
+          "destination": "end_successful",
+          "predicates": [
+            {
+              "id": "ritual-candle-lit",
+              "parameters": {}
+            },
+            {
+              "id": "ritual-tome-read",
+              "parameters": {}
+            },
+            {
+              "id": "ritual-sacrifice-made",
+              "parameters": {}
+            }
+          ],
+          "effects": [],
+          "title": "Complete the ritual"
+        },
+        {
+          "id": "back_ritual",
+          "destination": "ritual_chamber",
+          "predicates": [],
+          "effects": [],
+          "title": "Return to ritual chamber"
+        }
+      ],
+      "actors": []
     }
   }
 }

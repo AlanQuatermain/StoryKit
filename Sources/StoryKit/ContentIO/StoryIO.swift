@@ -36,9 +36,16 @@ public struct StoryCompiler: Sendable {
         let fm = FileManager.default
         try fm.createDirectory(at: bundle.root, withIntermediateDirectories: true)
         try fm.createDirectory(at: bundle.textsDir, withIntermediateDirectories: true)
-        // Copy story.json -> graph.json (normalized step could be added later)
-        let data = try Data(contentsOf: source.storyJSON)
-        try data.write(to: bundle.graph, options: .atomic)
+        
+        // Load and normalize story.json -> graph.json (compact format for runtime)
+        let sourceData = try Data(contentsOf: source.storyJSON)
+        let story = try JSONDecoder().decode(Story.self, from: sourceData)
+        
+        // Write compacted graph.json (no pretty printing for runtime)
+        let compactEncoder = JSONEncoder()
+        let graphData = try compactEncoder.encode(story)
+        try graphData.write(to: bundle.graph, options: .atomic)
+        
         // Copy texts directory
         if fm.fileExists(atPath: source.textsDir.path) {
             let items = try fm.contentsOfDirectory(at: source.textsDir, includingPropertiesForKeys: nil)
@@ -48,14 +55,14 @@ public struct StoryCompiler: Sendable {
                 try fm.copyItem(at: item, to: dest)
             }
         }
+        
         // Write manifest with metadata and graph hash
-        let story = try JSONDecoder().decode(Story.self, from: data)
         let manifest = StoryBundleManifest(
             schemaVersion: 1,
             storyID: story.metadata.id,
             title: story.metadata.title,
             version: story.metadata.version,
-            graphHashSHA256: sha256Hex(of: data),
+            graphHashSHA256: sha256Hex(of: graphData), // Use compacted data for hash
             builtAt: Date()
         )
         let manifestData = try JSONEncoder().encode(manifest)

@@ -225,6 +225,11 @@ This section captures the current state of work on the Haunted House story suite
 - Endings inflation: keep within Story-Design ranges; avoid overwhelming the endings category while under-filling core areas.
 - Choice id collisions: duplicate ids per node are validator errors.
 
+### Known Limitations and Future Enhancements
+
+- **Choice Text Limitation**: Currently, choices in `story.json` only support a `title` field for brief option names. Choices lack descriptive text that could provide richer narrative context beyond the simple title. Future enhancement should consider adding a `description` or `text` field to choices for more detailed option descriptions, improving the user experience in story presentation.
+- **Predicate Validation**: The engine correctly filters choices by predicates, hiding options whose predicates fail. This ensures proper state management but requires careful predicate design to maintain story flow.
+
 ### Definition of Done
 
 - `haunted-final` has 300–350 nodes with distribution per Story-Design.
